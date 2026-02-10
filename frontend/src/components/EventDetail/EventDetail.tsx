@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import type { HistoricalEvent } from '../../types/event';
 
 interface EventDetailProps {
@@ -7,15 +7,12 @@ interface EventDetailProps {
 }
 
 export function EventDetail({ event, onClose }: EventDetailProps) {
-  const [visible, setVisible] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
 
-  // Animate in when event changes
+  // Scroll card into view when event selected
   useEffect(() => {
-    if (event) {
-      // Force a reflow before animating in
-      requestAnimationFrame(() => setVisible(true));
-    } else {
-      setVisible(false);
+    if (event && cardRef.current) {
+      cardRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
   }, [event]);
 
@@ -24,85 +21,96 @@ export function EventDetail({ event, onClose }: EventDetailProps) {
   const isFictional = event.source.type === 'ai_generated';
 
   return (
-    <>
-      {/* Overlay */}
-      <div
-        onClick={onClose}
-        style={{
-          position: 'fixed', inset: 0, zIndex: 999,
-          background: 'rgba(58, 50, 38, 0.25)',
-          opacity: visible ? 1 : 0,
-          transition: 'opacity 0.3s ease',
-        }}
-      />
+    <div
+      ref={cardRef}
+      style={{
+        maxWidth: 720, margin: '16px auto 0', padding: '0 24px',
+        animation: 'fadeSlideUp 0.35s ease',
+      }}
+    >
+      <style>{`@keyframes fadeSlideUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }`}</style>
 
-      {/* Panel */}
       <div style={{
-        position: 'fixed', right: 0, top: 0, bottom: 0, width: 400,
-        background: '#faf8f4', boxShadow: '-2px 0 10px rgba(0,0,0,0.1)',
-        padding: 24, overflowY: 'auto', zIndex: 1000,
-        borderLeft: '1px solid #e0ddd5',
-        transform: visible ? 'translateX(0)' : 'translateX(100%)',
-        transition: 'transform 0.3s ease',
+        background: '#fff', borderRadius: 10,
+        border: '1px solid #e0ddd5',
+        boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
+        overflow: 'hidden',
       }}>
-        <button
-          onClick={onClose}
-          style={{
-            float: 'right', background: 'none', border: 'none',
-            fontSize: 24, cursor: 'pointer', color: '#8b7355',
-          }}
-        >
-          ×
-        </button>
+        {/* Header row with image */}
+        <div style={{ display: 'flex', gap: 0 }}>
+          {event.media?.imageUrl && (
+            <img
+              src={event.media.imageUrl}
+              alt={event.title}
+              style={{
+                width: 180, minHeight: 140, objectFit: 'cover',
+                flexShrink: 0, borderRight: '1px solid #e0ddd5',
+              }}
+            />
+          )}
 
-        {isFictional && (
-          <span style={{
-            background: '#4a90a4', color: '#fff',
-            padding: '2px 8px', borderRadius: 4, fontSize: 12,
-            fontFamily: 'system-ui, sans-serif', letterSpacing: 0.5,
-          }}>
-            Fictional
-          </span>
-        )}
+          <div style={{ padding: '16px 20px', flex: 1, minWidth: 0 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+              <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+                <span style={{
+                  background: isFictional ? '#4a90a4' : '#c44536',
+                  color: '#fff', padding: '2px 10px', borderRadius: 4,
+                  fontSize: 12, fontFamily: 'system-ui, sans-serif',
+                  fontWeight: 600, letterSpacing: 0.3,
+                }}>
+                  {isFictional ? 'Fictional' : `Year ${event.year}`}
+                </span>
+                <span style={{
+                  color: '#8b7355', fontSize: 13,
+                  fontFamily: 'system-ui, sans-serif',
+                }}>
+                  📍 {event.location.placeName}
+                  {event.location.modernEquivalent && ` · ${event.location.modernEquivalent}`}
+                </span>
+              </div>
 
-        <h2 style={{
-          margin: '12px 0 4px', color: '#3a3226', lineHeight: 1.3,
-          fontFamily: 'Georgia, "Times New Roman", serif',
+              <button
+                onClick={onClose}
+                aria-label="Close"
+                style={{
+                  background: 'none', border: 'none', fontSize: 20,
+                  cursor: 'pointer', color: '#b5a88a', padding: '0 0 0 12px',
+                  lineHeight: 1, flexShrink: 0,
+                }}
+              >
+                ×
+              </button>
+            </div>
+
+            <h3 style={{
+              margin: '10px 0 8px', color: '#3a3226', lineHeight: 1.35,
+              fontFamily: 'Georgia, "Times New Roman", serif', fontSize: 17,
+              fontWeight: 600,
+            }}>
+              {event.title}
+            </h3>
+
+            <p style={{
+              color: '#4a4235', lineHeight: 1.6, fontSize: 14, margin: 0,
+            }}>
+              {event.description}
+            </p>
+          </div>
+        </div>
+
+        {/* Footer: categories + source link */}
+        <div style={{
+          padding: '10px 20px', borderTop: '1px solid #f0ede6',
+          display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+          flexWrap: 'wrap', gap: 8,
         }}>
-          {event.title}
-        </h2>
-
-        <p style={{
-          color: '#8b7355', fontSize: 14, margin: '0 0 16px',
-          fontFamily: 'system-ui, sans-serif',
-        }}>
-          Year {event.year} · {event.location.placeName}
-          {event.location.modernEquivalent && ` (${event.location.modernEquivalent})`}
-        </p>
-
-        {event.media?.imageUrl && (
-          <img
-            src={event.media.imageUrl}
-            alt={event.title}
-            style={{
-              width: '100%', borderRadius: 6, marginBottom: 16,
-              border: '1px solid #e0ddd5', objectFit: 'cover', maxHeight: 220,
-            }}
-          />
-        )}
-
-        <p style={{ color: '#4a4235', lineHeight: 1.6 }}>
-          {event.description}
-        </p>
-
-        {event.categories.length > 0 && (
-          <div style={{ marginTop: 16, display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap' }}>
             {event.categories.map((cat) => (
               <span
                 key={cat}
                 style={{
-                  background: '#e8e4d9', color: '#6b5d4d',
-                  padding: '2px 8px', borderRadius: 12, fontSize: 12,
+                  background: '#f0ede6', color: '#6b5d4d',
+                  padding: '2px 8px', borderRadius: 10, fontSize: 11,
                   fontFamily: 'system-ui, sans-serif',
                 }}
               >
@@ -110,19 +118,18 @@ export function EventDetail({ event, onClose }: EventDetailProps) {
               </span>
             ))}
           </div>
-        )}
-
-        {event.source.sourceUrl && (
-          <a
-            href={event.source.sourceUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ display: 'block', marginTop: 16, color: '#4a90a4', fontSize: 14 }}
-          >
-            View source →
-          </a>
-        )}
+          {event.source.sourceUrl && (
+            <a
+              href={event.source.sourceUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: '#4a90a4', fontSize: 13, fontFamily: 'system-ui, sans-serif' }}
+            >
+              Wikipedia →
+            </a>
+          )}
+        </div>
       </div>
-    </>
+    </div>
   );
 }

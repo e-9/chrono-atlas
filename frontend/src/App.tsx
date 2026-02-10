@@ -51,6 +51,7 @@ function AppContent() {
             <p style={{ textAlign: 'center', color: '#8b7355', fontSize: 14, marginTop: 8 }}>
               {data.meta.total} events · {data.meta.fictional} fictional
             </p>
+            <EventDetail event={selectedEvent} onClose={() => setSelectedEvent(null)} />
           </>
         )}
       </main>
@@ -63,7 +64,6 @@ function AppContent() {
         Chrono Atlas · Data from Wikipedia
       </footer>
 
-      <EventDetail event={selectedEvent} onClose={() => setSelectedEvent(null)} />
     </div>
   );
 }
