@@ -93,7 +93,7 @@ async def get_events_for_date(month: int, day: int) -> list[HistoricalEvent]:
                 source_url=we.wikipedia_url,
             ),
             title=we.text[:120] if len(we.text) > 120 else we.text,
-            description=we.text,
+            description=we.extract or we.text,
             year=we.year,
             categories=_infer_categories(we.text),
             location=location,
