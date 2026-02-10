@@ -30,7 +30,10 @@ function AppContent() {
 
       <main style={{ position: 'relative', padding: '24px 0' }}>
         {isLoading && (
-          <p style={{ textAlign: 'center', padding: 40, color: '#8b7355' }}>Loading events...</p>
+          <div style={{ textAlign: 'center', padding: 40, color: '#8b7355' }}>
+            <p style={{ fontSize: 18 }}>🌍 Discovering events...</p>
+            <p style={{ fontSize: 13, opacity: 0.7 }}>First load may take up to a minute while we geocode locations</p>
+          </div>
         )}
         {error && (
           <p style={{ textAlign: 'center', padding: 40, color: '#c44536' }}>Failed to load events</p>

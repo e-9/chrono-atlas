@@ -120,11 +120,11 @@ class TestGeocodeEvent:
         respx.get("https://nominatim.openstreetmap.org/search").mock(
             return_value=httpx.Response(
                 200,
-                json=[{"lat": "51.5074", "lon": "-0.1278", "display_name": "London, UK"}],
+                json=[{"lat": "51.5074", "lon": "-0.1278", "display_name": "Timbuktu, Mali"}],
             )
         )
-        with patch("src.services.geocoding.extract_place_name", return_value="London"):
-            result = await geocode_event("The Great Fire of London in 1666")
+        with patch("src.services.geocoding.extract_place_name", return_value="Timbuktu"):
+            result = await geocode_event("An event in Timbuktu in 1400")
             assert result is not None
             assert result.geocoder == "nominatim"
 

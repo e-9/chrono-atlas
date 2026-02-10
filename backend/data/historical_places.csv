@@ -54,3 +54,133 @@ Tanganyika,Dar es Salaam,-6.7924,39.2083
 Bechuanaland,Gaborone,-24.6282,25.9231
 Nyasaland,Lilongwe,-13.9626,33.7741
 Swaziland,Mbabane,-26.3054,31.1367
+London,London,51.5074,-0.1278
+Paris,Paris,48.8566,2.3522
+Rome,Rome,41.9028,12.4964
+Berlin,Berlin,52.5200,13.4050
+Moscow,Moscow,55.7558,37.6173
+Washington,Washington DC,38.9072,-77.0369
+New York,New York City,40.7128,-74.0060
+Tokyo,Tokyo,35.6762,139.6503
+Beijing,Beijing,39.9042,116.4074
+Madrid,Madrid,40.4168,-3.7038
+Vienna,Vienna,48.2082,16.3738
+Istanbul,Istanbul,41.0082,28.9784
+Cairo,Cairo,30.0444,31.2357
+Athens,Athens,37.9838,23.7275
+Jerusalem,Jerusalem,31.7683,35.2137
+Baghdad,Baghdad,33.3152,44.3661
+Tehran,Tehran,35.6892,51.3890
+Delhi,Delhi,28.7041,77.1025
+Mumbai,Mumbai,19.0760,72.8777
+Sydney,Sydney,-33.8688,151.2093
+Mexico City,Mexico City,19.4326,-99.1332
+Buenos Aires,Buenos Aires,-34.6037,-58.3816
+Rio de Janeiro,Rio de Janeiro,-22.9068,-43.1729
+Lisbon,Lisbon,38.7223,-9.1393
+Amsterdam,Amsterdam,52.3676,4.9041
+Brussels,Brussels,50.8503,4.3517
+Stockholm,Stockholm,59.3293,18.0686
+Oslo,Oslo,59.9139,10.7522
+Copenhagen,Copenhagen,55.6761,12.5683
+Helsinki,Helsinki,60.1699,24.9384
+Warsaw,Warsaw,52.2297,21.0122
+Prague,Prague,50.0755,14.4378
+Budapest,Budapest,47.4979,19.0402
+Dublin,Dublin,53.3498,-6.2603
+Edinburgh,Edinburgh,55.9533,-3.1883
+Bern,Bern,46.9480,7.4474
+Geneva,Geneva,46.2044,6.1432
+Zurich,Zurich,47.3769,8.5417
+Milan,Milan,45.4642,9.1900
+Florence,Florence,43.7696,11.2558
+Venice,Venice,45.4408,12.3155
+Naples,Naples,40.8518,14.2681
+Barcelona,Barcelona,41.3874,2.1686
+Seville,Seville,37.3891,-5.9845
+Havana,Havana,23.1136,-82.3666
+Bogota,Bogota,4.7110,-74.0721
+Lima,Lima,-12.0464,-77.0428
+Santiago,Santiago,-33.4489,-70.6693
+Nairobi,Nairobi,-1.2921,36.8219
+Johannesburg,Johannesburg,-26.2041,28.0473
+Cape Town,Cape Town,-33.9249,18.4241
+Lagos,Lagos,6.5244,3.3792
+Algiers,Algiers,36.7538,3.0588
+Beirut,Beirut,33.8938,35.5018
+Damascus,Damascus,33.5138,36.2765
+Kabul,Kabul,34.5553,69.2075
+Hanoi,Hanoi,21.0285,105.8542
+Seoul,Seoul,37.5665,126.9780
+Shanghai,Shanghai,31.2304,121.4737
+Hong Kong,Hong Kong,22.3193,114.1694
+Singapore,Singapore,1.3521,103.8198
+Bangkok,Bangkok,13.7563,100.5018
+Manila,Manila,14.5995,120.9842
+Jakarta,Jakarta,-6.2088,106.8456
+Ankara,Ankara,39.9334,32.8597
+Taipei,Taipei,25.0330,121.5654
+Ottawa,Ottawa,45.4215,-75.6972
+Canberra,Canberra,-35.2809,149.1300
+Washington D.C.,Washington DC,38.9072,-77.0369
+St. Petersburg,Saint Petersburg,59.9343,30.3351
+Saint Petersburg,Saint Petersburg,59.9343,30.3351
+Kyiv,Kyiv,50.4501,30.5234
+Havana,Havana,23.1136,-82.3666
+United States,Washington DC,38.9072,-77.0369
+United Kingdom,London,51.5074,-0.1278
+France,Paris,48.8566,2.3522
+Germany,Berlin,52.5200,13.4050
+Italy,Rome,41.9028,12.4964
+Spain,Madrid,40.4168,-3.7038
+Russia,Moscow,55.7558,37.6173
+China,Beijing,39.9042,116.4074
+Japan,Tokyo,35.6762,139.6503
+India,Delhi,28.7041,77.1025
+Brazil,Brasilia,-15.7975,-47.8919
+Canada,Ottawa,45.4215,-75.6972
+Australia,Canberra,-35.2809,149.1300
+Mexico,Mexico City,19.4326,-99.1332
+Egypt,Cairo,30.0444,31.2357
+South Africa,Pretoria,-25.7479,28.2293
+Argentina,Buenos Aires,-34.6037,-58.3816
+Turkey,Ankara,39.9334,32.8597
+Poland,Warsaw,52.2297,21.0122
+Netherlands,Amsterdam,52.3676,4.9041
+Greece,Athens,37.9838,23.7275
+Portugal,Lisbon,38.7223,-9.1393
+Ireland,Dublin,53.3498,-6.2603
+Scotland,Edinburgh,55.9533,-3.1883
+England,London,51.5074,-0.1278
+Sweden,Stockholm,59.3293,18.0686
+Norway,Oslo,59.9139,10.7522
+Denmark,Copenhagen,55.6761,12.5683
+Finland,Helsinki,60.1699,24.9384
+Switzerland,Bern,46.9480,7.4474
+Austria,Vienna,48.2082,16.3738
+Hungary,Budapest,47.4979,19.0402
+Czech Republic,Prague,50.0755,14.4378
+Romania,Bucharest,44.4268,26.1025
+Ukraine,Kyiv,50.4501,30.5234
+Iran,Tehran,35.6892,51.3890
+Iraq,Baghdad,33.3152,44.3661
+Israel,Jerusalem,31.7683,35.2137
+Syria,Damascus,33.5138,36.2765
+Lebanon,Beirut,33.8938,35.5018
+Saudi Arabia,Riyadh,24.7136,46.6753
+Pakistan,Islamabad,33.6844,73.0479
+Afghanistan,Kabul,34.5553,69.2075
+South Korea,Seoul,37.5665,126.9780
+North Korea,Pyongyang,39.0392,125.7625
+Vietnam,Hanoi,21.0285,105.8542
+Philippines,Manila,14.5995,120.9842
+Indonesia,Jakarta,-6.2088,106.8456
+Thailand,Bangkok,13.7563,100.5018
+Malaysia,Kuala Lumpur,3.1390,101.6869
+Nigeria,Abuja,9.0579,7.4951
+Kenya,Nairobi,-1.2921,36.8219
+Colombia,Bogota,4.7110,-74.0721
+Peru,Lima,-12.0464,-77.0428
+Chile,Santiago,-33.4489,-70.6693
+Cuba,Havana,23.1136,-82.3666
+Taiwan,Taipei,25.0330,121.5654
