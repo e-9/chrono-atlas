@@ -6,6 +6,7 @@ import uuid
 import structlog
 
 from src.models.event import EventSource, GeoLocation, HistoricalEvent
+from src.services.fiction import generate_fictional_events
 from src.services.geocoding import extract_place_name, geocode_event, lookup_curated, geocode_nominatim
 from src.services.wikipedia import WikipediaEvent, fetch_on_this_day
 
@@ -32,8 +33,10 @@ async def get_events_for_date(month: int, day: int) -> list[HistoricalEvent]:
     logger.info("wikipedia_fetched", date=cache_key, count=len(wiki_events))
 
     if not wiki_events:
-        _events_cache[cache_key] = []
-        return []
+        logger.info("wikipedia_empty_fallback", date=cache_key)
+        fictional = generate_fictional_events(month, day, count=5)
+        _events_cache[cache_key] = fictional
+        return fictional
 
     # 2. Extract place names and deduplicate before geocoding
     place_map: dict[int, str | None] = {}  # index -> place_name
@@ -89,8 +92,8 @@ async def get_events_for_date(month: int, day: int) -> list[HistoricalEvent]:
                 type="wikipedia",
                 source_url=we.wikipedia_url,
             ),
-            title=we.title,
-            description=we.extract or we.text,
+            title=we.text[:120] if len(we.text) > 120 else we.text,
+            description=we.text,
             year=we.year,
             categories=_infer_categories(we.text),
             location=location,
@@ -101,7 +104,15 @@ async def get_events_for_date(month: int, day: int) -> list[HistoricalEvent]:
 
     logger.info("events_geocoded", date=cache_key, total=len(wiki_events), geocoded=len(events))
 
-    # 5. Cache results
+    # 5. Fill sparse days with fictional future events
+    min_events = 5
+    if len(events) < min_events:
+        needed = min_events - len(events)
+        fictional = generate_fictional_events(month, day, count=needed)
+        events.extend(fictional)
+        logger.info("fictional_fill", date=cache_key, added=len(fictional))
+
+    # 6. Cache results
     _events_cache[cache_key] = events
     return events
 

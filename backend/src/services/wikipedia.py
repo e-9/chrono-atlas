@@ -37,6 +37,7 @@ def _parse_event(raw: dict[str, Any]) -> WikipediaEvent | None:
     title: str = first_page.get("title", text[:80])
     wikipedia_url: str | None = None
     thumbnail_url: str | None = None
+    # Keep both: 'text' is the "on this day" description, 'extract' is the article summary
     extract: str | None = first_page.get("extract")
 
     content_urls = first_page.get("content_urls") or {}
