@@ -4,7 +4,7 @@ import datetime
 from typing import Annotated
 
 from fastapi import APIRouter, Query
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 from src.models.event import HistoricalEvent
 from src.services.events import get_events_for_date
@@ -19,6 +19,8 @@ class EventsMeta(BaseModel):
 
 
 class EventsResponse(BaseModel):
+    model_config = ConfigDict(populate_by_name=True)
+
     data: list[HistoricalEvent]
     meta: EventsMeta
 
@@ -28,7 +30,7 @@ def _get_today_mm_dd() -> tuple[int, int]:
     return now.month, now.day
 
 
-@router.get("", response_model=EventsResponse)
+@router.get("", response_model=EventsResponse, response_model_by_alias=True)
 async def list_events(date: Annotated[str | None, Query(pattern=r"^\d{2}-\d{2}$")] = None) -> EventsResponse:
     """List historical events, optionally filtered by date (MM-DD format)."""
     if date:
@@ -45,7 +47,7 @@ async def list_events(date: Annotated[str | None, Query(pattern=r"^\d{2}-\d{2}$"
     )
 
 
-@router.get("/{event_id}", response_model=HistoricalEvent)
+@router.get("/{event_id}", response_model=HistoricalEvent, response_model_by_alias=True)
 async def get_event(event_id: str) -> HistoricalEvent:
     """Get a single historical event by ID."""
     # For now, fetch today's events and find by ID

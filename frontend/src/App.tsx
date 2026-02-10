@@ -19,7 +19,7 @@ function AppContent() {
   const { data, isLoading, error } = useEvents(date);
 
   return (
-    <div style={{ fontFamily: "'Georgia', serif", minHeight: '100vh', background: '#faf8f4' }}>
+    <div style={{ fontFamily: "'Georgia', serif", minHeight: '100vh', background: '#faf8f4', display: 'flex', flexDirection: 'column' }}>
       <header style={{
         padding: '16px 24px', display: 'flex', alignItems: 'center',
         justifyContent: 'space-between', borderBottom: '1px solid #e0ddd5',
@@ -28,11 +28,18 @@ function AppContent() {
         <DatePicker value={date} onChange={setDate} />
       </header>
 
-      <main style={{ position: 'relative', padding: '24px 0' }}>
+      <main style={{ position: 'relative', padding: '24px 0', flex: 1 }}>
         {isLoading && (
-          <div style={{ textAlign: 'center', padding: 40, color: '#8b7355' }}>
-            <p style={{ fontSize: 18 }}>🌍 Discovering events...</p>
-            <p style={{ fontSize: 13, opacity: 0.7 }}>First load may take up to a minute while we geocode locations</p>
+          <div style={{ textAlign: 'center', padding: 60, color: '#8b7355' }}>
+            <div style={{
+              display: 'inline-block', width: 32, height: 32,
+              border: '3px solid #e0ddd5', borderTopColor: '#4a90a4',
+              borderRadius: '50%', marginBottom: 16,
+              animation: 'spin 0.8s linear infinite',
+            }} />
+            <p style={{ fontSize: 18, margin: '0 0 6px' }}>Discovering events…</p>
+            <p style={{ fontSize: 13, opacity: 0.6, margin: 0 }}>First load may take up to a minute while we geocode locations</p>
+            <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
           </div>
         )}
         {error && (
@@ -47,6 +54,14 @@ function AppContent() {
           </>
         )}
       </main>
+
+      <footer style={{
+        textAlign: 'center', padding: '12px 0', borderTop: '1px solid #e0ddd5',
+        color: '#b5a88a', fontSize: 12, fontFamily: 'system-ui, sans-serif',
+        letterSpacing: 0.3,
+      }}>
+        Chrono Atlas · Data from Wikipedia
+      </footer>
 
       <EventDetail event={selectedEvent} onClose={() => setSelectedEvent(null)} />
     </div>
