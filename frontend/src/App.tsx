@@ -1,0 +1,59 @@
+import { useState } from 'react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ChronoMap } from './components/Map/ChronoMap';
+import { EventDetail } from './components/EventDetail/EventDetail';
+import { DatePicker } from './components/DatePicker/DatePicker';
+import { useEvents } from './hooks/useEvents';
+import type { HistoricalEvent } from './types/event';
+
+const queryClient = new QueryClient();
+
+function getTodayDate(): string {
+  const now = new Date();
+  return `${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+}
+
+function AppContent() {
+  const [date, setDate] = useState(getTodayDate());
+  const [selectedEvent, setSelectedEvent] = useState<HistoricalEvent | null>(null);
+  const { data, isLoading, error } = useEvents(date);
+
+  return (
+    <div style={{ fontFamily: "'Georgia', serif", minHeight: '100vh', background: '#faf8f4' }}>
+      <header style={{
+        padding: '16px 24px', display: 'flex', alignItems: 'center',
+        justifyContent: 'space-between', borderBottom: '1px solid #e0ddd5',
+      }}>
+        <h1 style={{ margin: 0, fontSize: 24, color: '#3a3226' }}>🌍 Chrono Atlas</h1>
+        <DatePicker value={date} onChange={setDate} />
+      </header>
+
+      <main style={{ position: 'relative', padding: '24px 0' }}>
+        {isLoading && (
+          <p style={{ textAlign: 'center', padding: 40, color: '#8b7355' }}>Loading events...</p>
+        )}
+        {error && (
+          <p style={{ textAlign: 'center', padding: 40, color: '#c44536' }}>Failed to load events</p>
+        )}
+        {data && (
+          <>
+            <ChronoMap events={data.data} onEventSelect={setSelectedEvent} />
+            <p style={{ textAlign: 'center', color: '#8b7355', fontSize: 14, marginTop: 8 }}>
+              {data.meta.total} events · {data.meta.fictional} fictional
+            </p>
+          </>
+        )}
+      </main>
+
+      <EventDetail event={selectedEvent} onClose={() => setSelectedEvent(null)} />
+    </div>
+  );
+}
+
+export default function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <AppContent />
+    </QueryClientProvider>
+  );
+}
