@@ -140,6 +140,7 @@ export function ChronoMap({ events, onEventSelect }: ChronoMapProps) {
 
       const isFictional = event.source.type === 'ai_generated';
       const pin = pinsGroup.append('g')
+        .datum([x, y] as [number, number])
         .attr('transform', `translate(${x}, ${y})`)
         .attr('cursor', 'pointer')
         .attr('opacity', 0)
@@ -219,12 +220,25 @@ export function ChronoMap({ events, onEventSelect }: ChronoMapProps) {
       });
     });
 
-    // Zoom behavior
+    // Zoom behavior — counter-scale pins so they stay the same visual size
     const zoom = d3.zoom<SVGSVGElement, unknown>()
       .scaleExtent([1, 8])
       .translateExtent([[0, 0], [WIDTH, HEIGHT]])
       .on('zoom', (e: d3.D3ZoomEvent<SVGSVGElement, unknown>) => {
+        const k = e.transform.k;
         g.attr('transform', e.transform.toString());
+        pinsGroup.selectAll<SVGGElement, unknown>('g')
+          .attr('transform', function () {
+            const t = d3.select(this).datum() as [number, number] | undefined;
+            if (!t) return d3.select(this).attr('transform');
+            return `translate(${t[0]}, ${t[1]}) scale(${1 / k})`;
+          });
+        // Keep border strokes crisp
+        g.selectAll('.countries path').attr('stroke-width', 0.4 / k);
+        g.select('.tooltip').attr('transform', function () {
+          const cur = d3.select(this).attr('transform') || '';
+          return cur + ` scale(${1 / k})`;
+        });
       });
 
     svg.call(zoom);
