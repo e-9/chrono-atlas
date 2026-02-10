@@ -47,7 +47,7 @@ function AppContent() {
         )}
         {data && (
           <>
-            <ChronoMap events={data.data} onEventSelect={setSelectedEvent} />
+            <ChronoMap events={data.data} selectedEvent={selectedEvent} onEventSelect={setSelectedEvent} />
             <p style={{ textAlign: 'center', color: '#8b7355', fontSize: 14, marginTop: 8 }}>
               {data.meta.total} events · {data.meta.fictional} fictional
             </p>

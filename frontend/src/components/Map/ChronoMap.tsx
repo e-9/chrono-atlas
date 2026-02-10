@@ -7,6 +7,7 @@ import type { HistoricalEvent } from '../../types/event';
 
 interface ChronoMapProps {
   events: HistoricalEvent[];
+  selectedEvent: HistoricalEvent | null;
   onEventSelect: (event: HistoricalEvent) => void;
 }
 
@@ -17,9 +18,14 @@ function truncate(str: string, max: number) {
   return str.length > max ? str.slice(0, max - 1) + '…' : str;
 }
 
-export function ChronoMap({ events, onEventSelect }: ChronoMapProps) {
+const ZOOM_IN_SCALE = 3.5;
+const ZOOM_DURATION = 750;
+
+export function ChronoMap({ events, selectedEvent, onEventSelect }: ChronoMapProps) {
   const svgRef = useRef<SVGSVGElement>(null);
   const zoomRef = useRef<d3.ZoomBehavior<SVGSVGElement, unknown> | null>(null);
+  const projectionRef = useRef<d3.GeoProjection | null>(null);
+  const preSelectTransformRef = useRef<d3.ZoomTransform>(d3.zoomIdentity);
   const onEventSelectRef = useRef(onEventSelect);
   onEventSelectRef.current = onEventSelect;
   const [world, setWorld] = useState<Topology | null>(null);
@@ -43,6 +49,7 @@ export function ChronoMap({ events, onEventSelect }: ChronoMapProps) {
       .scale(150)
       .translate([WIDTH / 2, HEIGHT / 2])
       .precision(0.1);
+    projectionRef.current = projection;
 
     const path = d3.geoPath(projection);
     const svg = d3.select(svgRef.current);
@@ -244,6 +251,100 @@ export function ChronoMap({ events, onEventSelect }: ChronoMapProps) {
     svg.call(zoom);
     zoomRef.current = zoom;
   }, [events, world, stableOnSelect]);
+
+  // Zoom to selected pin or reset to world view
+  useEffect(() => {
+    if (!svgRef.current || !zoomRef.current || !projectionRef.current) return;
+    const svg = d3.select(svgRef.current);
+    const zoom = zoomRef.current;
+    const projection = projectionRef.current;
+
+    if (selectedEvent) {
+      const coords = projection(selectedEvent.location.coordinates);
+      if (!coords) return;
+      const [px, py] = coords;
+
+      // Save current transform before zooming to pin
+      const currentTransform = d3.zoomTransform(svgRef.current);
+      preSelectTransformRef.current = currentTransform;
+
+      // Zoom to pin
+      const transform = d3.zoomIdentity
+        .translate(WIDTH / 2, HEIGHT / 2)
+        .scale(ZOOM_IN_SCALE)
+        .translate(-px, -py);
+      svg.transition()
+        .duration(ZOOM_DURATION)
+        .ease(d3.easeCubicInOut)
+        .call(zoom.transform as any, transform);
+
+      // Highlight selected, dim others
+      const allPins = svg.selectAll<SVGGElement, [number, number]>('.pins g');
+      allPins.each(function () {
+        const pinG = d3.select(this);
+        const d = pinG.datum();
+        const isSelected = d && Math.abs(d[0] - px) < 0.5 && Math.abs(d[1] - py) < 0.5;
+
+        if (isSelected) {
+          // Gold color, larger, full opacity
+          pinG.transition().duration(ZOOM_DURATION)
+            .attr('opacity', 1);
+          pinG.select('circle:nth-child(2)')
+            .transition().duration(ZOOM_DURATION)
+            .attr('r', 9)
+            .attr('fill', '#e6a817')
+            .attr('stroke', '#fff')
+            .attr('stroke-width', 2);
+          // Add glow ring
+          pinG.selectAll('.select-ring').remove();
+          pinG.append('circle')
+            .attr('class', 'select-ring')
+            .attr('r', 9)
+            .attr('fill', 'none')
+            .attr('stroke', '#e6a817')
+            .attr('stroke-width', 1.5)
+            .attr('opacity', 0.7)
+            .transition().duration(1200).ease(d3.easeLinear)
+            .attr('r', 18).attr('opacity', 0)
+            .on('end', function repeat() {
+              d3.select(this)
+                .attr('r', 9).attr('opacity', 0.7)
+                .transition().duration(1200).ease(d3.easeLinear)
+                .attr('r', 18).attr('opacity', 0)
+                .on('end', repeat);
+            });
+        } else {
+          // Dim non-selected pins
+          pinG.transition().duration(ZOOM_DURATION)
+            .attr('opacity', 0.35);
+        }
+      });
+    } else {
+      // Restore to pre-selection zoom state
+      svg.transition()
+        .duration(ZOOM_DURATION)
+        .ease(d3.easeCubicInOut)
+        .call(zoom.transform as any, preSelectTransformRef.current);
+
+      // Restore all pins to normal
+      const allPins = svg.selectAll<SVGGElement, [number, number]>('.pins g');
+      allPins.each(function (_, i) {
+        const pinG = d3.select(this);
+        const evData = events[i];
+        const isFictional = evData?.source.type === 'ai_generated';
+
+        pinG.transition().duration(ZOOM_DURATION)
+          .attr('opacity', 1);
+        pinG.select('circle:nth-child(2)')
+          .transition().duration(ZOOM_DURATION)
+          .attr('r', 6)
+          .attr('fill', isFictional ? '#4a90a4' : '#c44536')
+          .attr('stroke', '#fff')
+          .attr('stroke-width', 1.5);
+        pinG.selectAll('.select-ring').remove();
+      });
+    }
+  }, [selectedEvent, events]);
 
   const handleZoom = useCallback((direction: 'in' | 'out') => {
     if (!svgRef.current || !zoomRef.current) return;
