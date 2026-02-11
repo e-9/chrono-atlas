@@ -31,13 +31,25 @@ function AppContent() {
     return () => clearTimeout(timer);
   }, [date]);
 
+  const [cardClosing, setCardClosing] = useState(false);
+  const compact = !!selectedEvent && !cardClosing;
+
+  const handleCloseCard = useCallback(() => {
+    setCardClosing(true);
+    setTimeout(() => {
+      setSelectedEvent(null);
+      setCardClosing(false);
+    }, 750);
+  }, []);
+
   const resetToToday = useCallback(() => {
     setDate(getTodayDate());
     setSelectedEvent(null);
+    setCardClosing(false);
   }, []);
 
   return (
-    <div style={{ fontFamily: "'Playfair Display', Georgia, serif", minHeight: '100vh', background: '#F0EEE9', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ fontFamily: "'Playfair Display', Georgia, serif", height: '100vh', background: '#F0EEE9', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
       <a
         href="#main-content"
         style={{
@@ -53,12 +65,18 @@ function AppContent() {
         Skip to map
       </a>
       <header style={{
-        padding: '16px 24px', display: 'flex', alignItems: 'center',
+        padding: compact ? '6px 24px' : '16px 24px',
+        display: 'flex', alignItems: 'center',
         justifyContent: 'space-between', borderBottom: '1px solid #e0ddd5',
+        transition: 'padding 0.75s cubic-bezier(0.4, 0, 0.2, 1)',
       }}>
         <h1
           onClick={resetToToday}
-          style={{ margin: 0, fontSize: 24, color: '#3a3226', cursor: 'pointer', transition: 'opacity 0.2s' }}
+          style={{
+            margin: 0, color: '#3a3226', cursor: 'pointer',
+            fontSize: compact ? 16 : 24,
+            transition: 'font-size 0.75s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s',
+          }}
           onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.8'; }}
           onMouseLeave={(e) => { e.currentTarget.style.opacity = '1'; }}
         >
@@ -67,7 +85,7 @@ function AppContent() {
         <DatePicker value={date} onChange={setDate} />
       </header>
 
-      <main id="main-content" style={{ position: 'relative', padding: '24px 0', flex: 1 }}>
+      <main id="main-content" style={{ position: 'relative', flex: 1, display: 'flex', flexDirection: 'column', overflow: 'auto' }}>
         {isLoading && (
           <div style={{ textAlign: 'center', padding: 60, color: '#8b7355' }}>
             <div style={{
@@ -110,21 +128,31 @@ function AppContent() {
         )}
         {data && (
           <>
-            <div style={{ opacity: fading ? 0 : 1, transition: 'opacity 0.3s' }}>
+            <div style={{
+              opacity: fading ? 0 : 1,
+              height: compact ? 'calc(100vh - 230px)' : 'calc(100vh - 120px)',
+              transition: 'opacity 0.3s, height 0.75s cubic-bezier(0.4, 0, 0.2, 1)',
+              display: 'flex', flexDirection: 'column', alignItems: 'center',
+              justifyContent: 'center', flexShrink: 0,
+            }}>
               <ChronoMap events={data.data} selectedEvent={selectedEvent} onEventSelect={setSelectedEvent} />
-              <p style={{ textAlign: 'center', color: '#8b7355', fontSize: 14, fontFamily: "'Inter', system-ui, sans-serif", marginTop: 8 }}>
+              <p style={{ textAlign: 'center', color: '#8b7355', fontSize: 13, fontFamily: "'Inter', system-ui, sans-serif", margin: '4px 0 0' }}>
                 {data.meta.total} events · {data.meta.fictional} fictional
               </p>
             </div>
-            <EventDetail event={selectedEvent} onClose={() => setSelectedEvent(null)} />
+            <EventDetail event={selectedEvent} closing={cardClosing} onCloseRequest={handleCloseCard} />
           </>
         )}
       </main>
 
       <footer style={{
-        textAlign: 'center', padding: '12px 0', borderTop: '1px solid #e0ddd5',
+        textAlign: 'center', borderTop: '1px solid #e0ddd5',
         color: '#7a6e5a', fontSize: 12, fontFamily: "'Inter', system-ui, sans-serif",
         letterSpacing: 0.3,
+        padding: compact ? '0' : '12px 0',
+        maxHeight: compact ? 0 : 40,
+        overflow: 'hidden', opacity: compact ? 0 : 1,
+        transition: 'all 0.75s cubic-bezier(0.4, 0, 0.2, 1)',
       }}>
         Chrono Atlas · Data from Wikipedia
       </footer>

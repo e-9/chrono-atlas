@@ -174,7 +174,7 @@ export function ChronoMap({ events, selectedEvent, onEventSelect }: ChronoMapPro
         .datum(lonLat)
         .attr('transform', `translate(${x}, ${y})`)
         .attr('cursor', 'pointer')
-        .attr('opacity', 0)
+        .attr('opacity', visible ? 0 : 1)
         .attr('tabindex', 0)
         .attr('role', 'button')
         .attr('aria-label', `${event.year} – ${truncate(event.title, 40)}`)
@@ -366,7 +366,19 @@ export function ChronoMap({ events, selectedEvent, onEventSelect }: ChronoMapPro
           if (redraw) redraw();
         });
 
-      // Highlight pins
+      // Reset all pins to default first (handles switching between pins)
+      svg.selectAll<SVGGElement, [number, number]>('.pins g').each(function (_, i) {
+        const pinG = d3.select(this);
+        const evData = events[i];
+        const isFictional = evData?.source.type === 'ai_generated';
+        pinG.attr('opacity', 1);
+        pinG.select('.pin-dot')
+          .attr('r', 6).attr('fill', isFictional ? '#4a90a4' : '#c44536')
+          .attr('stroke', '#fff').attr('stroke-width', 1.5);
+        pinG.selectAll('.select-ring').remove();
+      });
+
+      // Highlight pins after rotation completes
       setTimeout(() => {
         const projected = projection(selectedEvent.location.coordinates);
         if (!projected) return;
@@ -477,11 +489,11 @@ export function ChronoMap({ events, selectedEvent, onEventSelect }: ChronoMapPro
   }, []);
 
   return (
-    <div style={{ position: 'relative', width: '100%', maxWidth: SIZE, margin: '0 auto' }}>
+    <div style={{ position: 'relative', width: '100%', maxWidth: SIZE, margin: '0 auto', flex: 1, minHeight: 0 }}>
       <svg
         ref={svgRef}
         viewBox={`0 0 ${SIZE} ${SIZE}`}
-        style={{ width: '100%', height: 'auto', display: 'block', cursor: 'grab' }}
+        style={{ width: '100%', height: '100%', maxHeight: '100%', display: 'block', cursor: 'grab', objectFit: 'contain' }}
         role="img"
         aria-label="Interactive globe showing historical events"
       />

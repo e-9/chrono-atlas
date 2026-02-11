@@ -1,25 +1,16 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import type { HistoricalEvent } from '../../types/event';
 
 const TRANSITION_MS = 750;
 
 interface EventDetailProps {
   event: HistoricalEvent | null;
-  onClose: () => void;
+  closing: boolean;
+  onCloseRequest: () => void;
 }
 
-export function EventDetail({ event, onClose }: EventDetailProps) {
+export function EventDetail({ event, closing, onCloseRequest }: EventDetailProps) {
   const cardRef = useRef<HTMLDivElement>(null);
-  const [closing, setClosing] = useState(false);
-  const prevEventRef = useRef<HistoricalEvent | null>(null);
-
-  // Reset closing state when a new event arrives
-  useEffect(() => {
-    if (event && event !== prevEventRef.current) {
-      setClosing(false);
-    }
-    prevEventRef.current = event;
-  }, [event]);
 
   // Scroll card into view when event selected
   useEffect(() => {
@@ -27,14 +18,6 @@ export function EventDetail({ event, onClose }: EventDetailProps) {
       cardRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
   }, [event, closing]);
-
-  const handleClose = () => {
-    setClosing(true);
-    setTimeout(() => {
-      setClosing(false);
-      onClose();
-    }, TRANSITION_MS);
-  };
 
   if (!event) return null;
 
@@ -95,7 +78,7 @@ export function EventDetail({ event, onClose }: EventDetailProps) {
               </div>
 
               <button
-                onClick={handleClose}
+                onClick={onCloseRequest}
                 aria-label="Close"
                 style={{
                   background: 'none', border: 'none', fontSize: 20,

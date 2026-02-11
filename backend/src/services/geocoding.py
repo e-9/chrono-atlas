@@ -50,7 +50,9 @@ def _load_spacy() -> spacy.language.Language | None:
 
 
 def extract_place_name(text: str) -> str | None:
-    """Extract the most relevant place name from *text* using spaCy NER."""
+    """Extract the most relevant place name from *text* using spaCy NER with regex fallback."""
+    import re
+
     nlp = _load_spacy()
     if nlp is None:
         return None
@@ -68,6 +70,18 @@ def extract_place_name(text: str) -> str | None:
         return gpe_entities[0]
     if loc_entities:
         return loc_entities[0]
+
+    # Regex fallback for common patterns spaCy misses
+    _KNOWN_PLACES = [
+        "United States", "United Kingdom", "Soviet Union", "South Africa",
+        "East Timor", "North Korea", "South Korea", "New Zealand",
+        "Saudi Arabia", "Sri Lanka", "Hong Kong", "Puerto Rico",
+        "Costa Rica", "Dominican Republic", "El Salvador",
+    ]
+    for place in _KNOWN_PLACES:
+        if place.lower() in text.lower():
+            return place
+
     return None
 
 

@@ -6,13 +6,13 @@ import { mockEvent } from '../../test-utils';
 
 describe('EventDetail', () => {
   it('renders nothing when event is null', () => {
-    const { container } = render(<EventDetail event={null} onClose={vi.fn()} />);
+    const { container } = render(<EventDetail event={null} closing={false} onCloseRequest={vi.fn()} />);
     expect(container.innerHTML).toBe('');
   });
 
   it('shows event title, year, and place name', () => {
     const event = mockEvent({ title: 'Battle of Gettysburg', year: 1863 });
-    render(<EventDetail event={event} onClose={vi.fn()} />);
+    render(<EventDetail event={event} closing={false} onCloseRequest={vi.fn()} />);
 
     expect(screen.getByText('Battle of Gettysburg')).toBeInTheDocument();
     expect(screen.getByText('1863')).toBeInTheDocument();
@@ -21,35 +21,31 @@ describe('EventDetail', () => {
 
   it('shows "Fictional" badge for ai_generated events', () => {
     const event = mockEvent({ source: { type: 'ai_generated' } });
-    render(<EventDetail event={event} onClose={vi.fn()} />);
+    render(<EventDetail event={event} closing={false} onCloseRequest={vi.fn()} />);
 
     expect(screen.getByText('Fictional')).toBeInTheDocument();
   });
 
   it('shows Wikipedia link when sourceUrl exists', () => {
     const event = mockEvent();
-    render(<EventDetail event={event} onClose={vi.fn()} />);
+    render(<EventDetail event={event} closing={false} onCloseRequest={vi.fn()} />);
 
     const link = screen.getByText('Wikipedia →');
     expect(link).toHaveAttribute('href', 'https://en.wikipedia.org/wiki/Example');
     expect(link).toHaveAttribute('target', '_blank');
   });
 
-  it('calls onClose when close button clicked', () => {
-    vi.useFakeTimers();
-    const onClose = vi.fn();
-    render(<EventDetail event={mockEvent()} onClose={onClose} />);
+  it('calls onCloseRequest when close button clicked', () => {
+    const onCloseRequest = vi.fn();
+    render(<EventDetail event={mockEvent()} closing={false} onCloseRequest={onCloseRequest} />);
 
     fireEvent.click(screen.getByRole('button', { name: /close/i }));
-    expect(onClose).not.toHaveBeenCalled();
-    act(() => { vi.advanceTimersByTime(800); });
-    expect(onClose).toHaveBeenCalledOnce();
-    vi.useRealTimers();
+    expect(onCloseRequest).toHaveBeenCalledOnce();
   });
 
   it('shows category tags', () => {
     const event = mockEvent({ categories: ['science', 'exploration'] });
-    render(<EventDetail event={event} onClose={vi.fn()} />);
+    render(<EventDetail event={event} closing={false} onCloseRequest={vi.fn()} />);
 
     expect(screen.getByText('science')).toBeInTheDocument();
     expect(screen.getByText('exploration')).toBeInTheDocument();
