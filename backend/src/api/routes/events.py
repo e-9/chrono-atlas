@@ -3,7 +3,7 @@ from __future__ import annotations
 import datetime
 from typing import Annotated
 
-from fastapi import APIRouter, Query
+from fastapi import APIRouter, HTTPException, Query
 from pydantic import BaseModel, ConfigDict
 
 from src.models.event import HistoricalEvent
@@ -30,6 +30,14 @@ def _get_today_mm_dd() -> tuple[int, int]:
     return now.month, now.day
 
 
+def _validate_date(month: int, day: int) -> None:
+    """Raise 422 if month/day is not a valid calendar date."""
+    try:
+        datetime.date(2000, month, day)  # leap year to allow Feb 29
+    except ValueError:
+        raise HTTPException(status_code=422, detail=f"Invalid date: month={month}, day={day}")
+
+
 @router.get("", response_model=EventsResponse, response_model_by_alias=True)
 async def list_events(date: Annotated[str | None, Query(pattern=r"^\d{2}-\d{2}$")] = None) -> EventsResponse:
     """List historical events, optionally filtered by date (MM-DD format)."""
@@ -37,6 +45,8 @@ async def list_events(date: Annotated[str | None, Query(pattern=r"^\d{2}-\d{2}$"
         month, day = int(date[:2]), int(date[3:])
     else:
         month, day = _get_today_mm_dd()
+
+    _validate_date(month, day)
 
     events = await get_events_for_date(month, day)
     fictional_count = sum(1 for e in events if e.source.type == "ai_generated")
@@ -50,14 +60,9 @@ async def list_events(date: Annotated[str | None, Query(pattern=r"^\d{2}-\d{2}$"
 @router.get("/{event_id}", response_model=HistoricalEvent, response_model_by_alias=True)
 async def get_event(event_id: str) -> HistoricalEvent:
     """Get a single historical event by ID."""
-    # For now, fetch today's events and find by ID
     month, day = _get_today_mm_dd()
     events = await get_events_for_date(month, day)
     for event in events:
         if event.id == event_id:
             return event
-    # Fallback to first event if not found
-    if events:
-        return events[0]
-    from fastapi import HTTPException
     raise HTTPException(status_code=404, detail="Event not found")
