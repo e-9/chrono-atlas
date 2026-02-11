@@ -37,7 +37,7 @@ function AppContent() {
   }, []);
 
   return (
-    <div style={{ fontFamily: "'Georgia', serif", minHeight: '100vh', background: '#faf8f4', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ fontFamily: "'Playfair Display', Georgia, serif", minHeight: '100vh', background: '#F0EEE9', display: 'flex', flexDirection: 'column' }}>
       <a
         href="#main-content"
         style={{
@@ -45,7 +45,7 @@ function AppContent() {
           width: '1px', height: '1px', overflow: 'hidden',
           zIndex: 1000, background: '#4a90a4', color: '#fff',
           padding: '8px 16px', borderRadius: 4,
-          fontFamily: 'system-ui, sans-serif', fontSize: 14,
+          fontFamily: "'Inter', system-ui, sans-serif", fontSize: 14,
         }}
         onFocus={(e) => { e.currentTarget.style.left = '8px'; e.currentTarget.style.top = '8px'; e.currentTarget.style.width = 'auto'; e.currentTarget.style.height = 'auto'; }}
         onBlur={(e) => { e.currentTarget.style.left = '-9999px'; e.currentTarget.style.top = 'auto'; e.currentTarget.style.width = '1px'; e.currentTarget.style.height = '1px'; }}
@@ -87,10 +87,10 @@ function AppContent() {
             border: '1px solid #e0ddd5', borderRadius: 10, background: '#fff',
             boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
           }}>
-            <h2 style={{ margin: '0 0 8px', fontSize: 18, color: '#3a3226', fontFamily: 'Georgia, "Times New Roman", serif' }}>
+            <h2 style={{ margin: '0 0 8px', fontSize: 18, color: '#3a3226', fontFamily: "'Playfair Display', Georgia, serif" }}>
               Something went wrong
             </h2>
-            <p style={{ margin: '0 0 20px', fontSize: 13, color: '#8b7355', fontFamily: 'system-ui, sans-serif' }}>
+            <p style={{ margin: '0 0 20px', fontSize: 13, color: '#8b7355', fontFamily: "'Inter', system-ui, sans-serif" }}>
               {error instanceof Error ? error.message : 'Failed to load events'}
             </p>
             <button
@@ -98,7 +98,7 @@ function AppContent() {
               style={{
                 background: '#4a90a4', color: '#fff', border: 'none',
                 padding: '8px 20px', borderRadius: 6, fontSize: 14,
-                fontFamily: 'system-ui, sans-serif', cursor: 'pointer',
+                fontFamily: "'Inter', system-ui, sans-serif", cursor: 'pointer',
                 transition: 'background 0.2s',
               }}
               onMouseEnter={(e) => { e.currentTarget.style.background = '#3d7a8c'; }}
@@ -112,7 +112,7 @@ function AppContent() {
           <>
             <div style={{ opacity: fading ? 0 : 1, transition: 'opacity 0.3s' }}>
               <ChronoMap events={data.data} selectedEvent={selectedEvent} onEventSelect={setSelectedEvent} />
-              <p style={{ textAlign: 'center', color: '#8b7355', fontSize: 14, fontFamily: 'system-ui, sans-serif', marginTop: 8 }}>
+              <p style={{ textAlign: 'center', color: '#8b7355', fontSize: 14, fontFamily: "'Inter', system-ui, sans-serif", marginTop: 8 }}>
                 {data.meta.total} events · {data.meta.fictional} fictional
               </p>
             </div>
@@ -123,7 +123,7 @@ function AppContent() {
 
       <footer style={{
         textAlign: 'center', padding: '12px 0', borderTop: '1px solid #e0ddd5',
-        color: '#7a6e5a', fontSize: 12, fontFamily: 'system-ui, sans-serif',
+        color: '#7a6e5a', fontSize: 12, fontFamily: "'Inter', system-ui, sans-serif",
         letterSpacing: 0.3,
       }}>
         Chrono Atlas · Data from Wikipedia

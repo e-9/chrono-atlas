@@ -1,5 +1,7 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { HistoricalEvent } from '../../types/event';
+
+const TRANSITION_MS = 750;
 
 interface EventDetailProps {
   event: HistoricalEvent | null;
@@ -8,13 +10,31 @@ interface EventDetailProps {
 
 export function EventDetail({ event, onClose }: EventDetailProps) {
   const cardRef = useRef<HTMLDivElement>(null);
+  const [closing, setClosing] = useState(false);
+  const prevEventRef = useRef<HistoricalEvent | null>(null);
+
+  // Reset closing state when a new event arrives
+  useEffect(() => {
+    if (event && event !== prevEventRef.current) {
+      setClosing(false);
+    }
+    prevEventRef.current = event;
+  }, [event]);
 
   // Scroll card into view when event selected
   useEffect(() => {
-    if (event && cardRef.current) {
+    if (event && cardRef.current && !closing) {
       cardRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
-  }, [event]);
+  }, [event, closing]);
+
+  const handleClose = () => {
+    setClosing(true);
+    setTimeout(() => {
+      setClosing(false);
+      onClose();
+    }, TRANSITION_MS);
+  };
 
   if (!event) return null;
 
@@ -25,10 +45,15 @@ export function EventDetail({ event, onClose }: EventDetailProps) {
       ref={cardRef}
       style={{
         maxWidth: 720, margin: '16px auto 0', padding: '0 24px',
-        animation: 'fadeSlideUp 0.35s ease',
+        animation: `${closing ? 'fadeSlideDown' : 'fadeSlideUp'} ${TRANSITION_MS}ms cubic-bezier(0.4, 0, 0.2, 1)`,
+        opacity: closing ? 0 : 1,
+        transform: closing ? 'translateY(12px)' : 'translateY(0)',
       }}
     >
-      <style>{`@keyframes fadeSlideUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }`}</style>
+      <style>{`
+        @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeSlideDown { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(12px); } }
+      `}</style>
 
       <div style={{
         background: '#fff', borderRadius: 10,
@@ -55,14 +80,14 @@ export function EventDetail({ event, onClose }: EventDetailProps) {
                 <span style={{
                   background: isFictional ? '#4a90a4' : '#c44536',
                   color: '#fff', padding: '2px 10px', borderRadius: 4,
-                  fontSize: 12, fontFamily: 'system-ui, sans-serif',
+                  fontSize: 12, fontFamily: "'Inter', system-ui, sans-serif",
                   fontWeight: 600, letterSpacing: 0.3,
                 }}>
                   {isFictional ? 'Fictional' : `${event.year}`}
                 </span>
                 <span style={{
                   color: '#8b7355', fontSize: 13,
-                  fontFamily: 'system-ui, sans-serif',
+                  fontFamily: "'Inter', system-ui, sans-serif",
                 }}>
                   📍 {event.location.placeName}
                   {event.location.modernEquivalent && ` · ${event.location.modernEquivalent}`}
@@ -70,7 +95,7 @@ export function EventDetail({ event, onClose }: EventDetailProps) {
               </div>
 
               <button
-                onClick={onClose}
+                onClick={handleClose}
                 aria-label="Close"
                 style={{
                   background: 'none', border: 'none', fontSize: 20,
@@ -85,7 +110,7 @@ export function EventDetail({ event, onClose }: EventDetailProps) {
 
             <h3 style={{
               margin: '10px 0 8px', color: '#3a3226', lineHeight: 1.35,
-              fontFamily: 'Georgia, "Times New Roman", serif', fontSize: 17,
+              fontFamily: "'Playfair Display', Georgia, serif", fontSize: 17,
               fontWeight: 600,
             }}>
               {event.title}
@@ -112,7 +137,7 @@ export function EventDetail({ event, onClose }: EventDetailProps) {
                 style={{
                   background: '#f0ede6', color: '#6b5d4d',
                   padding: '2px 8px', borderRadius: 10, fontSize: 12,
-                  fontFamily: 'system-ui, sans-serif',
+                  fontFamily: "'Inter', system-ui, sans-serif",
                 }}
               >
                 {cat}
@@ -124,7 +149,7 @@ export function EventDetail({ event, onClose }: EventDetailProps) {
               href={event.source.sourceUrl}
               target="_blank"
               rel="noopener noreferrer"
-              style={{ color: '#4a90a4', fontSize: 13, fontFamily: 'system-ui, sans-serif' }}
+              style={{ color: '#4a90a4', fontSize: 13, fontFamily: "'Inter', system-ui, sans-serif" }}
             >
               Wikipedia →
             </a>

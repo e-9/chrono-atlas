@@ -144,7 +144,7 @@ export function ChronoMap({ events, selectedEvent, onEventSelect }: ChronoMapPro
     const tooltipText = tooltipGroup.append('text')
       .attr('fill', '#fff')
       .attr('font-size', 11)
-      .attr('font-family', 'system-ui, sans-serif');
+      .attr('font-family', "'Inter', system-ui, sans-serif");
     const tooltipYear = tooltipText.append('tspan')
       .attr('font-weight', 'bold');
     const tooltipTitle = tooltipText.append('tspan')
@@ -248,10 +248,14 @@ export function ChronoMap({ events, selectedEvent, onEventSelect }: ChronoMapPro
           .attr('width', bbox.width + padX * 2)
           .attr('height', bbox.height + padY * 2);
 
-        const tooltipY = (y - 15 - bbox.height < 10) ? y + 20 : y - 15 - bbox.height;
         const k = currentZoomScaleRef.current;
+        const invK = 1 / k;
+        // Scale offsets so tooltip centers on pin at any zoom level
+        const aboveY = y - (15 + bbox.height) * invK;
+        const belowY = y + 20 * invK;
+        const tooltipY = aboveY < 10 ? belowY : aboveY;
         tooltipGroup
-          .attr('transform', `translate(${x - bbox.width / 2}, ${tooltipY}) scale(${1 / k})`)
+          .attr('transform', `translate(${x - bbox.width * invK / 2}, ${tooltipY}) scale(${invK})`)
           .style('display', null);
       }).on('mouseleave', function () {
         d3.select(this).select('.pin-dot')
@@ -423,11 +427,11 @@ export function ChronoMap({ events, selectedEvent, onEventSelect }: ChronoMapPro
             key={dir}
             onClick={() => handleZoom(dir)}
             aria-label={ariaLabel}
-            onMouseEnter={(e) => { e.currentTarget.style.background = '#e8e4d9'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(250,248,244,0.9)'; }}
+            onMouseEnter={(e) => { e.currentTarget.style.background = '#e4e2dc'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(240,238,233,0.92)'; }}
             style={{
               width: 44, height: 44, border: '1px solid #c4b99a',
-              borderRadius: 6, background: 'rgba(250,248,244,0.9)',
+              borderRadius: 6, background: 'rgba(240,238,233,0.92)',
               color: '#3a3226', fontSize: 18, cursor: 'pointer',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               lineHeight: 1, transition: 'background 0.15s ease',
@@ -439,11 +443,11 @@ export function ChronoMap({ events, selectedEvent, onEventSelect }: ChronoMapPro
         <button
           onClick={handleResetZoom}
           aria-label="Reset zoom"
-          onMouseEnter={(e) => { e.currentTarget.style.background = '#e8e4d9'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(250,248,244,0.9)'; }}
+          onMouseEnter={(e) => { e.currentTarget.style.background = '#e4e2dc'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(240,238,233,0.92)'; }}
           style={{
             width: 44, height: 44, border: '1px solid #c4b99a',
-            borderRadius: 6, background: 'rgba(250,248,244,0.9)',
+            borderRadius: 6, background: 'rgba(240,238,233,0.92)',
             color: '#3a3226', fontSize: 14, cursor: 'pointer',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             lineHeight: 1, transition: 'background 0.15s ease',
@@ -456,8 +460,8 @@ export function ChronoMap({ events, selectedEvent, onEventSelect }: ChronoMapPro
       {/* Map legend */}
       <div style={{
         position: 'absolute', bottom: 12, left: 12,
-        background: 'rgba(250,248,244,0.85)', borderRadius: 6,
-        padding: '6px 10px', fontSize: 12, fontFamily: 'system-ui, sans-serif',
+        background: 'rgba(240,238,233,0.88)', borderRadius: 6,
+        padding: '6px 10px', fontSize: 12, fontFamily: "'Inter', system-ui, sans-serif",
         color: '#3a3226', display: 'flex', gap: 12,
         border: '1px solid rgba(196,185,154,0.4)',
       }}>

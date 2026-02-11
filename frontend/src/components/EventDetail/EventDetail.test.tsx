@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, it, expect, vi } from 'vitest';
 import { EventDetail } from './EventDetail';
@@ -35,12 +35,16 @@ describe('EventDetail', () => {
     expect(link).toHaveAttribute('target', '_blank');
   });
 
-  it('calls onClose when close button clicked', async () => {
+  it('calls onClose when close button clicked', () => {
+    vi.useFakeTimers();
     const onClose = vi.fn();
     render(<EventDetail event={mockEvent()} onClose={onClose} />);
 
-    await userEvent.click(screen.getByRole('button', { name: /close/i }));
+    fireEvent.click(screen.getByRole('button', { name: /close/i }));
+    expect(onClose).not.toHaveBeenCalled();
+    act(() => { vi.advanceTimersByTime(800); });
     expect(onClose).toHaveBeenCalledOnce();
+    vi.useRealTimers();
   });
 
   it('shows category tags', () => {
