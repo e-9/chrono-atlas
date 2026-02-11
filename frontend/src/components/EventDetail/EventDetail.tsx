@@ -58,7 +58,7 @@ export function EventDetail({ event, onClose }: EventDetailProps) {
                   fontSize: 12, fontFamily: 'system-ui, sans-serif',
                   fontWeight: 600, letterSpacing: 0.3,
                 }}>
-                  {isFictional ? 'Fictional' : `Year ${event.year}`}
+                  {isFictional ? 'Fictional' : `${event.year}`}
                 </span>
                 <span style={{
                   color: '#8b7355', fontSize: 13,
@@ -74,7 +74,8 @@ export function EventDetail({ event, onClose }: EventDetailProps) {
                 aria-label="Close"
                 style={{
                   background: 'none', border: 'none', fontSize: 20,
-                  cursor: 'pointer', color: '#b5a88a', padding: '0 0 0 12px',
+                  cursor: 'pointer', color: '#5d5246',
+                  padding: '4px 4px 4px 12px', minWidth: 32, minHeight: 32,
                   lineHeight: 1, flexShrink: 0,
                 }}
               >
@@ -110,7 +111,7 @@ export function EventDetail({ event, onClose }: EventDetailProps) {
                 key={cat}
                 style={{
                   background: '#f0ede6', color: '#6b5d4d',
-                  padding: '2px 8px', borderRadius: 10, fontSize: 11,
+                  padding: '2px 8px', borderRadius: 10, fontSize: 12,
                   fontFamily: 'system-ui, sans-serif',
                 }}
               >

@@ -29,6 +29,7 @@ export function ChronoMap({ events, selectedEvent, onEventSelect }: ChronoMapPro
   const onEventSelectRef = useRef(onEventSelect);
   onEventSelectRef.current = onEventSelect;
   const [world, setWorld] = useState<Topology | null>(null);
+  const currentZoomScaleRef = useRef(1);
 
   const stableOnSelect = useCallback((e: HistoricalEvent) => {
     onEventSelectRef.current(e);
@@ -55,6 +56,8 @@ export function ChronoMap({ events, selectedEvent, onEventSelect }: ChronoMapPro
     const svg = d3.select(svgRef.current);
     svg.selectAll('*').remove();
 
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     // Defs for filters
     const defs = svg.append('defs');
     const filter = defs.append('filter').attr('id', 'land-shadow');
@@ -62,6 +65,12 @@ export function ChronoMap({ events, selectedEvent, onEventSelect }: ChronoMapPro
       .attr('dx', 0).attr('dy', 1)
       .attr('stdDeviation', 1.5)
       .attr('flood-color', 'rgba(0,0,0,0.12)');
+
+    const tooltipFilter = defs.append('filter').attr('id', 'tooltip-shadow');
+    tooltipFilter.append('feDropShadow')
+      .attr('dx', 0).attr('dy', 1)
+      .attr('stdDeviation', 1)
+      .attr('flood-color', 'rgba(0,0,0,0.18)');
 
     // Main group that will be zoomed/panned
     const g = svg.append('g').attr('class', 'map-root');
@@ -130,7 +139,8 @@ export function ChronoMap({ events, selectedEvent, onEventSelect }: ChronoMapPro
 
     const tooltipRect = tooltipGroup.append('rect')
       .attr('rx', 4).attr('ry', 4)
-      .attr('fill', 'rgba(58, 50, 38, 0.9)');
+      .attr('fill', 'rgba(58, 50, 38, 0.9)')
+      .attr('filter', 'url(#tooltip-shadow)');
     const tooltipText = tooltipGroup.append('text')
       .attr('fill', '#fff')
       .attr('font-size', 11)
@@ -151,12 +161,33 @@ export function ChronoMap({ events, selectedEvent, onEventSelect }: ChronoMapPro
         .attr('transform', `translate(${x}, ${y})`)
         .attr('cursor', 'pointer')
         .attr('opacity', 0)
-        .on('click', () => stableOnSelect(event));
+        .attr('tabindex', 0)
+        .attr('role', 'button')
+        .attr('aria-label', `${event.year} – ${truncate(event.title, 40)}`)
+        .style('outline', 'none')
+        .on('click', () => {
+          tooltipGroup.style('display', 'none');
+          stableOnSelect(event);
+        })
+        .on('keydown', (e: KeyboardEvent) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            stableOnSelect(event);
+          }
+        })
+        .on('focus', function () {
+          d3.select(this).select('.pin-dot')
+            .attr('stroke', '#e6a817').attr('stroke-width', 2.5);
+        })
+        .on('blur', function () {
+          d3.select(this).select('.pin-dot')
+            .attr('stroke', '#fff').attr('stroke-width', 1.5);
+        });
 
       // Animate in with staggered delay
       pin.transition()
-        .delay(300 + i * 120)
-        .duration(400)
+        .delay(reducedMotion ? 0 : 200 + i * 60)
+        .duration(reducedMotion ? 0 : 400)
         .attr('opacity', 1);
 
       // Drop shadow
@@ -167,13 +198,14 @@ export function ChronoMap({ events, selectedEvent, onEventSelect }: ChronoMapPro
 
       // Main circle
       pin.append('circle')
+        .attr('class', 'pin-dot')
         .attr('r', 6)
         .attr('fill', isFictional ? '#4a90a4' : '#c44536')
         .attr('stroke', '#fff')
         .attr('stroke-width', 1.5);
 
       // Pulse ring for fictional events
-      if (isFictional) {
+      if (isFictional && !reducedMotion) {
         pin.append('circle')
           .attr('r', 6)
           .attr('fill', 'none')
@@ -199,7 +231,7 @@ export function ChronoMap({ events, selectedEvent, onEventSelect }: ChronoMapPro
 
       // Hover: grow pin + show tooltip
       pin.on('mouseenter', function () {
-        d3.select(this).select('circle:nth-child(2)')
+        d3.select(this).select('.pin-dot')
           .transition().duration(150)
           .attr('r', 9);
 
@@ -216,11 +248,13 @@ export function ChronoMap({ events, selectedEvent, onEventSelect }: ChronoMapPro
           .attr('width', bbox.width + padX * 2)
           .attr('height', bbox.height + padY * 2);
 
+        const tooltipY = (y - 15 - bbox.height < 10) ? y + 20 : y - 15 - bbox.height;
+        const k = currentZoomScaleRef.current;
         tooltipGroup
-          .attr('transform', `translate(${x - bbox.width / 2}, ${y - 15 - bbox.height})`)
+          .attr('transform', `translate(${x - bbox.width / 2}, ${tooltipY}) scale(${1 / k})`)
           .style('display', null);
       }).on('mouseleave', function () {
-        d3.select(this).select('circle:nth-child(2)')
+        d3.select(this).select('.pin-dot')
           .transition().duration(150)
           .attr('r', 6);
         tooltipGroup.style('display', 'none');
@@ -233,6 +267,7 @@ export function ChronoMap({ events, selectedEvent, onEventSelect }: ChronoMapPro
       .translateExtent([[0, 0], [WIDTH, HEIGHT]])
       .on('zoom', (e: d3.D3ZoomEvent<SVGSVGElement, unknown>) => {
         const k = e.transform.k;
+        currentZoomScaleRef.current = k;
         g.attr('transform', e.transform.toString());
         pinsGroup.selectAll<SVGGElement, unknown>('g')
           .attr('transform', function () {
@@ -242,10 +277,8 @@ export function ChronoMap({ events, selectedEvent, onEventSelect }: ChronoMapPro
           });
         // Keep border strokes crisp
         g.selectAll('.countries path').attr('stroke-width', 0.4 / k);
-        g.select('.tooltip').attr('transform', function () {
-          const cur = d3.select(this).attr('transform') || '';
-          return cur + ` scale(${1 / k})`;
-        });
+        // Hide tooltip during zoom — it'll reappear on next hover
+        g.select('.tooltip').style('display', 'none');
       });
 
     svg.call(zoom);
@@ -286,31 +319,31 @@ export function ChronoMap({ events, selectedEvent, onEventSelect }: ChronoMapPro
         const isSelected = d && Math.abs(d[0] - px) < 0.5 && Math.abs(d[1] - py) < 0.5;
 
         if (isSelected) {
-          // Gold color, larger, full opacity
+          // Gold circle, larger, full opacity
           pinG.transition().duration(ZOOM_DURATION)
             .attr('opacity', 1);
-          pinG.select('circle:nth-child(2)')
+          pinG.select('.pin-dot')
             .transition().duration(ZOOM_DURATION)
-            .attr('r', 9)
+            .attr('r', 10)
             .attr('fill', '#e6a817')
             .attr('stroke', '#fff')
-            .attr('stroke-width', 2);
+            .attr('stroke-width', 2.5);
           // Add glow ring
           pinG.selectAll('.select-ring').remove();
           pinG.append('circle')
             .attr('class', 'select-ring')
-            .attr('r', 9)
+            .attr('r', 10)
             .attr('fill', 'none')
             .attr('stroke', '#e6a817')
             .attr('stroke-width', 1.5)
             .attr('opacity', 0.7)
             .transition().duration(1200).ease(d3.easeLinear)
-            .attr('r', 18).attr('opacity', 0)
+            .attr('r', 20).attr('opacity', 0)
             .on('end', function repeat() {
               d3.select(this)
-                .attr('r', 9).attr('opacity', 0.7)
+                .attr('r', 10).attr('opacity', 0.7)
                 .transition().duration(1200).ease(d3.easeLinear)
-                .attr('r', 18).attr('opacity', 0)
+                .attr('r', 20).attr('opacity', 0)
                 .on('end', repeat);
             });
         } else {
@@ -335,7 +368,7 @@ export function ChronoMap({ events, selectedEvent, onEventSelect }: ChronoMapPro
 
         pinG.transition().duration(ZOOM_DURATION)
           .attr('opacity', 1);
-        pinG.select('circle:nth-child(2)')
+        pinG.select('.pin-dot')
           .transition().duration(ZOOM_DURATION)
           .attr('r', 6)
           .attr('fill', isFictional ? '#4a90a4' : '#c44536')
@@ -359,33 +392,83 @@ export function ChronoMap({ events, selectedEvent, onEventSelect }: ChronoMapPro
     );
   }, []);
 
+  const handleResetZoom = useCallback(() => {
+    if (!svgRef.current || !zoomRef.current) return;
+    const svg = d3.select(svgRef.current);
+    svg.transition().duration(500).ease(d3.easeCubicInOut).call(
+      zoomRef.current.transform as any,
+      d3.zoomIdentity,
+    );
+  }, []);
+
   return (
     <div style={{ position: 'relative', width: '100%', maxWidth: WIDTH, margin: '0 auto' }}>
       <svg
         ref={svgRef}
         viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
         style={{ width: '100%', height: 'auto', display: 'block' }}
+        role="img"
+        aria-label="World map showing historical events"
       />
       {/* Zoom controls */}
       <div style={{
         position: 'absolute', bottom: 12, right: 12,
         display: 'flex', flexDirection: 'column', gap: 2,
       }}>
-        {[{ label: '+', dir: 'in' as const }, { label: '−', dir: 'out' as const }].map(({ label, dir }) => (
+        {[
+          { label: '+', dir: 'in' as const, ariaLabel: 'Zoom in' },
+          { label: '−', dir: 'out' as const, ariaLabel: 'Zoom out' },
+        ].map(({ label, dir, ariaLabel }) => (
           <button
             key={dir}
             onClick={() => handleZoom(dir)}
+            aria-label={ariaLabel}
+            onMouseEnter={(e) => { e.currentTarget.style.background = '#e8e4d9'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(250,248,244,0.9)'; }}
             style={{
-              width: 28, height: 28, border: '1px solid #c4b99a',
-              borderRadius: 4, background: 'rgba(250,248,244,0.9)',
-              color: '#3a3226', fontSize: 16, cursor: 'pointer',
+              width: 44, height: 44, border: '1px solid #c4b99a',
+              borderRadius: 6, background: 'rgba(250,248,244,0.9)',
+              color: '#3a3226', fontSize: 18, cursor: 'pointer',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              lineHeight: 1,
+              lineHeight: 1, transition: 'background 0.15s ease',
             }}
           >
             {label}
           </button>
         ))}
+        <button
+          onClick={handleResetZoom}
+          aria-label="Reset zoom"
+          onMouseEnter={(e) => { e.currentTarget.style.background = '#e8e4d9'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(250,248,244,0.9)'; }}
+          style={{
+            width: 44, height: 44, border: '1px solid #c4b99a',
+            borderRadius: 6, background: 'rgba(250,248,244,0.9)',
+            color: '#3a3226', fontSize: 14, cursor: 'pointer',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            lineHeight: 1, transition: 'background 0.15s ease',
+            marginTop: 4,
+          }}
+        >
+          ⌂
+        </button>
+      </div>
+      {/* Map legend */}
+      <div style={{
+        position: 'absolute', bottom: 12, left: 12,
+        background: 'rgba(250,248,244,0.85)', borderRadius: 6,
+        padding: '6px 10px', fontSize: 12, fontFamily: 'system-ui, sans-serif',
+        color: '#3a3226', display: 'flex', gap: 12,
+        border: '1px solid rgba(196,185,154,0.4)',
+      }}>
+        <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+          <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#c44536', display: 'inline-block' }} />
+          Historical
+        </span>
+        <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+          <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#4a90a4', display: 'inline-block' }} />
+          Fictional
+        </span>
       </div>
     </div>
   );
