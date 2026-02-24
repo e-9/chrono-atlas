@@ -53,3 +53,4 @@ infra/*.tfvars
 # Misc
 *.log
 tmp/
+documents/
