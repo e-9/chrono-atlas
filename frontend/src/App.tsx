@@ -1,10 +1,12 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, lazy, Suspense } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ChronoMap } from './components/Map/ChronoMap';
 import { EventDetail } from './components/EventDetail/EventDetail';
 import { DatePicker } from './components/DatePicker/DatePicker';
 import { useEvents } from './hooks/useEvents';
 import type { HistoricalEvent } from './types/event';
+
+const CosmicCanvas = lazy(() => import('./components/CosmicCanvas/CosmicCanvas').then(m => ({ default: m.CosmicCanvas })));
 
 const queryClient = new QueryClient();
 
@@ -49,7 +51,15 @@ function AppContent() {
   }, []);
 
   return (
-    <div style={{ fontFamily: "'Playfair Display', Georgia, serif", height: '100vh', background: '#F0EEE9', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+    <div style={{
+      fontFamily: "'Playfair Display', Georgia, serif", height: '100vh',
+      background: 'radial-gradient(ellipse at 50% 0%, #0d1b2a 0%, #070d15 50%, #020408 100%)',
+      display: 'flex', flexDirection: 'column', overflow: 'hidden', color: '#e0dde4',
+    }}>
+      <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+      <Suspense fallback={null}>
+        <CosmicCanvas />
+      </Suspense>
       <a
         href="#main-content"
         style={{
@@ -67,13 +77,14 @@ function AppContent() {
       <header style={{
         padding: compact ? '6px 24px' : '16px 24px',
         display: 'flex', alignItems: 'center',
-        justifyContent: 'space-between', borderBottom: '1px solid #e0ddd5',
+        justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.08)',
         transition: 'padding 0.75s cubic-bezier(0.4, 0, 0.2, 1)',
+        position: 'relative', zIndex: 1,
       }}>
         <h1
           onClick={resetToToday}
           style={{
-            margin: 0, color: '#3a3226', cursor: 'pointer',
+            margin: 0, color: '#e0dde4', cursor: 'pointer',
             fontSize: compact ? 16 : 24,
             transition: 'font-size 0.75s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s',
           }}
@@ -85,16 +96,16 @@ function AppContent() {
         <DatePicker value={date} onChange={setDate} />
       </header>
 
-      <main id="main-content" style={{ position: 'relative', flex: 1, display: 'flex', flexDirection: 'column', overflow: 'auto' }}>
+      <main id="main-content" style={{ position: 'relative', flex: 1, display: 'flex', flexDirection: 'column', overflow: 'auto', zIndex: 1 }}>
         {isLoading && (
-          <div style={{ textAlign: 'center', padding: 60, color: '#8b7355' }}>
+          <div style={{ textAlign: 'center', padding: 60, color: '#8a9bb5' }}>
             <div style={{
               display: 'inline-block', width: 32, height: 32,
-              border: '3px solid #e0ddd5', borderTopColor: '#4a90a4',
+              border: '3px solid rgba(255,255,255,0.1)', borderTopColor: '#4a90a4',
               borderRadius: '50%', marginBottom: 16,
               animation: 'spin 0.8s linear infinite',
             }} />
-            <p style={{ fontSize: 18, margin: '0 0 6px' }}>Discovering events…</p>
+            <p style={{ fontSize: 18, margin: '0 0 6px', color: '#c8ccd4' }}>Discovering events…</p>
             <p style={{ fontSize: 13, opacity: 0.6, margin: 0 }}>First load may take up to a minute while we geocode locations</p>
             <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
           </div>
@@ -102,13 +113,13 @@ function AppContent() {
         {error && (
           <div style={{
             maxWidth: 420, margin: '40px auto', padding: 32, textAlign: 'center',
-            border: '1px solid #e0ddd5', borderRadius: 10, background: '#fff',
-            boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
+            border: '1px solid rgba(255,255,255,0.1)', borderRadius: 10, background: 'rgba(13,27,42,0.9)',
+            boxShadow: '0 2px 20px rgba(0,0,0,0.3)',
           }}>
-            <h2 style={{ margin: '0 0 8px', fontSize: 18, color: '#3a3226', fontFamily: "'Playfair Display', Georgia, serif" }}>
+            <h2 style={{ margin: '0 0 8px', fontSize: 18, color: '#e0dde4', fontFamily: "'Playfair Display', Georgia, serif" }}>
               Something went wrong
             </h2>
-            <p style={{ margin: '0 0 20px', fontSize: 13, color: '#8b7355', fontFamily: "'Inter', system-ui, sans-serif" }}>
+            <p style={{ margin: '0 0 20px', fontSize: 13, color: '#8a9bb5', fontFamily: "'Inter', system-ui, sans-serif" }}>
               {error instanceof Error ? error.message : 'Failed to load events'}
             </p>
             <button
@@ -136,7 +147,7 @@ function AppContent() {
               justifyContent: 'center', flexShrink: 0,
             }}>
               <ChronoMap events={data.data} selectedEvent={selectedEvent} onEventSelect={setSelectedEvent} />
-              <p style={{ textAlign: 'center', color: '#8b7355', fontSize: 13, fontFamily: "'Inter', system-ui, sans-serif", margin: '4px 0 0' }}>
+              <p style={{ textAlign: 'center', color: '#6b7d99', fontSize: 13, fontFamily: "'Inter', system-ui, sans-serif", margin: '4px 0 0' }}>
                 {data.meta.total} events · {data.meta.fictional} fictional
               </p>
             </div>
@@ -146,9 +157,9 @@ function AppContent() {
       </main>
 
       <footer style={{
-        textAlign: 'center', borderTop: '1px solid #e0ddd5',
-        color: '#7a6e5a', fontSize: 12, fontFamily: "'Inter', system-ui, sans-serif",
-        letterSpacing: 0.3,
+        textAlign: 'center', borderTop: '1px solid rgba(255,255,255,0.08)',
+        color: '#5a6a80', fontSize: 12, fontFamily: "'Inter', system-ui, sans-serif",
+        letterSpacing: 0.3, position: 'relative', zIndex: 1,
         padding: compact ? '0' : '12px 0',
         maxHeight: compact ? 0 : 40,
         overflow: 'hidden', opacity: compact ? 0 : 1,
