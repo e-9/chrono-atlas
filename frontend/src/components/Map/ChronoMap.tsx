@@ -24,6 +24,8 @@ export function ChronoMap({ events, selectedEvent, onEventSelect }: ChronoMapPro
   const preSelectRotationRef = useRef<[number, number, number]>([102, -23, 0]);
   const scaleRef = useRef(280);
   const preSelectScaleRef = useRef(280);
+  const savedZoomTransformRef = useRef<d3.ZoomTransform | null>(null);
+  const lastSelectedEventIdRef = useRef<string | null>(null);
   const onEventSelectRef = useRef(onEventSelect);
   onEventSelectRef.current = onEventSelect;
   const [world, setWorld] = useState<Topology | null>(null);
@@ -119,7 +121,7 @@ export function ChronoMap({ events, selectedEvent, onEventSelect }: ChronoMapPro
       .join('path')
       .attr('d', path)
       .attr('fill', '#f5f2e8')
-      .attr('stroke', '#c4b99a')
+      .attr('stroke', 'rgba(255,255,255,0.15)')
       .attr('stroke-width', 0.4)
       .attr('filter', 'url(#land-shadow)');
 
@@ -334,10 +336,14 @@ export function ChronoMap({ events, selectedEvent, onEventSelect }: ChronoMapPro
 
     if (selectedEvent) {
       const [lon, lat] = selectedEvent.location.coordinates;
+      const isNewSelection = lastSelectedEventIdRef.current !== selectedEvent.id;
 
-      // Save current state
-      preSelectRotationRef.current = [...rotationRef.current] as [number, number, number];
-      preSelectScaleRef.current = scaleRef.current;
+      if (isNewSelection) {
+        lastSelectedEventIdRef.current = selectedEvent.id;
+        preSelectRotationRef.current = [...rotationRef.current] as [number, number, number];
+        preSelectScaleRef.current = scaleRef.current;
+        savedZoomTransformRef.current = svgRef.current ? d3.zoomTransform(svgRef.current) : null;
+      }
 
       // Target rotation to center the pin
       const targetRotation: [number, number, number] = [-lon, -lat, 0];
@@ -439,6 +445,14 @@ export function ChronoMap({ events, selectedEvent, onEventSelect }: ChronoMapPro
           if (redraw) redraw();
         });
 
+      const zoomTransform = savedZoomTransformRef.current;
+      const zoomBehavior = (svgRef.current as any).__zoomBehavior;
+      if (zoomTransform && zoomBehavior) {
+        svg.transition().duration(ZOOM_DURATION).call(zoomBehavior.transform as any, zoomTransform);
+      }
+      savedZoomTransformRef.current = null;
+      lastSelectedEventIdRef.current = null;
+
       // Restore pin styles
       svg.selectAll<SVGGElement, [number, number]>('.pins g').each(function (_, i) {
         const pinG = d3.select(this);
@@ -510,12 +524,12 @@ export function ChronoMap({ events, selectedEvent, onEventSelect }: ChronoMapPro
             key={dir}
             onClick={() => handleZoom(dir)}
             aria-label={ariaLabel}
-            onMouseEnter={(e) => { e.currentTarget.style.background = '#e4e2dc'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(240,238,233,0.92)'; }}
+            onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.12)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(13,27,42,0.85)'; }}
             style={{
-              width: 44, height: 44, border: '1px solid #c4b99a',
-              borderRadius: 6, background: 'rgba(240,238,233,0.92)',
-              color: '#3a3226', fontSize: 18, cursor: 'pointer',
+              width: 44, height: 44, border: '1px solid rgba(255,255,255,0.15)',
+              borderRadius: 6, background: 'rgba(13,27,42,0.85)',
+              color: '#e0dde4', fontSize: 18, cursor: 'pointer',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               lineHeight: 1, transition: 'background 0.15s ease',
             }}
@@ -526,12 +540,12 @@ export function ChronoMap({ events, selectedEvent, onEventSelect }: ChronoMapPro
         <button
           onClick={handleResetZoom}
           aria-label="Reset view"
-          onMouseEnter={(e) => { e.currentTarget.style.background = '#e4e2dc'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(240,238,233,0.92)'; }}
+          onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.12)'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(13,27,42,0.85)'; }}
           style={{
-            width: 44, height: 44, border: '1px solid #c4b99a',
-            borderRadius: 6, background: 'rgba(240,238,233,0.92)',
-            color: '#3a3226', fontSize: 14, cursor: 'pointer',
+            width: 44, height: 44, border: '1px solid rgba(255,255,255,0.15)',
+            borderRadius: 6, background: 'rgba(13,27,42,0.85)',
+            color: '#e0dde4', fontSize: 14, cursor: 'pointer',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             lineHeight: 1, transition: 'background 0.15s ease',
             marginTop: 4,
@@ -543,10 +557,10 @@ export function ChronoMap({ events, selectedEvent, onEventSelect }: ChronoMapPro
       {/* Map legend */}
       <div style={{
         position: 'absolute', bottom: 12, left: 12,
-        background: 'rgba(240,238,233,0.88)', borderRadius: 6,
+        background: 'rgba(13,27,42,0.80)', borderRadius: 6,
         padding: '6px 10px', fontSize: 12, fontFamily: "'Inter', system-ui, sans-serif",
-        color: '#3a3226', display: 'flex', gap: 12,
-        border: '1px solid rgba(196,185,154,0.4)',
+        color: '#e0dde4', display: 'flex', gap: 12,
+        border: '1px solid rgba(255,255,255,0.1)',
       }}>
         <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
           <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#c44536', display: 'inline-block' }} />

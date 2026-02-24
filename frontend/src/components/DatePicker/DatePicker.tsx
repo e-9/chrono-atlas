@@ -26,13 +26,13 @@ export function DatePicker({ value, onChange }: DatePickerProps) {
   const day = parseInt(dayStr, 10);
 
   const selectStyle: React.CSSProperties = {
-    padding: '4px 8px', border: '1px solid #d0ccc3', borderRadius: 4,
-    background: '#F0EEE9', color: '#3a3226', fontFamily: "'Playfair Display', Georgia, serif", fontSize: 14,
+    padding: '4px 8px', border: '1px solid rgba(255,255,255,0.15)', borderRadius: 4,
+    background: 'rgba(13,27,42,0.8)', color: '#e0dde4', fontFamily: "'Playfair Display', Georgia, serif", fontSize: 14,
   };
 
   const arrowStyle: React.CSSProperties = {
-    background: 'none', border: '1px solid #d0ccc3', borderRadius: 4,
-    color: '#3a3226', fontSize: 16, cursor: 'pointer', padding: '2px 8px',
+    background: 'none', border: '1px solid rgba(255,255,255,0.15)', borderRadius: 4,
+    color: '#e0dde4', fontSize: 16, cursor: 'pointer', padding: '2px 8px',
     lineHeight: 1, fontFamily: "'Inter', system-ui, sans-serif",
   };
 
@@ -62,7 +62,7 @@ export function DatePicker({ value, onChange }: DatePickerProps) {
       <button style={arrowStyle} onClick={() => onChange(shiftDay(value, 1))} aria-label="Next day">→</button>
 
       <span style={{
-        color: '#8b7355', fontSize: 13, fontFamily: "'Playfair Display', Georgia, serif",
+        color: '#8a9bb5', fontSize: 13, fontFamily: "'Playfair Display', Georgia, serif",
         marginLeft: 4, whiteSpace: 'nowrap',
       }}>
         {formatDate(value)}

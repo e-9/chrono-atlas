@@ -39,10 +39,10 @@ export function EventDetail({ event, closing, onCloseRequest }: EventDetailProps
       `}</style>
 
       <div style={{
-        background: '#fff', borderRadius: 10,
-        border: '1px solid #e0ddd5',
-        boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
-        overflow: 'hidden',
+        background: 'rgba(13,27,42,0.92)', borderRadius: 10,
+        border: '1px solid rgba(255,255,255,0.1)',
+        boxShadow: '0 4px 24px rgba(0,0,0,0.4)',
+        overflow: 'hidden', backdropFilter: 'blur(12px)',
       }}>
         {/* Header row with image */}
         <div style={{ display: 'flex', gap: 0 }}>
@@ -52,7 +52,7 @@ export function EventDetail({ event, closing, onCloseRequest }: EventDetailProps
               alt={event.title}
               style={{
                 width: 180, minHeight: 140, objectFit: 'cover',
-                flexShrink: 0, borderRight: '1px solid #e0ddd5',
+                flexShrink: 0, borderRight: '1px solid rgba(255,255,255,0.08)',
               }}
             />
           )}
@@ -69,7 +69,7 @@ export function EventDetail({ event, closing, onCloseRequest }: EventDetailProps
                   {isFictional ? 'Fictional' : `${event.year}`}
                 </span>
                 <span style={{
-                  color: '#8b7355', fontSize: 13,
+                  color: '#8a9bb5', fontSize: 13,
                   fontFamily: "'Inter', system-ui, sans-serif",
                 }}>
                   📍 {event.location.placeName}
@@ -82,7 +82,7 @@ export function EventDetail({ event, closing, onCloseRequest }: EventDetailProps
                 aria-label="Close"
                 style={{
                   background: 'none', border: 'none', fontSize: 20,
-                  cursor: 'pointer', color: '#5d5246',
+                  cursor: 'pointer', color: '#8a9bb5',
                   padding: '4px 4px 4px 12px', minWidth: 32, minHeight: 32,
                   lineHeight: 1, flexShrink: 0,
                 }}
@@ -92,7 +92,7 @@ export function EventDetail({ event, closing, onCloseRequest }: EventDetailProps
             </div>
 
             <h3 style={{
-              margin: '10px 0 8px', color: '#3a3226', lineHeight: 1.35,
+              margin: '10px 0 8px', color: '#e0dde4', lineHeight: 1.35,
               fontFamily: "'Playfair Display', Georgia, serif", fontSize: 17,
               fontWeight: 600,
             }}>
@@ -100,7 +100,7 @@ export function EventDetail({ event, closing, onCloseRequest }: EventDetailProps
             </h3>
 
             <p style={{
-              color: '#4a4235', lineHeight: 1.6, fontSize: 14, margin: 0,
+              color: '#a0aab8', lineHeight: 1.6, fontSize: 14, margin: 0,
             }}>
               {event.description}
             </p>
@@ -109,7 +109,7 @@ export function EventDetail({ event, closing, onCloseRequest }: EventDetailProps
 
         {/* Footer: categories + source link */}
         <div style={{
-          padding: '10px 20px', borderTop: '1px solid #f0ede6',
+          padding: '10px 20px', borderTop: '1px solid rgba(255,255,255,0.06)',
           display: 'flex', justifyContent: 'space-between', alignItems: 'center',
           flexWrap: 'wrap', gap: 8,
         }}>
@@ -118,7 +118,7 @@ export function EventDetail({ event, closing, onCloseRequest }: EventDetailProps
               <span
                 key={cat}
                 style={{
-                  background: '#f0ede6', color: '#6b5d4d',
+                  background: 'rgba(255,255,255,0.08)', color: '#8a9bb5',
                   padding: '2px 8px', borderRadius: 10, fontSize: 12,
                   fontFamily: "'Inter', system-ui, sans-serif",
                 }}
