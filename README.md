@@ -25,20 +25,36 @@ A beautiful interactive map that visualizes historical events that happened "on 
 ## Development
 
 ```bash
-# Prerequisites: Node.js 20+, Python 3.12+, Docker
+# Prerequisites: Node.js 20+, Python 3.12+, uv, Docker
 
 # Clone and install
 git clone https://github.com/e-9/chrono-atlas.git
 cd chrono-atlas
 
-# Backend
-cd backend && pip install -e '.[dev]' && cd ..
+# Backend (using uv)
+cd backend
+uv sync --extra dev
+uv run python -m spacy download en_core_web_sm
+cd ..
 
 # Frontend
 cd frontend && npm install && cd ..
 
 # Run locally
 docker compose up
+```
+
+### Running Tests
+
+```bash
+# Backend unit/integration tests
+cd backend && uv run pytest -q
+
+# Frontend unit tests
+cd frontend && npm test
+
+# Frontend E2E tests (requires Playwright browsers)
+cd frontend && npx playwright install chromium && npm run test:e2e
 ```
 
 ## Methodology
