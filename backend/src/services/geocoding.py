@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING
 
 import httpx
 import structlog
+from cachetools import TTLCache
 
 if TYPE_CHECKING:
     import spacy.language
@@ -21,7 +22,7 @@ logger = structlog.get_logger(__name__)
 _nlp: spacy.language.Language | None = None
 _nlp_load_attempted: bool = False
 _curated: dict[str, GeoLocation] | None = None
-_geocode_cache: dict[str, GeoLocation] = {}
+_geocode_cache: TTLCache[str, GeoLocation] = TTLCache(maxsize=2000, ttl=86400)
 
 _NOMINATIM_URL = "https://nominatim.openstreetmap.org/search"
 _USER_AGENT = "ChronoAtlas/0.1 (https://github.com/e-9/chrono-atlas)"
@@ -128,6 +129,10 @@ async def geocode_nominatim(place_name: str) -> GeoLocation | None:
     Respects a 1-request-per-second rate limit.
     """
     global _last_nominatim_call  # noqa: PLW0603
+
+    place_name = place_name[:200].strip()
+    if not place_name:
+        return None
 
     now = asyncio.get_event_loop().time()
     elapsed = now - _last_nominatim_call

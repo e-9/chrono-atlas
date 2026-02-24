@@ -4,6 +4,7 @@ import datetime
 import uuid
 
 import structlog
+from cachetools import TTLCache
 
 from src.models.event import EventSource, GeoLocation, HistoricalEvent
 from src.services.fiction import generate_fictional_events
@@ -12,10 +13,9 @@ from src.services.wikipedia import WikipediaEvent, fetch_on_this_day
 
 logger = structlog.get_logger(__name__)
 
-# In-memory cache: "MM-DD" -> list of events
-_events_cache: dict[str, list[HistoricalEvent]] = {}
-# Nominatim results cache: place_name -> GeoLocation (persists across date requests)
-_nominatim_cache: dict[str, GeoLocation] = {}
+# Bounded in-memory caches with TTL
+_events_cache: TTLCache[str, list[HistoricalEvent]] = TTLCache(maxsize=400, ttl=3600)
+_nominatim_cache: TTLCache[str, GeoLocation] = TTLCache(maxsize=2000, ttl=86400)
 
 
 async def get_events_for_date(month: int, day: int) -> list[HistoricalEvent]:

@@ -3,13 +3,16 @@ from __future__ import annotations
 import datetime
 from typing import Annotated
 
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, HTTPException, Path, Query, Request
 from pydantic import BaseModel, ConfigDict
+from slowapi import Limiter
+from slowapi.util import get_remote_address
 
 from src.models.event import HistoricalEvent
 from src.services.events import get_events_for_date
 
 router = APIRouter(prefix="/events", tags=["events"])
+limiter = Limiter(key_func=get_remote_address)
 
 
 class EventsMeta(BaseModel):
@@ -38,8 +41,12 @@ def _validate_date(month: int, day: int) -> None:
         raise HTTPException(status_code=422, detail=f"Invalid date: month={month}, day={day}")
 
 
+_UUID_PATTERN = r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+
+
 @router.get("", response_model=EventsResponse, response_model_by_alias=True)
-async def list_events(date: Annotated[str | None, Query(pattern=r"^\d{2}-\d{2}$")] = None) -> EventsResponse:
+@limiter.limit("30/minute")
+async def list_events(request: Request, date: Annotated[str | None, Query(pattern=r"^\d{2}-\d{2}$")] = None) -> EventsResponse:
     """List historical events, optionally filtered by date (MM-DD format)."""
     if date:
         month, day = int(date[:2]), int(date[3:])
@@ -58,7 +65,8 @@ async def list_events(date: Annotated[str | None, Query(pattern=r"^\d{2}-\d{2}$"
 
 
 @router.get("/{event_id}", response_model=HistoricalEvent, response_model_by_alias=True)
-async def get_event(event_id: str) -> HistoricalEvent:
+@limiter.limit("60/minute")
+async def get_event(request: Request, event_id: Annotated[str, Path(pattern=_UUID_PATTERN)]) -> HistoricalEvent:
     """Get a single historical event by ID."""
     month, day = _get_today_mm_dd()
     events = await get_events_for_date(month, day)

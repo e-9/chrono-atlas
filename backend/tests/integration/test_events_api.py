@@ -103,8 +103,14 @@ async def test_invalid_month_returns_422(client, _mock_services):
 
 @pytest.mark.anyio
 async def test_get_nonexistent_event_returns_404(client, _mock_services):
-    resp = await client.get("/api/v1/events/nonexistent-id")
+    resp = await client.get("/api/v1/events/00000000-0000-0000-0000-000000000000")
     assert resp.status_code == 404
+
+
+@pytest.mark.anyio
+async def test_get_event_invalid_id_returns_422(client, _mock_services):
+    resp = await client.get("/api/v1/events/nonexistent-id")
+    assert resp.status_code == 422
 
 
 # ── 6. GET /api/v1/events (no date) — 200 uses today's date ─────────────
