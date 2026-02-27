@@ -178,6 +178,11 @@ resource "azurerm_container_app" "backend" {
         value = "production"
       }
 
+      env {
+        name  = "CORS_ORIGINS"
+        value = "https://gentle-field-09bba720f.1.azurestaticapps.net"
+      }
+
       startup_probe {
         transport               = "HTTP"
         path                    = "/health"
@@ -202,7 +207,7 @@ resource "azurerm_container_app" "backend" {
   }
 
   ingress {
-    external_enabled = false
+    external_enabled = true
     target_port      = 8000
     transport        = "http"
 
