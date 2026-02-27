@@ -54,3 +54,10 @@ infra/*.tfvars
 *.log
 tmp/
 documents/
+
+# Terraform
+*.tfstate
+*.tfstate.backup
+*.tfplan
+
+terraform.tfvars
