@@ -8,17 +8,12 @@ terraform {
     }
   }
 
-  # Uncomment after creating the storage account:
-  #   az group create -n rg-terraform-state -l eastus
-  #   az storage account create -n stchronoatlastfstate -g rg-terraform-state -l eastus --sku Standard_LRS
-  #   az storage container create -n tfstate --account-name stchronoatlastfstate
-  #
-  # backend "azurerm" {
-  #   resource_group_name  = "rg-terraform-state"
-  #   storage_account_name = "stchronoatlastfstate"
-  #   container_name       = "tfstate"
-  #   key                  = "chrono-atlas.tfstate"
-  # }
+  backend "azurerm" {
+    resource_group_name  = "rg-terraform-state"
+    storage_account_name = "stchronoatlastfstate"
+    container_name       = "tfstate"
+    key                  = "chrono-atlas.tfstate"
+  }
 }
 
 provider "azurerm" {
@@ -120,6 +115,24 @@ resource "azurerm_monitor_diagnostic_setting" "keyvault" {
   }
 }
 
+# ---------- Container Registry ----------
+
+resource "azurerm_container_registry" "main" {
+  name                = "${var.project}cr"
+  resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.main.location
+  sku                 = "Basic"
+  admin_enabled       = false
+  tags                = local.common_tags
+}
+
+# Container App Managed Identity → ACR pull (no passwords needed)
+resource "azurerm_role_assignment" "backend_acr_pull" {
+  scope                = azurerm_container_registry.main.id
+  role_definition_name = "AcrPull"
+  principal_id         = azurerm_container_app.backend.identity[0].principal_id
+}
+
 # ---------- Container Apps Environment ----------
 
 resource "azurerm_container_app_environment" "main" {
@@ -141,9 +154,8 @@ resource "azurerm_container_app" "backend" {
   tags                         = local.common_tags
 
   registry {
-    server   = "ghcr.io"
-    username = var.ghcr_username
-    password_secret_name = "ghcr-token"
+    server   = azurerm_container_registry.main.login_server
+    identity = "System"
   }
 
   template {
@@ -201,13 +213,9 @@ resource "azurerm_container_app" "backend" {
   }
 
   secret {
-    name  = "appinsights-cs"
-    value = azurerm_application_insights.main.connection_string
-  }
-
-  secret {
-    name  = "ghcr-token"
-    value = var.ghcr_token
+    name                = "appinsights-cs"
+    key_vault_secret_id = azurerm_key_vault_secret.appinsights_cs.id
+    identity            = "System"
   }
 
   identity {
@@ -227,7 +235,7 @@ resource "azurerm_role_assignment" "backend_kv" {
 resource "azurerm_static_web_app" "frontend" {
   name                = "${var.project}-web"
   resource_group_name = azurerm_resource_group.main.name
-  location            = azurerm_resource_group.main.location
+  location            = "eastus2" # SWA not available in eastus
   sku_tier            = "Free"
   sku_size            = "Free"
   tags                = local.common_tags

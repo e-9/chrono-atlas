@@ -25,22 +25,12 @@ variable "project" {
 variable "container_image" {
   description = "Full container image reference for the backend (must use versioned tag)"
   type        = string
+  default     = "chronoatlascr.azurecr.io/chrono-atlas-backend:v1.0.0"
 
   validation {
     condition     = !endswith(var.container_image, ":latest")
     error_message = "Container image must use a specific version tag, not :latest."
   }
-}
-
-variable "ghcr_username" {
-  description = "GitHub Container Registry username"
-  type        = string
-}
-
-variable "ghcr_token" {
-  description = "GitHub Container Registry PAT or token"
-  type        = string
-  sensitive   = true
 }
 
 variable "container_cpu" {

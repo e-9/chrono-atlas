@@ -11,6 +11,10 @@ output "swa_api_key_vault_ref" {
   value       = azurerm_key_vault_secret.swa_api_key.id
 }
 
+output "container_registry_login_server" {
+  value = azurerm_container_registry.main.login_server
+}
+
 output "container_app_fqdn" {
   value = azurerm_container_app.backend.ingress[0].fqdn
 }
