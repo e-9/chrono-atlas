@@ -1,12 +1,13 @@
 import { useState, useEffect, useRef, useCallback, lazy, Suspense } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ChronoMap } from './components/Map/ChronoMap';
 import { EventDetail } from './components/EventDetail/EventDetail';
 import { DatePicker } from './components/DatePicker/DatePicker';
 import { useEvents } from './hooks/useEvents';
+import { usePrefetchAdjacentDates } from './hooks/usePrefetchAdjacentDates';
 import type { HistoricalEvent } from './types/event';
 
 const CosmicCanvas = lazy(() => import('./components/CosmicCanvas/CosmicCanvas').then(m => ({ default: m.CosmicCanvas })));
+const ChronoMap = lazy(() => import('./components/Map/ChronoMap').then(m => ({ default: m.ChronoMap })));
 
 const queryClient = new QueryClient();
 
@@ -19,6 +20,7 @@ function AppContent() {
   const [date, setDate] = useState(getTodayDate());
   const [selectedEvent, setSelectedEvent] = useState<HistoricalEvent | null>(null);
   const { data, isLoading, error, refetch } = useEvents(date);
+  usePrefetchAdjacentDates(date);
 
   const [fading, setFading] = useState(false);
   const isFirstRender = useRef(true);
@@ -98,16 +100,31 @@ function AppContent() {
 
       <main id="main-content" style={{ position: 'relative', flex: 1, display: 'flex', flexDirection: 'column', overflow: 'auto', zIndex: 1 }}>
         {isLoading && (
-          <div style={{ textAlign: 'center', padding: 60, color: '#8a9bb5' }}>
+          <div style={{
+            flex: 1, display: 'flex', flexDirection: 'column',
+            alignItems: 'center', justifyContent: 'center', gap: 16, padding: 40,
+          }}>
+            {/* Globe skeleton */}
             <div style={{
-              display: 'inline-block', width: 32, height: 32,
-              border: '3px solid rgba(255,255,255,0.1)', borderTopColor: '#4a90a4',
-              borderRadius: '50%', marginBottom: 16,
-              animation: 'spin 0.8s linear infinite',
+              width: 320, height: 320, borderRadius: '50%',
+              background: 'radial-gradient(circle at 35% 35%, rgba(74,144,164,0.12) 0%, rgba(13,27,42,0.5) 60%, rgba(2,4,8,0.8) 100%)',
+              border: '1px solid rgba(74,144,164,0.15)',
+              animation: 'skeleton-pulse 2s ease-in-out infinite',
             }} />
-            <p style={{ fontSize: 18, margin: '0 0 6px', color: '#c8ccd4' }}>Discovering events…</p>
-            <p style={{ fontSize: 13, opacity: 0.6, margin: 0 }}>First load may take up to a minute while we geocode locations</p>
-            <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+            <p style={{ fontSize: 14, color: '#6b7d99', fontFamily: "'Inter', system-ui, sans-serif", margin: 0, animation: 'skeleton-pulse 2s ease-in-out infinite' }}>
+              Discovering events…
+            </p>
+            {/* Event card placeholders */}
+            <div style={{ display: 'flex', gap: 12 }}>
+              {[80, 100, 60].map((w, i) => (
+                <div key={i} style={{
+                  width: w, height: 10, borderRadius: 5,
+                  background: 'rgba(74,144,164,0.1)',
+                  animation: `skeleton-pulse 2s ease-in-out ${i * 0.2}s infinite`,
+                }} />
+              ))}
+            </div>
+            <style>{`@keyframes skeleton-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }`}</style>
           </div>
         )}
         {error && (
@@ -146,7 +163,15 @@ function AppContent() {
               display: 'flex', flexDirection: 'column', alignItems: 'center',
               justifyContent: 'center', flexShrink: 0,
             }}>
-              <ChronoMap events={data.data} selectedEvent={selectedEvent} onEventSelect={setSelectedEvent} />
+              <Suspense fallback={
+                <div style={{
+                  width: 320, height: 320, borderRadius: '50%', margin: '0 auto',
+                  background: 'radial-gradient(circle at 35% 35%, rgba(74,144,164,0.12) 0%, rgba(13,27,42,0.5) 60%, rgba(2,4,8,0.8) 100%)',
+                  border: '1px solid rgba(74,144,164,0.15)',
+                }} />
+              }>
+                <ChronoMap events={data.data} selectedEvent={selectedEvent} onEventSelect={setSelectedEvent} />
+              </Suspense>
               <p style={{ textAlign: 'center', color: '#6b7d99', fontSize: 13, fontFamily: "'Inter', system-ui, sans-serif", margin: '4px 0 0' }}>
                 {data.meta.total} events · {data.meta.fictional} fictional
               </p>

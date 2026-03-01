@@ -1,0 +1,53 @@
+{
+  "hooks": {
+    "errorOccurred": [
+      {
+        "bash": "/usr/local/bin/copilot-icq-hook errorOccurred",
+        "powershell": "/usr/local/bin/copilot-icq-hook errorOccurred",
+        "timeoutSec": 5,
+        "type": "command"
+      }
+    ],
+    "postToolUse": [
+      {
+        "bash": "/usr/local/bin/copilot-icq-hook postToolUse",
+        "powershell": "/usr/local/bin/copilot-icq-hook postToolUse",
+        "timeoutSec": 5,
+        "type": "command"
+      }
+    ],
+    "preToolUse": [
+      {
+        "bash": "/usr/local/bin/copilot-icq-hook preToolUse",
+        "powershell": "/usr/local/bin/copilot-icq-hook preToolUse",
+        "timeoutSec": 10,
+        "type": "command"
+      }
+    ],
+    "sessionEnd": [
+      {
+        "bash": "/usr/local/bin/copilot-icq-hook sessionEnd",
+        "powershell": "/usr/local/bin/copilot-icq-hook sessionEnd",
+        "timeoutSec": 5,
+        "type": "command"
+      }
+    ],
+    "sessionStart": [
+      {
+        "bash": "/usr/local/bin/copilot-icq-hook sessionStart",
+        "powershell": "/usr/local/bin/copilot-icq-hook sessionStart",
+        "timeoutSec": 5,
+        "type": "command"
+      }
+    ],
+    "userPromptSubmitted": [
+      {
+        "bash": "/usr/local/bin/copilot-icq-hook userPromptSubmitted",
+        "powershell": "/usr/local/bin/copilot-icq-hook userPromptSubmitted",
+        "timeoutSec": 5,
+        "type": "command"
+      }
+    ]
+  },
+  "version": 1
+}

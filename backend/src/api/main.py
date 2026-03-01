@@ -1,8 +1,10 @@
 from __future__ import annotations
 
+import asyncio
 import os
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
+from datetime import date, timezone
 
 import structlog
 from fastapi import FastAPI, Request
@@ -30,11 +32,47 @@ structlog.configure(
 
 log = structlog.get_logger()
 
+_CACHE_WARM_INTERVAL = 50 * 60  # 50 minutes (< 1hr event cache TTL)
+
+
+async def _warm_cache_once() -> None:
+    """Pre-warm spaCy model and prime today's event cache."""
+    from src.services.geocoding import _load_spacy
+    from src.services.events import get_events_for_date
+
+    _load_spacy()
+    log.info("spacy_pre_warmed")
+
+    today = date.today()
+    try:
+        await get_events_for_date(today.month, today.day)
+        log.info("cache_primed", date=f"{today.month:02d}-{today.day:02d}")
+    except Exception:
+        log.exception("cache_prime_failed")
+
+
+async def _cache_warm_loop() -> None:
+    """Periodically re-fetch today's events to keep cache warm."""
+    from src.services.events import get_events_for_date
+
+    while True:
+        await asyncio.sleep(_CACHE_WARM_INTERVAL)
+        today = date.today()
+        try:
+            await get_events_for_date(today.month, today.day)
+            log.info("cache_refreshed", date=f"{today.month:02d}-{today.day:02d}")
+        except Exception:
+            log.exception("cache_refresh_failed")
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     log.info("chrono_atlas_starting", version="0.1.0")
+    # Pre-warm spaCy + prime today's cache in background
+    await _warm_cache_once()
+    warm_task = asyncio.create_task(_cache_warm_loop())
     yield
+    warm_task.cancel()
     log.info("chrono_atlas_shutting_down")
 
 
