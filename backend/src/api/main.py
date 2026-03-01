@@ -9,6 +9,7 @@ from datetime import date, timezone
 import structlog
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.gzip import GZipMiddleware
 from slowapi import Limiter
 from slowapi.errors import RateLimitExceeded
 from slowapi.util import get_remote_address
@@ -90,6 +91,9 @@ async def _rate_limit_handler(request: Request, exc: RateLimitExceeded) -> JSONR
 
 
 app.add_exception_handler(RateLimitExceeded, _rate_limit_handler)
+
+# GZip compression for responses > 500 bytes
+app.add_middleware(GZipMiddleware, minimum_size=500)
 
 # CORS
 allowed_origins = os.getenv("CORS_ORIGINS", "http://localhost:5173").split(",")

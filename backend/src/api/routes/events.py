@@ -4,9 +4,11 @@ import datetime
 from typing import Annotated
 
 from fastapi import APIRouter, HTTPException, Path, Query, Request
+from fastapi.responses import ORJSONResponse
 from pydantic import BaseModel, ConfigDict
 from slowapi import Limiter
 from slowapi.util import get_remote_address
+from starlette.responses import Response
 
 from src.models.event import HistoricalEvent
 from src.services.events import get_events_for_date
@@ -46,7 +48,7 @@ _UUID_PATTERN = r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
 
 @router.get("", response_model=EventsResponse, response_model_by_alias=True)
 @limiter.limit("30/minute")
-async def list_events(request: Request, date: Annotated[str | None, Query(pattern=r"^\d{2}-\d{2}$")] = None) -> EventsResponse:
+async def list_events(request: Request, response: Response, date: Annotated[str | None, Query(pattern=r"^\d{2}-\d{2}$")] = None) -> EventsResponse:
     """List historical events, optionally filtered by date (MM-DD format)."""
     if date:
         month, day = int(date[:2]), int(date[3:])
@@ -57,6 +59,8 @@ async def list_events(request: Request, date: Annotated[str | None, Query(patter
 
     events = await get_events_for_date(month, day)
     fictional_count = sum(1 for e in events if e.source.type == "ai_generated")
+
+    response.headers["Cache-Control"] = "public, max-age=1800, stale-while-revalidate=3600"
 
     return EventsResponse(
         data=events,
