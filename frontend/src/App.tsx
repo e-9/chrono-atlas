@@ -71,20 +71,20 @@ function AppContent() {
         transition: 'padding 0.75s cubic-bezier(0.4, 0, 0.2, 1)',
         position: 'relative', zIndex: 1,
       }}>
-        <div>
-          <h1
-            style={{
-              margin: 0,
-              fontFamily: "'Cinzel', serif",
-              fontWeight: 400,
-              fontSize: compact ? 16 : 22,
-              letterSpacing: compact ? '0.15em' : '0.2em',
-              color: '#e8e4d9',
-              transition: 'font-size 0.75s cubic-bezier(0.4, 0, 0.2, 1), letter-spacing 0.75s cubic-bezier(0.4, 0, 0.2, 1)',
-            }}
-          >
-            CHRONO ATLAS
-          </h1>
+        <h1
+          style={{
+            margin: 0,
+            fontFamily: "'Cinzel', serif",
+            fontWeight: 400,
+            fontSize: compact ? 16 : 22,
+            letterSpacing: compact ? '0.15em' : '0.2em',
+            color: '#e8e4d9',
+            transition: 'font-size 0.75s cubic-bezier(0.4, 0, 0.2, 1), letter-spacing 0.75s cubic-bezier(0.4, 0, 0.2, 1)',
+          }}
+        >
+          CHRONO ATLAS
+        </h1>
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: compact ? 0 : 12, transition: 'gap 0.75s cubic-bezier(0.4, 0, 0.2, 1)' }}>
           <p
             style={{
               margin: 0,
@@ -95,26 +95,30 @@ function AppContent() {
               letterSpacing: '0.04em',
               color: '#7a7570',
               overflow: 'hidden',
+              maxWidth: compact ? 0 : 400,
               opacity: compact ? 0 : 1,
-              transition: 'font-size 0.75s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s',
+              whiteSpace: 'nowrap',
+              transition: 'font-size 0.75s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s, max-width 0.75s cubic-bezier(0.4, 0, 0.2, 1)',
             }}
           >
             Explore the events that made this day historic
           </p>
-        </div>
-        <time
-          dateTime={date}
-          style={{
-            fontFamily: "'Cormorant Garamond', 'Playfair Display', Georgia, serif",
-            fontWeight: 300,
-            fontSize: compact ? 14 : 18,
-            letterSpacing: '0.08em',
-            color: '#a8a29e',
-            transition: 'font-size 0.75s cubic-bezier(0.4, 0, 0.2, 1)',
-          }}
-        >
+          <span style={{ color: 'rgba(255,255,255,0.15)', fontSize: 14, opacity: compact ? 0 : 1, transition: 'opacity 0.5s' }}>·</span>
+          <time
+            dateTime={date}
+            style={{
+              fontFamily: "'Cormorant Garamond', 'Playfair Display', Georgia, serif",
+              fontWeight: 300,
+              fontSize: compact ? 14 : 18,
+              letterSpacing: '0.08em',
+              color: '#a8a29e',
+              transition: 'font-size 0.75s cubic-bezier(0.4, 0, 0.2, 1)',
+              whiteSpace: 'nowrap',
+            }}
+          >
           {formatTodayLabel()}
-        </time>
+          </time>
+        </div>
       </header>
 
       <main id="main-content" style={{ position: 'relative', flex: 1, display: 'flex', flexDirection: 'column', overflow: 'auto', zIndex: 1 }}>
