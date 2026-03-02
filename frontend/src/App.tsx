@@ -71,19 +71,37 @@ function AppContent() {
         transition: 'padding 0.75s cubic-bezier(0.4, 0, 0.2, 1)',
         position: 'relative', zIndex: 1,
       }}>
-        <h1
-          style={{
-            margin: 0,
-            fontFamily: "'Cinzel', serif",
-            fontWeight: 400,
-            fontSize: compact ? 16 : 22,
-            letterSpacing: compact ? '0.15em' : '0.2em',
-            color: '#e8e4d9',
-            transition: 'font-size 0.75s cubic-bezier(0.4, 0, 0.2, 1), letter-spacing 0.75s cubic-bezier(0.4, 0, 0.2, 1)',
-          }}
-        >
-          CHRONO ATLAS
-        </h1>
+        <div>
+          <h1
+            style={{
+              margin: 0,
+              fontFamily: "'Cinzel', serif",
+              fontWeight: 400,
+              fontSize: compact ? 16 : 22,
+              letterSpacing: compact ? '0.15em' : '0.2em',
+              color: '#e8e4d9',
+              transition: 'font-size 0.75s cubic-bezier(0.4, 0, 0.2, 1), letter-spacing 0.75s cubic-bezier(0.4, 0, 0.2, 1)',
+            }}
+          >
+            CHRONO ATLAS
+          </h1>
+          <p
+            style={{
+              margin: 0,
+              fontFamily: "'Cormorant Garamond', 'Playfair Display', Georgia, serif",
+              fontWeight: 300,
+              fontStyle: 'italic',
+              fontSize: compact ? 0 : 13,
+              letterSpacing: '0.04em',
+              color: '#7a7570',
+              overflow: 'hidden',
+              opacity: compact ? 0 : 1,
+              transition: 'font-size 0.75s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s',
+            }}
+          >
+            Explore the events that made this day historic
+          </p>
+        </div>
         <time
           dateTime={date}
           style={{
