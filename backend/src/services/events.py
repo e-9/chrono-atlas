@@ -35,7 +35,7 @@ async def get_events_for_date(month: int, day: int) -> list[HistoricalEvent]:
     if not wiki_events:
         logger.info("wikipedia_empty_fallback", date=cache_key)
         fictional = generate_fictional_events(month, day, count=5)
-        _events_cache[cache_key] = fictional
+        # Don't cache fictional-only results — retry Wikipedia on next request
         return fictional
 
     # 2. Extract place names and deduplicate before geocoding

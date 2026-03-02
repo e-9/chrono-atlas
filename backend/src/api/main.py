@@ -4,7 +4,7 @@ import asyncio
 import os
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
-from datetime import date, timezone
+from datetime import date, timedelta, timezone
 
 import structlog
 from fastapi import FastAPI, Request
@@ -36,32 +36,45 @@ log = structlog.get_logger()
 _CACHE_WARM_INTERVAL = 50 * 60  # 50 minutes (< 1hr event cache TTL)
 
 
-async def _warm_cache_once() -> None:
-    """Pre-warm spaCy model and prime today's event cache."""
-    from src.services.geocoding import _load_spacy
+def _dates_for_all_timezones() -> list[date]:
+    """Return the set of calendar dates that are 'today' across all timezones.
+
+    Timezones span UTC-12 to UTC+14, so at any moment there are up to 3
+    distinct calendar dates worldwide.  We return yesterday, today, and
+    tomorrow (UTC) to ensure every user sees a warm cache regardless of
+    their local timezone.
+    """
+    utc_today = date.today()
+    return [
+        utc_today - timedelta(days=1),
+        utc_today,
+        utc_today + timedelta(days=1),
+    ]
+
+
+async def _prime_dates(dates: list[date]) -> None:
+    """Fetch and cache events for each date, logging successes/failures."""
     from src.services.events import get_events_for_date
 
-    _load_spacy()
-    log.info("spacy_pre_warmed")
-
-    today = date.today()
-    try:
-        await get_events_for_date(today.month, today.day)
-        log.info("cache_primed", date=f"{today.month:02d}-{today.day:02d}")
-    except Exception:
-        log.exception("cache_prime_failed")
+    for d in dates:
+        key = f"{d.month:02d}-{d.day:02d}"
+        try:
+            await get_events_for_date(d.month, d.day)
+            log.info("cache_primed", date=key)
+        except Exception:
+            log.exception("cache_prime_failed", date=key)
 
 
-async def _cache_warm_loop() -> None:
-    """Periodically re-fetch today's events to keep cache warm."""
-    from src.services.events import get_events_for_date
+async def _prime_and_warm_loop() -> None:
+    """Prime event caches then re-fetch periodically."""
+    # Initial prime for all active timezone dates
+    await _prime_dates(_dates_for_all_timezones())
 
+    # Periodic refresh
     while True:
         await asyncio.sleep(_CACHE_WARM_INTERVAL)
-        today = date.today()
         try:
-            await get_events_for_date(today.month, today.day)
-            log.info("cache_refreshed", date=f"{today.month:02d}-{today.day:02d}")
+            await _prime_dates(_dates_for_all_timezones())
         except Exception:
             log.exception("cache_refresh_failed")
 
@@ -69,11 +82,14 @@ async def _cache_warm_loop() -> None:
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     log.info("chrono_atlas_starting", version="0.1.0")
-    # Pre-warm spaCy + prime today's cache in background
-    await _warm_cache_once()
-    warm_task = asyncio.create_task(_cache_warm_loop())
+    # Load spaCy synchronously (fast ~1-2s), but prime cache in background
+    # so the app starts serving requests immediately
+    from src.services.geocoding import _load_spacy
+    _load_spacy()
+    log.info("spacy_pre_warmed")
+    prime_task = asyncio.create_task(_prime_and_warm_loop())
     yield
-    warm_task.cancel()
+    prime_task.cancel()
     log.info("chrono_atlas_shutting_down")
 
 
