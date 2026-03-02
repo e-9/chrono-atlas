@@ -5,7 +5,7 @@ import { DatePicker } from './components/DatePicker/DatePicker';
 import { useEvents } from './hooks/useEvents';
 import { usePrefetchAdjacentDates } from './hooks/usePrefetchAdjacentDates';
 import type { HistoricalEvent } from './types/event';
-import logoImg from './assets/chrono-atlas-logo-transparent.png';
+import logoImg from './assets/chrono-atlas-logo-black.png';
 
 const CosmicCanvas = lazy(() => import('./components/CosmicCanvas/CosmicCanvas').then(m => ({ default: m.CosmicCanvas })));
 const ChronoMap = lazy(() => import('./components/Map/ChronoMap').then(m => ({ default: m.ChronoMap })));
