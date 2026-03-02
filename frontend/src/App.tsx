@@ -91,33 +91,22 @@ function AppContent() {
               fontFamily: "'Cormorant Garamond', 'Playfair Display', Georgia, serif",
               fontWeight: 300,
               fontStyle: 'italic',
-              fontSize: compact ? 0 : 13,
+              fontSize: compact ? 0 : 15,
               letterSpacing: '0.04em',
-              color: '#7a7570',
+              color: '#a8a29e',
               overflow: 'hidden',
-              maxWidth: compact ? 0 : 400,
+              maxWidth: compact ? 0 : 500,
               opacity: compact ? 0 : 1,
               whiteSpace: 'nowrap',
               transition: 'font-size 0.75s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s, max-width 0.75s cubic-bezier(0.4, 0, 0.2, 1)',
             }}
           >
-            Explore the events that made this day historic
+            Explore the events that made{' '}
+            <time dateTime={date} style={{ fontWeight: 600, fontStyle: 'normal', color: '#e8e4d9' }}>
+              {formatTodayLabel()}
+            </time>
+            {' '}historic
           </p>
-          <span style={{ color: 'rgba(255,255,255,0.15)', fontSize: 14, opacity: compact ? 0 : 1, transition: 'opacity 0.5s' }}>·</span>
-          <time
-            dateTime={date}
-            style={{
-              fontFamily: "'Cormorant Garamond', 'Playfair Display', Georgia, serif",
-              fontWeight: 300,
-              fontSize: compact ? 14 : 18,
-              letterSpacing: '0.08em',
-              color: '#a8a29e',
-              transition: 'font-size 0.75s cubic-bezier(0.4, 0, 0.2, 1)',
-              whiteSpace: 'nowrap',
-            }}
-          >
-          {formatTodayLabel()}
-          </time>
         </div>
       </header>
 
