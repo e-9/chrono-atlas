@@ -89,9 +89,9 @@ function AppContent() {
           alt="Chrono Atlas"
           onClick={resetToToday}
           style={{
-            height: compact ? 28 : 44,
+            width: compact ? 140 : 200,
             cursor: 'pointer',
-            transition: 'height 0.75s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s',
+            transition: 'width 0.75s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s',
           }}
           onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.8'; }}
           onMouseLeave={(e) => { e.currentTarget.style.opacity = '1'; }}
