@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 import datetime
 import uuid
 
@@ -68,12 +69,20 @@ async def get_events_for_date(month: int, day: int) -> list[HistoricalEvent]:
 
     logger.info("geocode_plan", curated_hits=len(geo_results), nominatim_needed=len(nominatim_queue))
 
-    # Geocode via Nominatim sequentially (respects rate limit) but only unique places
+    # Geocode via Nominatim sequentially (respects rate limit).
+    # Cap at 5 calls (~5s) to keep response time reasonable.
+    # Remaining places are geocoded in the background.
+    _MAX_NOMINATIM_PER_REQUEST = 5
+    geocoded_count = 0
     for place in nominatim_queue:
+        if geocoded_count >= _MAX_NOMINATIM_PER_REQUEST:
+            logger.info("nominatim_cap_reached", skipped=len(nominatim_queue) - geocoded_count)
+            break
         result = await geocode_nominatim(place)
         geo_results[place] = result
         if result is not None:
             _nominatim_cache[place] = result
+        geocoded_count += 1
 
     # 4. Build HistoricalEvent objects
     events: list[HistoricalEvent] = []
@@ -114,7 +123,76 @@ async def get_events_for_date(month: int, day: int) -> list[HistoricalEvent]:
 
     # 6. Cache results
     _events_cache[cache_key] = events
+
+    # 7. If we capped Nominatim, schedule background geocoding for full results.
+    #    Next request to this date will get the complete set from cache.
+    remaining = nominatim_queue[geocoded_count:]
+    if remaining:
+        asyncio.create_task(
+            _background_geocode(month, day, wiki_events, place_map, remaining)
+        )
+
     return events
+
+
+async def _background_geocode(
+    month: int,
+    day: int,
+    wiki_events: list[WikipediaEvent],
+    place_map: dict[int, str | None],
+    remaining_places: list[str],
+) -> None:
+    """Geocode remaining places in the background and update the cache."""
+    cache_key = f"{month:02d}-{day:02d}"
+    logger.info("background_geocode_start", date=cache_key, places=len(remaining_places))
+
+    new_geo: dict[str, GeoLocation | None] = {}
+    for place in remaining_places:
+        result = await geocode_nominatim(place)
+        new_geo[place] = result
+        if result is not None:
+            _nominatim_cache[place] = result
+
+    # Rebuild the full event list with all geocoded data
+    all_geo = {}
+    # Gather curated + cached results for all unique places
+    for i, we in enumerate(wiki_events):
+        p = place_map.get(i)
+        if p and p in _nominatim_cache:
+            all_geo[p] = _nominatim_cache[p]
+        elif p:
+            curated = lookup_curated(p)
+            if curated:
+                all_geo[p] = curated
+
+    all_geo.update(new_geo)
+
+    events: list[HistoricalEvent] = []
+    for i, we in enumerate(wiki_events):
+        place = place_map.get(i)
+        if place is None:
+            continue
+        location = all_geo.get(place)
+        if location is None:
+            continue
+        events.append(HistoricalEvent(
+            id=str(uuid.uuid4()),
+            iso_date=cache_key,
+            source=EventSource(type="wikipedia", source_url=we.wikipedia_url),
+            title=we.text[:120] if len(we.text) > 120 else we.text,
+            description=we.extract or we.text,
+            year=we.year,
+            categories=_infer_categories(we.text),
+            location=location,
+            media={"imageUrl": we.thumbnail_url} if we.thumbnail_url else None,
+            created_at=datetime.datetime.now(datetime.timezone.utc).isoformat(),
+        ))
+
+    if len(events) < 5:
+        events.extend(generate_fictional_events(month, day, count=5 - len(events)))
+
+    _events_cache[cache_key] = events
+    logger.info("background_geocode_done", date=cache_key, total_events=len(events))
 
 
 def _infer_categories(text: str) -> list[str]:

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 from dataclasses import dataclass
 from datetime import UTC, datetime
 from typing import Any
@@ -9,7 +10,8 @@ import structlog
 
 logger = structlog.get_logger(__name__)
 
-_API_URL = "https://api.wikimedia.org/feed/v1/wikipedia/en/onthisday/all/{month}/{day}"
+_API_BASE = "https://api.wikimedia.org/feed/v1/wikipedia/en/onthisday"
+_API_URL = f"{_API_BASE}/all/{{month}}/{{day}}"
 _USER_AGENT = "ChronoAtlas/0.1 (https://github.com/e-9/chrono-atlas)"
 _TIMEOUT = httpx.Timeout(10.0, connect=5.0)
 _MAX_RETRIES = 3
@@ -58,35 +60,37 @@ def _parse_event(raw: dict[str, Any]) -> WikipediaEvent | None:
 
 
 async def fetch_on_this_day(month: int, day: int) -> list[WikipediaEvent]:
-    """Fetch historical events from Wikipedia's 'On This Day' API."""
-    url = _API_URL.format(month=f"{month:02d}", day=f"{day:02d}")
+    """Fetch historical events from Wikipedia's 'On This Day' API.
+
+    Fetches /selected and /events endpoints in parallel (skipping births/deaths/holidays)
+    for faster responses.
+    """
+    mm_dd = f"{month:02d}/{day:02d}"
     log = logger.bind(month=month, day=day)
     log.info("wikipedia.fetch_start")
 
     transport = httpx.AsyncHTTPTransport(retries=_MAX_RETRIES)
+    headers = {"User-Agent": _USER_AGENT}
     async with httpx.AsyncClient(transport=transport, timeout=_TIMEOUT) as client:
-        try:
-            resp = await client.get(url, headers={"User-Agent": _USER_AGENT})
-            resp.raise_for_status()
-        except httpx.TimeoutException:
-            log.warning("wikipedia.timeout")
-            return []
-        except httpx.HTTPStatusError as exc:
-            log.warning("wikipedia.http_error", status=exc.response.status_code)
-            return []
-        except httpx.HTTPError as exc:
-            log.warning("wikipedia.request_error", error=str(exc))
-            return []
 
-    data: dict[str, Any] = resp.json()
+        async def _fetch(endpoint: str) -> list[dict[str, Any]]:
+            url = f"{_API_BASE}/{endpoint}/{mm_dd}"
+            try:
+                resp = await client.get(url, headers=headers)
+                resp.raise_for_status()
+                return resp.json().get(endpoint, [])
+            except (httpx.TimeoutException, httpx.HTTPStatusError, httpx.HTTPError) as exc:
+                log.warning(f"wikipedia.{endpoint}_error", error=str(exc))
+                return []
 
-    selected: list[dict[str, Any]] = data.get("selected") or []
-    events: list[dict[str, Any]] = data.get("events") or []
+        selected_items, event_items = await asyncio.gather(
+            _fetch("selected"), _fetch("events")
+        )
 
     seen: set[tuple[int, str]] = set()
     results: list[WikipediaEvent] = []
 
-    for raw in selected + events:
+    for raw in selected_items + event_items:
         parsed = _parse_event(raw)
         if parsed is None:
             continue

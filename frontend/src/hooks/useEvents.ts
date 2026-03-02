@@ -4,10 +4,14 @@ import { fetchEvents } from '../services/api';
 export function useEvents(date: string) {
   return useQuery({
     queryKey: ['events', date],
-    queryFn: () => fetchEvents(date),
+    queryFn: async () => {
+      const t0 = performance.now();
+      const result = await fetchEvents(date);
+      console.log(`[perf] API fetch ${date}: ${Math.round(performance.now() - t0)}ms, ${result.data.length} events`);
+      return result;
+    },
     staleTime: 5 * 60 * 1000,
     retry: 1,
-    // First load can take ~30-60s due to geocoding
     gcTime: 30 * 60 * 1000,
   });
 }
