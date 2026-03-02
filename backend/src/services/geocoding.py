@@ -29,6 +29,15 @@ _USER_AGENT = "ChronoAtlas/0.1 (https://github.com/e-9/chrono-atlas)"
 _CURATED_CSV = Path(__file__).resolve().parents[2] / "data" / "historical_places.csv"
 
 _last_nominatim_call: float = 0.0
+_csv_write_lock: asyncio.Lock | None = None
+
+
+def _get_csv_lock() -> asyncio.Lock:
+    """Lazy-init an asyncio lock for CSV writes."""
+    global _csv_write_lock  # noqa: PLW0603
+    if _csv_write_lock is None:
+        _csv_write_lock = asyncio.Lock()
+    return _csv_write_lock
 
 
 # ---------------------------------------------------------------------------
@@ -166,6 +175,38 @@ async def geocode_nominatim(place_name: str) -> GeoLocation | None:
     )
 
 
+async def _persist_to_curated(place_name: str, geo: GeoLocation) -> None:
+    """Append a Nominatim result to the curated CSV and in-memory dict.
+
+    This grows the curated dataset over time so the same place is never
+    looked up via Nominatim again.
+    """
+    curated = _load_curated()
+    key = place_name.strip().lower()
+    if key in curated:
+        return
+
+    curated_entry = GeoLocation(
+        coordinates=geo.coordinates,
+        confidence="high",
+        geocoder="curated",
+        place_name=place_name.strip(),
+        modern_equivalent=geo.modern_equivalent,
+    )
+    curated[key] = curated_entry
+
+    async with _get_csv_lock():
+        try:
+            with _CURATED_CSV.open("a", newline="", encoding="utf-8") as fh:
+                writer = csv.writer(fh)
+                lon, lat = geo.coordinates
+                modern = geo.modern_equivalent or place_name.strip()
+                writer.writerow([place_name.strip(), modern, lat, lon])
+            logger.info("curated_place_persisted", place=place_name)
+        except OSError as exc:
+            logger.warning("curated_persist_failed", error=str(exc))
+
+
 # ---------------------------------------------------------------------------
 # Main pipeline
 # ---------------------------------------------------------------------------
@@ -205,6 +246,7 @@ async def geocode_event(text: str, title: str = "") -> GeoLocation | None:
     if result is not None:
         logger.info("geocode_stage3_nominatim_hit", place=place)
         _geocode_cache[cache_key] = result
+        await _persist_to_curated(place, result)
         return result
 
     logger.warning("geocode_all_stages_failed", place=place)

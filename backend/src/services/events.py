@@ -9,7 +9,7 @@ from cachetools import TTLCache
 
 from src.models.event import EventSource, GeoLocation, HistoricalEvent
 from src.services.fiction import generate_fictional_events
-from src.services.geocoding import extract_place_name, geocode_event, lookup_curated, geocode_nominatim
+from src.services.geocoding import extract_place_name, geocode_event, lookup_curated, geocode_nominatim, _persist_to_curated
 from src.services.wikipedia import WikipediaEvent, fetch_on_this_day
 
 logger = structlog.get_logger(__name__)
@@ -82,6 +82,7 @@ async def get_events_for_date(month: int, day: int) -> list[HistoricalEvent]:
         geo_results[place] = result
         if result is not None:
             _nominatim_cache[place] = result
+            await _persist_to_curated(place, result)
         geocoded_count += 1
 
     # 4. Build HistoricalEvent objects
@@ -152,6 +153,7 @@ async def _background_geocode(
         new_geo[place] = result
         if result is not None:
             _nominatim_cache[place] = result
+            await _persist_to_curated(place, result)
 
     # Rebuild the full event list with all geocoded data
     all_geo = {}
