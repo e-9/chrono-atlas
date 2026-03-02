@@ -1,9 +1,7 @@
-import { useState, useEffect, useRef, useCallback, lazy, Suspense } from 'react';
+import { useState, useCallback, lazy, Suspense } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { EventDetail } from './components/EventDetail/EventDetail';
-import { DatePicker } from './components/DatePicker/DatePicker';
 import { useEvents } from './hooks/useEvents';
-import { usePrefetchAdjacentDates } from './hooks/usePrefetchAdjacentDates';
 import type { HistoricalEvent } from './types/event';
 
 const CosmicCanvas = lazy(() => import('./components/CosmicCanvas/CosmicCanvas').then(m => ({ default: m.CosmicCanvas })));
@@ -11,29 +9,25 @@ const ChronoMap = lazy(() => import('./components/Map/ChronoMap').then(m => ({ d
 
 const queryClient = new QueryClient();
 
+const MONTHS = [
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December',
+];
+
 function getTodayDate(): string {
   const now = new Date();
   return `${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
 }
 
+function formatTodayLabel(): string {
+  const now = new Date();
+  return `${MONTHS[now.getMonth()]} ${now.getDate()}`;
+}
+
 function AppContent() {
-  const [date, setDate] = useState(getTodayDate());
+  const date = getTodayDate();
   const [selectedEvent, setSelectedEvent] = useState<HistoricalEvent | null>(null);
   const { data, isLoading, error, refetch } = useEvents(date);
-  usePrefetchAdjacentDates(date);
-
-  const [fading, setFading] = useState(false);
-  const isFirstRender = useRef(true);
-
-  useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
-    setFading(true);
-    const timer = setTimeout(() => setFading(false), 300);
-    return () => clearTimeout(timer);
-  }, [date]);
 
   const [cardClosing, setCardClosing] = useState(false);
   const compact = !!selectedEvent && !cardClosing;
@@ -44,12 +38,6 @@ function AppContent() {
       setSelectedEvent(null);
       setCardClosing(false);
     }, 750);
-  }, []);
-
-  const resetToToday = useCallback(() => {
-    setDate(getTodayDate());
-    setSelectedEvent(null);
-    setCardClosing(false);
   }, []);
 
   return (
@@ -84,26 +72,31 @@ function AppContent() {
         position: 'relative', zIndex: 1,
       }}>
         <h1
-          onClick={resetToToday}
-          role="button"
-          tabIndex={0}
-          onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') resetToToday(); }}
-          aria-label="Chrono Atlas — go to today"
           style={{
-            margin: 0, cursor: 'pointer',
+            margin: 0,
             fontFamily: "'Cinzel', serif",
             fontWeight: 400,
             fontSize: compact ? 16 : 22,
             letterSpacing: compact ? '0.15em' : '0.2em',
             color: '#e8e4d9',
-            transition: 'font-size 0.75s cubic-bezier(0.4, 0, 0.2, 1), letter-spacing 0.75s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s',
+            transition: 'font-size 0.75s cubic-bezier(0.4, 0, 0.2, 1), letter-spacing 0.75s cubic-bezier(0.4, 0, 0.2, 1)',
           }}
-          onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.8'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.opacity = '1'; }}
         >
           CHRONO ATLAS
         </h1>
-        <DatePicker value={date} onChange={setDate} />
+        <time
+          dateTime={date}
+          style={{
+            fontFamily: "'Cormorant Garamond', 'Playfair Display', Georgia, serif",
+            fontWeight: 300,
+            fontSize: compact ? 14 : 18,
+            letterSpacing: '0.08em',
+            color: '#a8a29e',
+            transition: 'font-size 0.75s cubic-bezier(0.4, 0, 0.2, 1)',
+          }}
+        >
+          {formatTodayLabel()}
+        </time>
       </header>
 
       <main id="main-content" style={{ position: 'relative', flex: 1, display: 'flex', flexDirection: 'column', overflow: 'auto', zIndex: 1 }}>
@@ -165,9 +158,8 @@ function AppContent() {
         {data && (
           <>
             <div style={{
-              opacity: fading ? 0 : 1,
               height: compact ? 'calc(100vh - 230px)' : 'calc(100vh - 120px)',
-              transition: 'opacity 0.3s, height 0.75s cubic-bezier(0.4, 0, 0.2, 1)',
+              transition: 'height 0.75s cubic-bezier(0.4, 0, 0.2, 1)',
               display: 'flex', flexDirection: 'column', alignItems: 'center',
               justifyContent: 'center', flexShrink: 0,
             }}>
