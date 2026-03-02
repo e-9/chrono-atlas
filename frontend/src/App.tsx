@@ -5,6 +5,7 @@ import { DatePicker } from './components/DatePicker/DatePicker';
 import { useEvents } from './hooks/useEvents';
 import { usePrefetchAdjacentDates } from './hooks/usePrefetchAdjacentDates';
 import type { HistoricalEvent } from './types/event';
+import logoBlack from './assets/chrono-atlas-logo-black.png';
 
 const CosmicCanvas = lazy(() => import('./components/CosmicCanvas/CosmicCanvas').then(m => ({ default: m.CosmicCanvas })));
 const ChronoMap = lazy(() => import('./components/Map/ChronoMap').then(m => ({ default: m.ChronoMap })));
@@ -83,18 +84,18 @@ function AppContent() {
         transition: 'padding 0.75s cubic-bezier(0.4, 0, 0.2, 1)',
         position: 'relative', zIndex: 1,
       }}>
-        <h1
+        <img
+          src={logoBlack}
+          alt="Chrono Atlas"
           onClick={resetToToday}
           style={{
-            margin: 0, color: '#e0dde4', cursor: 'pointer',
-            fontSize: compact ? 16 : 24,
-            transition: 'font-size 0.75s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s',
+            height: compact ? 28 : 44,
+            cursor: 'pointer',
+            transition: 'height 0.75s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s',
           }}
           onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.8'; }}
           onMouseLeave={(e) => { e.currentTarget.style.opacity = '1'; }}
-        >
-          🌍 Chrono Atlas
-        </h1>
+        />
         <DatePicker value={date} onChange={setDate} />
       </header>
 
