@@ -13,7 +13,7 @@ logger = structlog.get_logger(__name__)
 _API_BASE = "https://api.wikimedia.org/feed/v1/wikipedia/en/onthisday"
 _API_URL = f"{_API_BASE}/all/{{month}}/{{day}}"
 _USER_AGENT = "ChronoAtlas/0.1 (https://github.com/e-9/chrono-atlas)"
-_TIMEOUT = httpx.Timeout(10.0, connect=5.0)
+_TIMEOUT = httpx.Timeout(20.0, connect=10.0)
 _MAX_RETRIES = 3
 
 
@@ -59,15 +59,23 @@ def _parse_event(raw: dict[str, Any]) -> WikipediaEvent | None:
     )
 
 
-async def fetch_on_this_day(month: int, day: int) -> list[WikipediaEvent]:
+@dataclass(frozen=True, slots=True)
+class WikipediaResult:
+    events: list[WikipediaEvent]
+    partial: bool  # True if one or more endpoints failed
+
+
+async def fetch_on_this_day(month: int, day: int) -> WikipediaResult:
     """Fetch historical events from Wikipedia's 'On This Day' API.
 
     Fetches /selected and /events endpoints in parallel (skipping births/deaths/holidays)
-    for faster responses.
+    for faster responses. Returns a WikipediaResult indicating if the fetch was partial.
     """
     mm_dd = f"{month:02d}/{day:02d}"
     log = logger.bind(month=month, day=day)
     log.info("wikipedia.fetch_start")
+
+    endpoint_failures: list[str] = []
 
     transport = httpx.AsyncHTTPTransport(retries=_MAX_RETRIES)
     headers = {"User-Agent": _USER_AGENT}
@@ -81,6 +89,7 @@ async def fetch_on_this_day(month: int, day: int) -> list[WikipediaEvent]:
                 return resp.json().get(endpoint, [])
             except (httpx.TimeoutException, httpx.HTTPStatusError, httpx.HTTPError) as exc:
                 log.warning(f"wikipedia.{endpoint}_error", error=str(exc))
+                endpoint_failures.append(endpoint)
                 return []
 
         selected_items, event_items = await asyncio.gather(
@@ -101,11 +110,12 @@ async def fetch_on_this_day(month: int, day: int) -> list[WikipediaEvent]:
         results.append(parsed)
 
     results.sort(key=lambda e: e.year)
-    log.info("wikipedia.fetch_done", count=len(results))
-    return results
+    partial = len(endpoint_failures) > 0
+    log.info("wikipedia.fetch_done", count=len(results), partial=partial)
+    return WikipediaResult(events=results, partial=partial)
 
 
-async def fetch_today() -> list[WikipediaEvent]:
+async def fetch_today() -> WikipediaResult:
     """Fetch historical events for today's date."""
     now = datetime.now(tz=UTC)
     return await fetch_on_this_day(now.month, now.day)

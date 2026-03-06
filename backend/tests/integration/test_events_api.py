@@ -6,7 +6,7 @@ import pytest
 
 from src.models.event import GeoLocation
 from src.services.events import clear_cache
-from src.services.wikipedia import WikipediaEvent
+from src.services.wikipedia import WikipediaEvent, WikipediaResult
 
 FAKE_WIKI_EVENTS = [
     WikipediaEvent(
@@ -26,6 +26,9 @@ FAKE_WIKI_EVENTS = [
         extract="Major battle of World War II.",
     ),
 ]
+
+FAKE_WIKI_RESULT = WikipediaResult(events=FAKE_WIKI_EVENTS, partial=False)
+FAKE_EMPTY_RESULT = WikipediaResult(events=[], partial=False)
 
 FAKE_GEO = GeoLocation(
     coordinates=(-0.1276, 51.5074),
@@ -47,7 +50,7 @@ def _clear_cache():
 @pytest.fixture()
 def _mock_services():
     with (
-        patch(f"{_PATCH_PREFIX}.fetch_on_this_day", return_value=FAKE_WIKI_EVENTS),
+        patch(f"{_PATCH_PREFIX}.fetch_on_this_day", return_value=FAKE_WIKI_RESULT),
         patch(f"{_PATCH_PREFIX}.extract_place_name", return_value="London"),
         patch(f"{_PATCH_PREFIX}.lookup_curated", return_value=FAKE_GEO),
         patch(f"{_PATCH_PREFIX}.geocode_nominatim", return_value=FAKE_GEO),
@@ -149,7 +152,7 @@ async def test_events_have_camel_case_keys(client, _mock_services):
 async def test_fictional_events_have_ai_generated_source(client):
     """When Wikipedia returns nothing, fictional events fill in."""
     with (
-        patch(f"{_PATCH_PREFIX}.fetch_on_this_day", return_value=[]),
+        patch(f"{_PATCH_PREFIX}.fetch_on_this_day", return_value=FAKE_EMPTY_RESULT),
         patch(f"{_PATCH_PREFIX}.extract_place_name", return_value="London"),
         patch(f"{_PATCH_PREFIX}.lookup_curated", return_value=FAKE_GEO),
         patch(f"{_PATCH_PREFIX}.geocode_nominatim", return_value=FAKE_GEO),

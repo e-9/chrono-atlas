@@ -1,431 +1,419 @@
 historical_name,modern_name,lat,lng
-Constantinople,Istanbul,41.0082,28.9784
-Prussia,Berlin,52.5200,13.4050
-Gaul,Paris,48.8566,2.3522
-Persia,Tehran,35.6892,51.3890
-Ceylon,Sri Lanka,7.8731,80.7718
-Siam,Bangkok,13.7563,100.5018
+a West Coast Conference,"Conference Room, Bushman Route, Matzikama Ward 7, Matzikama Local Municipality, West Coast District Municipality, Western Cape, South Africa",-31.8095155,18.7833145
 Abyssinia,Addis Ababa,9.0250,38.7469
-Bohemia,Prague,50.0755,14.4378
-Rhodesia,Harare,-17.8292,31.0522
-New Spain,Mexico City,19.4326,-99.1332
-Cathay,Beijing,39.9042,116.4074
-Mesopotamia,Baghdad,33.3152,44.3661
-Ottoman Empire,Istanbul,41.0082,28.9784
-Byzantine Empire,Istanbul,41.0082,28.9784
-Roman Empire,Rome,41.9028,12.4964
-Holy Roman Empire,Vienna,48.2082,16.3738
-Bombay,Mumbai,19.0760,72.8777
-Peking,Beijing,39.9042,116.4074
-Saigon,Ho Chi Minh City,10.8231,106.6297
-Leningrad,Saint Petersburg,59.9343,30.3351
-Stalingrad,Volgograd,48.7080,44.5133
-East Germany,Berlin,52.5200,13.4050
-West Germany,Bonn,50.7374,7.0982
-Yugoslavia,Belgrade,44.7866,20.4489
-Czechoslovakia,Prague,50.0755,14.4378
-Soviet Union,Moscow,55.7558,37.6173
-Burma,Yangon,16.8661,96.1951
-Formosa,Taipei,25.0330,121.5654
-Zaire,Kinshasa,-4.4419,15.2663
-Upper Volta,Ouagadougou,12.3714,-1.5197
-Bengal,Dhaka,23.8103,90.4125
-Hindustan,Delhi,28.7041,77.1025
-New Holland,Sydney,-33.8688,151.2093
-Batavia,Jakarta,-6.2088,106.8456
-Edo,Tokyo,35.6762,139.6503
-Nubia,Khartoum,15.5007,32.5599
-Carthage,Tunis,36.8065,10.1815
-Lusitania,Lisbon,38.7223,-9.1393
-Hispania,Madrid,40.4168,-3.7038
-Britannia,London,51.5074,-0.1278
-Helvetia,Bern,46.9480,7.4474
-Caledonia,Edinburgh,55.9533,-3.1883
-Hibernia,Dublin,53.3498,-6.2603
-Sumer,Nasiriyah,31.0440,46.2576
-Assyria,Mosul,36.3350,43.1189
-Phoenicia,Beirut,33.8938,35.5018
-Judea,Jerusalem,31.7683,35.2137
-Anatolia,Ankara,39.9334,32.8597
-Transvaal,Pretoria,-25.7479,28.2293
-Manchuria,Shenyang,41.8057,123.4315
-Zanzibar,Zanzibar City,-6.1659,39.2026
-Tanganyika,Dar es Salaam,-6.7924,39.2083
-Bechuanaland,Gaborone,-24.6282,25.9231
-Nyasaland,Lilongwe,-13.9626,33.7741
-Swaziland,Mbabane,-26.3054,31.1367
-London,London,51.5074,-0.1278
-Paris,Paris,48.8566,2.3522
-Rome,Rome,41.9028,12.4964
-Berlin,Berlin,52.5200,13.4050
-Moscow,Moscow,55.7558,37.6173
-Washington,Washington DC,38.9072,-77.0369
-New York,New York City,40.7128,-74.0060
-Tokyo,Tokyo,35.6762,139.6503
-Beijing,Beijing,39.9042,116.4074
-Madrid,Madrid,40.4168,-3.7038
-Vienna,Vienna,48.2082,16.3738
-Istanbul,Istanbul,41.0082,28.9784
-Cairo,Cairo,30.0444,31.2357
-Athens,Athens,37.9838,23.7275
-Jerusalem,Jerusalem,31.7683,35.2137
-Baghdad,Baghdad,33.3152,44.3661
-Tehran,Tehran,35.6892,51.3890
-Delhi,Delhi,28.7041,77.1025
-Mumbai,Mumbai,19.0760,72.8777
-Sydney,Sydney,-33.8688,151.2093
-Mexico City,Mexico City,19.4326,-99.1332
-Buenos Aires,Buenos Aires,-34.6037,-58.3816
-Rio de Janeiro,Rio de Janeiro,-22.9068,-43.1729
-Lisbon,Lisbon,38.7223,-9.1393
-Amsterdam,Amsterdam,52.3676,4.9041
-Brussels,Brussels,50.8503,4.3517
-Stockholm,Stockholm,59.3293,18.0686
-Oslo,Oslo,59.9139,10.7522
-Copenhagen,Copenhagen,55.6761,12.5683
-Helsinki,Helsinki,60.1699,24.9384
-Warsaw,Warsaw,52.2297,21.0122
-Prague,Prague,50.0755,14.4378
-Budapest,Budapest,47.4979,19.0402
-Dublin,Dublin,53.3498,-6.2603
-Edinburgh,Edinburgh,55.9533,-3.1883
-Bern,Bern,46.9480,7.4474
-Geneva,Geneva,46.2044,6.1432
-Zurich,Zurich,47.3769,8.5417
-Milan,Milan,45.4642,9.1900
-Florence,Florence,43.7696,11.2558
-Venice,Venice,45.4408,12.3155
-Naples,Naples,40.8518,14.2681
-Barcelona,Barcelona,41.3874,2.1686
-Seville,Seville,37.3891,-5.9845
-Havana,Havana,23.1136,-82.3666
-Bogota,Bogota,4.7110,-74.0721
-Lima,Lima,-12.0464,-77.0428
-Santiago,Santiago,-33.4489,-70.6693
-Nairobi,Nairobi,-1.2921,36.8219
-Johannesburg,Johannesburg,-26.2041,28.0473
-Cape Town,Cape Town,-33.9249,18.4241
-Lagos,Lagos,6.5244,3.3792
+Afghanistan,Kabul,34.5553,69.2075
+Africa,Afrika / أفريقيا,11.5024338,17.7578122
+Afrin,"عفرين, ناحية مركز عفرين, منطقة عفرين, محافظة حلب, سوريا",36.5083795,36.870089
+Alabama,Montgomery,32.3792,-86.3077
+Alashankou,Alashankou,45.1764,82.5678
+Albania,Shqipëria,41.000028,19.9999619
+Alberta,"Alberta, Canada",55.001251,-115.002136
+Algeria,Algiers,36.7538,3.0588
 Algiers,Algiers,36.7538,3.0588
-Beirut,Beirut,33.8938,35.5018
-Damascus,Damascus,33.5138,36.2765
-Kabul,Kabul,34.5553,69.2075
-Hanoi,Hanoi,21.0285,105.8542
-Seoul,Seoul,37.5665,126.9780
-Shanghai,Shanghai,31.2304,121.4737
-Hong Kong,Hong Kong,22.3193,114.1694
-Singapore,Singapore,1.3521,103.8198
-Bangkok,Bangkok,13.7563,100.5018
-Manila,Manila,14.5995,120.9842
-Jakarta,Jakarta,-6.2088,106.8456
+Amorium,"Amorium, 03-02, Hisar, Suvermez, Emirdağ, Afyonkarahisar, Ege Bölgesi, Türkiye",39.0231965,31.2960575
+Amsterdam,Amsterdam,52.3676,4.9041
+Anatolia,Ankara,39.9334,32.8597
+Andes,"Andes, Suroeste, Antioquia, RAP del Agua y la Montaña, Colombia",5.6556134,-75.8776753
+Anglesey,"Ynys Môn / Anglesey, Ynys Môn / Isle of Anglesey, Cymru / Wales, United Kingdom",53.2782258,-4.3319194
 Ankara,Ankara,39.9334,32.8597
-Taipei,Taipei,25.0330,121.5654
-Ottawa,Ottawa,45.4215,-75.6972
-Canberra,Canberra,-35.2809,149.1300
-Washington D.C.,Washington DC,38.9072,-77.0369
-St. Petersburg,Saint Petersburg,59.9343,30.3351
-Saint Petersburg,Saint Petersburg,59.9343,30.3351
-Kyiv,Kyiv,50.4501,30.5234
-Havana,Havana,23.1136,-82.3666
-United States,Washington DC,38.9072,-77.0369
-United Kingdom,London,51.5074,-0.1278
-France,Paris,48.8566,2.3522
-Germany,Berlin,52.5200,13.4050
-Italy,Rome,41.9028,12.4964
-Spain,Madrid,40.4168,-3.7038
-Russia,Moscow,55.7558,37.6173
-China,Beijing,39.9042,116.4074
-Japan,Tokyo,35.6762,139.6503
-India,Delhi,28.7041,77.1025
-Brazil,Brasilia,-15.7975,-47.8919
-Canada,Ottawa,45.4215,-75.6972
-Australia,Canberra,-35.2809,149.1300
-Mexico,Mexico City,19.4326,-99.1332
-Egypt,Cairo,30.0444,31.2357
-South Africa,Pretoria,-25.7479,28.2293
+Antarctic,Antarctica,-72.8438691,0.0
 Argentina,Buenos Aires,-34.6037,-58.3816
-Turkey,Ankara,39.9334,32.8597
-Poland,Warsaw,52.2297,21.0122
-Netherlands,Amsterdam,52.3676,4.9041
-Greece,Athens,37.9838,23.7275
-Portugal,Lisbon,38.7223,-9.1393
-Ireland,Dublin,53.3498,-6.2603
-Scotland,Edinburgh,55.9533,-3.1883
-England,London,51.5074,-0.1278
-Sweden,Stockholm,59.3293,18.0686
-Norway,Oslo,59.9139,10.7522
-Denmark,Copenhagen,55.6761,12.5683
-Finland,Helsinki,60.1699,24.9384
-Switzerland,Bern,46.9480,7.4474
+Arizona,"Arizona, United States",34.395342,-111.763275
+Armenia,Հայաստան,40.7696272,44.6736646
+Assyria,Mosul,36.3350,43.1189
+Athens,Athens,37.9838,23.7275
+Australia,Canberra,-35.2809,149.1300
 Austria,Vienna,48.2082,16.3738
-Hungary,Budapest,47.4979,19.0402
+Awadh,Lucknow,26.8467,80.9462
+Baghdad,Baghdad,33.3152,44.3661
+Bahamas,The Bahamas,24.7736546,-78.0000547
+Bahrain,البحرين,26.1551249,50.5344606
+Bangkok,Bangkok,13.7563,100.5018
+Barbados,Barbados,13.1500331,-59.5250305
+Barcelona,Barcelona,41.3874,2.1686
+Barquisimeto,"Barquisimeto, Parroquia Concepción, Municipio Iribarren, Lara, 3001, Venezuela",10.0774374,-69.3222293
+Basilicata,"Basilicata, Italia",40.500571,16.081953
+Batavia,Jakarta,-6.2088,106.8456
+Bechuanaland,Gaborone,-24.6282,25.9231
+Beijing,Beijing,39.9042,116.4074
+Beirut,Beirut,33.8938,35.5018
+Bengal,Dhaka,23.8103,90.4125
+Berkeley,"Berkeley, Alameda County, California, United States",37.8708393,-122.272863
+Berlin,Berlin,52.5200,13.4050
+Bern,Bern,46.9480,7.4474
+Bogota,Bogota,4.7110,-74.0721
+Bohemia,Prague,50.0755,14.4378
+Bolsheviks,"Ахвярам бальшавіцкага тэрору, вуліца Чыжэўскіх, Лошыца, Ленінскі раён, Мінск, 220067, Беларусь",53.8511458,27.5684639
+Bombay,Mumbai,19.0760,72.8777
+Bosnia,Bosna i Hercegovina / Босна и Херцеговина,44.3053476,17.5961467
+Bosnia and Herzegovina,Bosna i Hercegovina / Босна и Херцеговина,44.3053476,17.5961467
+Boston,"Boston, Suffolk County, Massachusetts, United States",42.3588336,-71.0578303
+Brazil,Brasilia,-15.7975,-47.8919
+Brazzaville,"Brazzaville (commune), Brazzaville (département), Congo",-4.2694407,15.2712256
+Britain,"Great Britain, United Kingdom",54.3151594,-1.9181532
+Britannia,London,51.5074,-0.1278
+Brussels,Brussels,50.8503,4.3517
+Bucharest,"București, România",44.4361414,26.102684
+Budapest,Budapest,47.4979,19.0402
+Buenos Aires,Buenos Aires,-34.6037,-58.3816
+Bulgaria,България,42.6073975,25.4856617
+Burma,Yangon,16.8661,96.1951
+Byzantine Empire,Istanbul,41.0082,28.9784
+Cairo,Cairo,30.0444,31.2357
+Caledonia,Edinburgh,55.9533,-3.1883
+California,"California, United States",36.7014631,-118.755997
+Cambodia,Phnom Penh,11.5564,104.9282
+Camden,"Camden, Camden County, New Jersey, United States",39.9448402,-75.1198911
+Canada,Ottawa,45.4215,-75.6972
+Canberra,Canberra,-35.2809,149.1300
+Canton,"广州市, 广东省, 中国",23.1288454,113.2590064
+Cape Canaveral,"Cape Canaveral, Brevard County, Florida, United States",28.4513556,-80.5283059
+Cape Town,Cape Town,-33.9249,18.4241
+Caribbean,"Caribbean, Ayiti",18.4,-75.0
+Carmen,"Carmena, Toledo, Castilla-La Mancha, España",39.9556215,-4.4014821
+Carthage,Tunis,36.8065,10.1815
+Cathay,Beijing,39.9042,116.4074
+Ceylon,Sri Lanka,7.8731,80.7718
+Charles_Lindbergh,"Charles Lindbergh, Ciudadela La FAE, Centro Comercial - San Marino, Centro de Convenciones de Guayaquil-Simón Bolívar, Guayaquil, Guayas, 090514, Ecuador",-2.167879,-79.8870189
+Chicago,"Chicago, South Chicago Township, Cook County, Illinois, United States",41.8755616,-87.6244212
+Chile,Santiago,-33.4489,-70.6693
+China,Beijing,39.9042,116.4074
+Ciskei,"Ntaba kaNdoda - National Monument of the Republic of Ciskei, R63, Amahlathi Ward 10, Amahlathi Local Municipality, Amathole District Municipality, Eastern Cape, South Africa",-32.8008729,27.1301587
+Cleveland,"Cleveland, Cuyahoga County, Ohio, United States",41.4996574,-81.6936772
+Cologne,"Köln, Nordrhein-Westfalen, Deutschland",50.938361,6.959974
+Colombia,Bogota,4.7110,-74.0721
+Colorado Springs,"Colorado Springs, El Paso County, Colorado, United States",38.8339578,-104.825348
+Comintern,"Коминтерн, 11, Партызанскі праспект, Пасёлак Велазавода, Ленінскі раён, Мінск, 220033, Беларусь",53.885435,27.586914
+Constantinople,Istanbul,41.0082,28.9784
+Cooktown,"Cooktown, Cook Shire, Queensland, 4895, Australia",-15.3718125,144.9028573
+Copenhagen,Copenhagen,55.6761,12.5683
+Corfu,"Κέρκυρα, Περιφερειακή Ενότητα Κέρκυρας, Περιφέρεια Ιονίων Νήσων, Αποκεντρωμένη Διοίκηση Πελοποννήσου, Δυτικής Ελλάδας και Ιονίου, Ελλάς",39.591337,19.8596189
+Costa Rica,San Jose,9.9281,-84.0907
+Coñaripe,"Coñaripe, Panguipulli, Provincia de Valdivia, Región de Los Ríos, Chile",-39.567853,-72.007417
+Cranbrook,Cranbrook,49.5130,-115.7688
+Croatia,Hrvatska,45.3658443,15.6575209
+Cuba,Havana,23.1136,-82.3666
 Czech Republic,Prague,50.0755,14.4378
-Romania,Bucharest,44.4268,26.1025
-Ukraine,Kyiv,50.4501,30.5234
+Czechoslovakia,Prague,50.0755,14.4378
+Cádiz,"Cádiz, Bahía de Cádiz, Cádiz, Andalucía, España",36.5297438,-6.2928976
+Damascus,Damascus,33.5138,36.2765
+Darfur,"Darfur, Watonwan County, Minnesota, 56022, United States",44.0513467,-94.8380398
+Deerfield,"Deerfield, Lake County, Illinois, 60015, United States",42.1711365,-87.8445119
+Delhi,Delhi,28.7041,77.1025
+Denmark,Copenhagen,55.6761,12.5683
+Dorchester Heights,"Dorchester Heights, Buffalo City Ward 29, KuGompo, Buffalo City Metropolitan Municipality, Eastern Cape, 5210, South Africa",-32.9480556,27.9038889
+Dublin,Dublin,53.3498,-6.2603
+Earth,"Earth, Lamb County, Texas, United States",34.2331373,-102.4107493
+East Germany,Berlin,52.5200,13.4050
+Edinburgh,Edinburgh,55.9533,-3.1883
+Edo,Tokyo,35.6762,139.6503
+Egypt,Cairo,30.0444,31.2357
+El Salvador,San Salvador,13.6929,-89.2182
+England,London,51.5074,-0.1278
+Ermenonville,"Ermenonville, Senlis, Oise, Hauts-de-France, France métropolitaine, 60950, France",49.1258749,2.6957344
+Ethiopia,Addis Ababa,9.0250,38.7469
+Federation_of_the_Emirates_of_South_Arabia,Aden,12.7855,45.0187
+Finland,Helsinki,60.1699,24.9384
+Flint,Flint,43.0125,-83.6875
+Florence,Florence,43.7696,11.2558
+Florida,"Florida, United States",27.7567667,-81.4639835
+Floyd County,"Floyd County, Texas, United States",34.0266015,-101.2765537
+Formosa,Taipei,25.0330,121.5654
+Fort Worth,"Fort Worth, Tarrant County, Texas, United States",32.753177,-97.3327459
+France,Paris,48.8566,2.3522
+François,"François, Niort, Deux-Sèvres, Nouvelle-Aquitaine, France métropolitaine, 79260, France",46.3728781,-0.3458596
+Gaul,Paris,48.8566,2.3522
+Geneva,Geneva,46.2044,6.1432
+Georgia,"Georgia, United States",32.3293809,-83.1137366
+Germany,Berlin,52.5200,13.4050
+Ghana,Ghana,8.0300284,-1.0800271
+Gibraltar,Gibraltar,36.1285933,-5.3474761
+Grand_Duchy_of_Lithuania,"Zabytkowy słup graniczny w Boguszach (1545) - Prusy, KP, WKL;Dawny słup graniczny z 1545 r., 65, Bogusze, gmina Prostki, powiat ełcki, województwo warmińsko-mazurskie, 19-335, Polska",53.6916476,22.4497943
+Great Britain,"Great Britain, United Kingdom",54.3151594,-1.9181532
+Greater Manchester,"Greater Manchester, England, United Kingdom",53.5065249,-2.3374401
+Greece,Athens,37.9838,23.7275
+Greenwich Village,"Greenwich Village, 7th Avenue South, West Village, Manhattan, New York County, New York, 10014, United States",40.7335844,-74.0028172
+Grenada,Grenada,12.1360374,-61.6904045
+Grevena,"Γρεβενά, Δήμος Γρεβενών, Περιφερειακή Ενότητα Γρεβενών, Περιφέρεια Δυτικής Μακεδονίας, Αποκεντρωμένη Διοίκηση Ηπείρου - Δυτικής Μακεδονίας, 511 00, Ελλάς",40.0844637,21.4273985
+Gujarat,"Gujarat, India",22.3850051,71.745261
+Haifa,"חיפה, נפת חיפה, מחוז חיפה, ישראל",32.8191218,34.9983856
+Haiti,Ayiti,19.1399952,-72.3570972
+Hanoi,Hanoi,21.0285,105.8542
+Harrisonburg,"Harrisonburg, Virginia, United States",38.4493315,-78.8688833
+Havana,Havana,23.1136,-82.3666
+Helsinki,Helsinki,60.1699,24.9384
+Helvetia,Bern,46.9480,7.4474
+Hibernia,Dublin,53.3498,-6.2603
+Hindustan,Delhi,28.7041,77.1025
+Hirakata,"枚方市, 大阪府, 日本",34.8144363,135.6507278
+Hispania,Madrid,40.4168,-3.7038
+Holy Roman Empire,Vienna,48.2082,16.3738
+Hong Kong,Hong Kong,22.3193,114.1694
+Hungary,Budapest,47.4979,19.0402
+Iberia,"Iberia, España",39.8963997,-4.4974366
+Ilagan,"Ilagan, Isabela, Cagayan Valley, 3300, Philippines",17.1486341,121.8886466
+Illapel,Illapel,-31.6333,-71.1667
+Illinois,"Illinois, United States",40.0796606,-89.4337288
+India,Delhi,28.7041,77.1025
+Indonesia,Jakarta,-6.2088,106.8456
+Ioannina,"Ιωάννινα, Δημοτική Ενότητα Ιωαννιτών, Δήμος Ιωαννιτών, Περιφερειακή Ενότητα Ιωαννίνων, Περιφέρεια Ηπείρου, Αποκεντρωμένη Διοίκηση Ηπείρου - Δυτικής Μακεδονίας, 453 33, Ελλάς",39.6639818,20.8522784
 Iran,Tehran,35.6892,51.3890
 Iraq,Baghdad,33.3152,44.3661
+Ireland,Dublin,53.3498,-6.2603
 Israel,Jerusalem,31.7683,35.2137
-Syria,Damascus,33.5138,36.2765
-Lebanon,Beirut,33.8938,35.5018
-Saudi Arabia,Riyadh,24.7136,46.6753
-Pakistan,Islamabad,33.6844,73.0479
-Afghanistan,Kabul,34.5553,69.2075
-South Korea,Seoul,37.5665,126.9780
-North Korea,Pyongyang,39.0392,125.7625
-Vietnam,Hanoi,21.0285,105.8542
-Philippines,Manila,14.5995,120.9842
-Indonesia,Jakarta,-6.2088,106.8456
-Thailand,Bangkok,13.7563,100.5018
-Malaysia,Kuala Lumpur,3.1390,101.6869
-Nigeria,Abuja,9.0579,7.4951
-Kenya,Nairobi,-1.2921,36.8219
-Colombia,Bogota,4.7110,-74.0721
-Peru,Lima,-12.0464,-77.0428
-Chile,Santiago,-33.4489,-70.6693
-Cuba,Havana,23.1136,-82.3666
-Taiwan,Taipei,25.0330,121.5654
-Massachusetts,Boston,42.3601,-71.0589
-Flint,Flint,43.0125,-83.6875
-Lourdes,Lourdes,43.0948,-0.0459
-Valletta,Valletta,35.8989,14.5146
-Ethiopia,Addis Ababa,9.0250,38.7469
-Awadh,Lucknow,26.8467,80.9462
-Sabah,Kota Kinabalu,5.9804,116.0735
-Cranbrook,Cranbrook,49.5130,-115.7688
-Victoria,Melbourne,-37.8136,144.9631
-Algeria,Algiers,36.7538,3.0588
-Jizan Province,Jizan,16.8892,42.5611
-Nelson Mandela,Cape Town,-33.9249,18.4241
-the Strait of Magellan,Punta Arenas,-53.1638,-70.9171
-the Roman Empire,Rome,41.9028,12.4964
-Kingdom_of_Italy,Rome,41.9028,12.4964
-Federation_of_the_Emirates_of_South_Arabia,Aden,12.7855,45.0187
-U.S.,Washington DC,38.9072,-77.0369
-La,Paris,48.8566,2.3522
-New York City,New York City,40.7128,-74.0060
-Manhattan,New York City,40.7831,-73.9712
-the United States,Washington DC,38.9072,-77.0369
-Jordan,Amman,31.9454,35.9284
-Alabama,Montgomery,32.3792,-86.3077
-Virginia,Richmond,37.5407,-77.4360
-Osaka,Osaka,34.6937,135.5023
-La Plata,La Plata,-34.9215,-57.9545
+Istanbul,Istanbul,41.0082,28.9784
+Italy,Rome,41.9028,12.4964
 Ithaca,Ithaca,42.4440,-76.5019
-Sabra,Beirut,33.8547,35.4946
+Jakarta,Jakarta,-6.2088,106.8456
+Janzur,"جنزور, الجفارة, ليبيا",32.8254462,13.0262526
+Japan,Tokyo,35.6762,139.6503
+Jerusalem,Jerusalem,31.7683,35.2137
+Jizan Province,Jizan,16.8892,42.5611
+Johannesburg,Johannesburg,-26.2041,28.0473
+Jordan,Amman,31.9454,35.9284
+Judea,Jerusalem,31.7683,35.2137
+Jupiter,"Jupiter, Palm Beach County, Florida, 33458, United States",26.9342246,-80.0942087
+Kabul,Kabul,34.5553,69.2075
+Kalevala,"Калевала, Калевальское городское поселение, Калевальский район, Карелия, Северо-Западный федеральный округ, Россия",65.200096,31.180172
+Kansas,"Kansas, United States",38.27312,-98.5821872
+Karachi,"کراچی ڈویژن, سندھ, پاکستان",24.8546842,67.0207055
+Katyn,"Катынь, Смоленский муниципальный округ, Смоленская область, Центральный федеральный округ, 214522, Россия",54.773132,31.686897
+Kenya,Nairobi,-1.2921,36.8219
+Khartoum,"الخرطوم, ولاية الخرطوم, السودان",15.5635972,32.5349123
+Kherson,"Херсонська область, Україна",46.5421715,33.4079326
+King Kong,"King Kong, Bexar County, Texas, United States",29.1858391,-98.58856
+King of Germany,"King, 2, Ludwig-Freiherr-von-Würtzburg-Straße, Steinach an der Steinach, Mitwitz, Mitwitz (VGem), Landkreis Kronach, Bayern, 96268, Deutschland",50.2481477,11.2100513
+King of Poland,"Taste of Poland, 1145, King Street East, Stipeley, Hamilton, Golden Horseshoe, Ontario, L8M 1C3, Canada",43.2482569,-79.8287717
+Kingdom_of_Italy,Rome,41.9028,12.4964
 Kobani,Kobani,36.8910,38.3535
-Tabas,Tabas,33.5959,56.9244
+Korea,대한민국,36.638392,127.6961188
+Kragan,"Kragan, Rembang, Jawa Tengah, Jawa, 59273, Indonesia",-6.6967976,111.6208441
+Kuwait,الكويت,29.2733964,47.4979476
+Kyiv,Kyiv,50.4501,30.5234
+La,Paris,48.8566,2.3522
+La Plata,La Plata,-34.9215,-57.9545
+Lagos,Lagos,6.5244,3.3792
+Lake Tahoe,"Lake Tahoe, Placer County, California, United States",39.0885405,-120.0503528
+Lebanon,Beirut,33.8938,35.5018
+Leningrad,Saint Petersburg,59.9343,30.3351
+Libya,ليبيا,26.8234472,18.1236723
+Lima,Lima,-12.0464,-77.0428
+Lisbon,Lisbon,38.7223,-9.1393
+London,London,51.5074,-0.1278
+Los Angeles,"Los Angeles, Los Angeles County, California, United States",34.0536909,-118.242766
+Los Negros Island,"Los Negros Island, Manus District, Manus, Islands Region, Papua Niugini",-2.0612945,147.3858001
+Lothaire,"Lothaire, Avenue André Malraux, Le Sablon, Metz, Moselle, Grand Est, France métropolitaine, 57000, France",49.0992869,6.1805033
+Louisiana,"Louisiana, United States",30.8703881,-92.007126
+Lourdes,Lourdes,43.0948,-0.0459
+Luleå,"Luleå, Luleå kommun, Norrbottens län, 971 28, Sverige",65.5831187,22.1459535
+Lusitania,Lisbon,38.7223,-9.1393
+Luxembourg,Lëtzebuerg,49.8158683,6.1296751
+Madagascar,Madagasikara / Madagascar,-18.9249604,46.4416422
+Madrid,Madrid,40.4168,-3.7038
+Malaysia,Kuala Lumpur,3.1390,101.6869
+Manchuria,Shenyang,41.8057,123.4315
+Manhattan,New York City,40.7831,-73.9712
+Manila,Manila,14.5995,120.9842
+Marseilles,"Marseilles, LaSalle County, Illinois, 61341, United States",41.3308666,-88.7081293
+Massachusetts,Boston,42.3601,-71.0589
+Mesopotamia,Baghdad,33.3152,44.3661
+Mexico,Mexico City,19.4326,-99.1332
+Mexico City,Mexico City,19.4326,-99.1332
+Milan,Milan,45.4642,9.1900
+Mina,"Town of Mina, Chautauqua County, New York, 14736, United States",42.130056,-79.688104
+Mindanao,"Mindanao, Northern Mindanao, Philippines",7.6897787,125.2365313
+Minnesota,"Minnesota, United States",45.9896587,-94.6113288
+Miqdadiyah,"المقدادیة, ناحية مرکز قضاء المقدادية, قضاء المقدادية, محافظة ديالى, العراق",33.9724064,44.9276018
+Missouri,"Missouri, United States",38.7604815,-92.5617875
+Mogadishu,"Muqdisho مقديشو, Hamar Weyne حي حمروين, Banaadir بنادر, BN 09010, Soomaaliya الصومال",2.0349312,45.3419183
+Montana,"Montana, United States",47.3752671,-109.638757
+Monterrey,"Monterrey, Nuevo León, 64010, México",25.6802019,-100.315258
+Montreal,"Montréal, Agglomération de Montréal, Montréal (région administrative), Québec, Canada",45.5031824,-73.5698065
+Morocco,Maroc ⵍⵎⵖⵔⵉⴱ المغرب,28.3347722,-10.3713379
+Moscow,Moscow,55.7558,37.6173
+Mount Fuji,"富士山, 小山町, 駿東郡, 静岡県, 日本",35.3628384,138.7307677
+Mumbai,Mumbai,19.0760,72.8777
 Muroto,Muroto,33.2833,134.1500
-Illapel,Illapel,-31.6333,-71.1667
-the People's Republic of China,Beijing,39.9042,116.4074
-the Cherokee Strip,Oklahoma,36.1539,-97.0347
-Sagaing Region,Sagaing,21.8787,95.9785
-Alashankou,Alashankou,45.1764,82.5678
-the Soviet Union,Moscow,55.7558,37.6173
-the Ottoman Empire,Istanbul,41.0082,28.9784
-the British Empire,London,51.5074,-0.1278
-the Roman Republic,Rome,41.9028,12.4964
-the Netherlands,Amsterdam,52.3676,4.9041
-the Philippines,Manila,14.5995,120.9842
-South Korea,Seoul,37.5665,126.9780
+Myanmar,Naypyidaw,19.7633,96.0785
+Nairobi,Nairobi,-1.2921,36.8219
+Naples,Naples,40.8518,14.2681
+Narva,"Narva linn, Ida-Viru maakond, Eesti",59.3767458,28.1919315
+Nebraska,"Nebraska, United States",41.7370229,-99.5873816
+Nelson Mandela,Cape Town,-33.9249,18.4241
+Nelson_Mandela,"Nelson Mandela, 5th Street, Johannesburg Ward 103, Sandton, City of Johannesburg Metropolitan Municipality, Gauteng, 2031, South Africa",-26.1072949,28.0545561
+Netherlands,Amsterdam,52.3676,4.9041
+New Guinea,"New Guinea, Southern Region, Papua Niugini",-5.5226203,142.0871194
+New Holland,Sydney,-33.8688,151.2093
+New Spain,Mexico City,19.4326,-99.1332
+New York,New York City,40.7128,-74.0060
+New York City,New York City,40.7128,-74.0060
+New Zealand,Wellington,-41.2866,174.7756
+Newry,"Newry, County Down, Northern Ireland / Tuaisceart Éireann, BT35 6HT, United Kingdom",54.1775283,-6.337506
+Nicaragua,Nicaragua,12.3506436,-85.7841006
+Nicomedia,"İzmit, Kocaeli, Marmara Bölgesi, Türkiye",40.7721138,29.9505623
+Nigeria,Abuja,9.0579,7.4951
+Nohra,"Nohra, Grammetal, Landkreis Weimarer Land, Thüringen, 99428, Deutschland",50.9640506,11.2351358
+North Africa,Tunis,36.8065,10.1815
+North America,North America,51.0000002,-109.0
+North Hollywood,"North Hollywood Neighborhood Council District, Los Angeles, Los Angeles County, California, United States",34.1649502,-118.374752
 North Korea,Pyongyang,39.0392,125.7625
+North Vietnam,"Vietnam, 4945-4947, North Winthrop Avenue, Asia on Argyle, Clarendon Park, Uptown, Chicago, Lake View Township, Cook County, Illinois, 60640, United States",41.9730846,-87.6570608
+North Yorkshire,"North Yorkshire, England, United Kingdom",54.1345328,-1.4986285
+Northern Ireland,"Northern Ireland / Tuaisceart Éireann, United Kingdom",54.5859836,-6.9591554
+Norway,Oslo,59.9139,10.7522
+Nubia,Khartoum,15.5007,32.5599
+Nyasaland,Lilongwe,-13.9626,33.7741
+Osaka,Osaka,34.6937,135.5023
+Oslo,Oslo,59.9139,10.7522
+Ottawa,Ottawa,45.4215,-75.6972
+Ottoman Empire,Istanbul,41.0082,28.9784
+Oxfordshire,"Oxfordshire, England, United Kingdom",51.833333,-1.25
+Pacific,"Pacific County, Washington, United States",46.5334929,-123.768029
+Pakistan,Islamabad,33.6844,73.0479
+Paris,Paris,48.8566,2.3522
+Pawłokoma,"Pawłokoma, gmina Dynów, powiat rzeszowski, województwo podkarpackie, Polska",49.8118433,22.286663
+Peking,Beijing,39.9042,116.4074
+Pennsylvania,"Pennsylvania, United States",40.9699889,-77.7278831
+Persia,Tehran,35.6892,51.3890
+Peru,Lima,-12.0464,-77.0428
+Petrovec,"Петровац на Млави, Општина Петровац на Млави, Браничевски управни округ, Централна Србија, 12300, Србија",44.3677095,21.4076704
+Philippines,Manila,14.5995,120.9842
+Phoenicia,Beirut,33.8938,35.5018
+Poland,Warsaw,52.2297,21.0122
+Portugal,Lisbon,38.7223,-9.1393
+Prague,Prague,50.0755,14.4378
+Prussia,Berlin,52.5200,13.4050
+Puerto Rico,San Juan,18.4655,-66.1057
+Queensland,"Queensland, Australia",-22.1646782,144.5844903
+Rhodesia,Harare,-17.8292,31.0522
+Rio de Janeiro,Rio de Janeiro,-22.9068,-43.1729
+Roman Empire,Rome,41.9028,12.4964
+Romania,Bucharest,44.4268,26.1025
+Rome,Rome,41.9028,12.4964
+Ronald_Reagan,"Ronald Reagan, Jana Matejki, Powiśle-Solec, Śródmieście Południowe, Śródmieście, Warszawa, województwo mazowieckie, 00-481, Polska",52.2246469,21.0241637
+Russia,Moscow,55.7558,37.6173
+Sabah,Kota Kinabalu,5.9804,116.0735
+Sabra,Beirut,33.8547,35.4946
+Sagaing Region,Sagaing,21.8787,95.9785
+Saigon,Ho Chi Minh City,10.8231,106.6297
+Saimaa,"Saimaa, Etelä-Savo, Manner-Suomi, Suomi / Finland",61.8376248,29.4869808
+Saint Petersburg,Saint Petersburg,59.9343,30.3351
+Salisbury,"Salisbury, Wiltshire, England, United Kingdom",51.0690613,-1.7954134
+Santiago,Santiago,-33.4489,-70.6693
+Sarajevo,"Sarajevo, Mjesna zajednica Trg oslobođenja-Centar, Općina Centar, Grad Sarajevo, Kanton Sarajevo, Federacija Bosne i Hercegovine, 71000, Bosna i Hercegovina / Босна и Херцеговина",43.8570713,18.4126147
+Sardinia,"Sardigna/Sardegna, Italia",40.0912813,9.0305773
+Saudi Arabia,Riyadh,24.7136,46.6753
+Savannah,"Savannah, Chatham County, Georgia, United States",32.0790074,-81.0921335
+Scandinavia,Stockholm,59.3293,18.0686
+Scotland,Edinburgh,55.9533,-3.1883
+Seattle,"Seattle, King County, Washington, United States",47.6038321,-122.330062
+Seoul,Seoul,37.5665,126.9780
+Seville,Seville,37.3891,-5.9845
+Shanghai,Shanghai,31.2304,121.4737
+Siam,Bangkok,13.7563,100.5018
+Singapore,Singapore,1.3521,103.8198
+South Africa,Pretoria,-25.7479,28.2293
+South Korea,Seoul,37.5665,126.9780
+South_Carolina,"South Carolina, United States",33.6874388,-80.4363743
+Soviet Union,Moscow,55.7558,37.6173
+Spain,Madrid,40.4168,-3.7038
+Sri Lanka,Colombo,6.9271,79.8612
+St. Louis,"Saint Louis, Missouri, United States",38.6254063,-90.190009
+St. Petersburg,Saint Petersburg,59.9343,30.3351
+Stalingrad,Volgograd,48.7080,44.5133
+Stockholm,Stockholm,59.3293,18.0686
+Sudan,السودان,14.5844444,29.4917691
+Sumer,Nasiriyah,31.0440,46.2576
+Swaziland,Mbabane,-26.3054,31.1367
+Sweden,Stockholm,59.3293,18.0686
+Switzerland,Bern,46.9480,7.4474
+Sydney,Sydney,-33.8688,151.2093
+Syria,Damascus,33.5138,36.2765
+Szczekociny,"Szczekociny, gmina Szczekociny, powiat zawierciański, województwo śląskie, 42-445, Polska",50.6259216,19.8194681
+Tabas,Tabas,33.5959,56.9244
+Taipei,Taipei,25.0330,121.5654
+Taiwan,Taipei,25.0330,121.5654
+Tamanrasset,"Tamanrasset, Algérie ⵍⵣⵣⴰⵢⴻⵔ الجزائر",24.3753438,4.3208436
+Tanganyika,Dar es Salaam,-6.7924,39.2083
+Tehran,Tehran,35.6892,51.3890
+Texas,"Texas, United States",31.2638905,-98.5456116
+Thailand,Bangkok,13.7563,100.5018
+The Admiralty Islands,"The Admiralty Islands, Leeds and the Thousand Islands, Leeds and Grenville Counties, Eastern Ontario, Ontario, Canada",44.2990953,-76.1800521
+the Atlantic,Atlantic Ocean,30.0,-40.0
+the Balkans,Sarajevo,43.8563,18.4131
+the Baltic Sea,Baltic Sea,58.0,20.0
+the Black Sea,Black Sea,43.0,34.0
+the British Empire,London,51.5074,-0.1278
+the Cherokee Strip,Oklahoma,36.1539,-97.0347
+the City of London,"The City of London, High Street, Dymchurch, St Marys Bay, Folkestone and Hythe, Kent, England, TN29 0NW, United Kingdom",51.0251555,0.9965195
 the Czech Republic,Prague,50.0755,14.4378
 the Dominican Republic,Santo Domingo,18.4861,-69.9312
-the Mediterranean,Mediterranean Sea,35.0,18.0
-the Atlantic,Atlantic Ocean,30.0,-40.0
-the Pacific,Pacific Ocean,0.0,-160.0
-New Zealand,Wellington,-41.2866,174.7756
-South Africa,Pretoria,-25.7479,28.2293
-North Africa,Tunis,36.8065,10.1815
-Saudi Arabia,Riyadh,24.7136,46.6753
-Sri Lanka,Colombo,6.9271,79.8612
-Puerto Rico,San Juan,18.4655,-66.1057
-Costa Rica,San Jose,9.9281,-84.0907
-El Salvador,San Salvador,13.6929,-89.2182
-Hong Kong,Hong Kong,22.3193,114.1694
-Singapore,Singapore,1.3521,103.8198
-Malaysia,Kuala Lumpur,3.1390,101.6869
-Indonesia,Jakarta,-6.2088,106.8456
-Thailand,Bangkok,13.7563,100.5018
-Vietnam,Hanoi,21.0285,105.8542
-Myanmar,Naypyidaw,19.7633,96.0785
-Cambodia,Phnom Penh,11.5564,104.9282
-Taiwan,Taipei,25.0330,121.5654
-the Persian Gulf,Persian Gulf,26.0,52.0
-the Mediterranean Sea,Mediterranean Sea,35.0,18.0
-the Black Sea,Black Sea,43.0,34.0
-the Baltic Sea,Baltic Sea,58.0,20.0
-the Red Sea,Red Sea,20.0,38.0
 the English Channel,English Channel,50.0,-1.0
-the Balkans,Sarajevo,43.8563,18.4131
-Scandinavia,Stockholm,59.3293,18.0686
-Timbuktu,"Timbuktu, Mali",51.5074,-0.1278
-Greater Manchester,"Greater Manchester, England, United Kingdom",53.5065249,-2.3374401
-the Potomac River,"Potomac River, Maryland, United States",39.0739106,-77.427643
-North Yorkshire,"North Yorkshire, England, United Kingdom",54.1345328,-1.4986285
-North America,North America,51.0000002,-109.0
-Waco,"Waco, McLennan County, Texas, United States",31.5491899,-97.1474628
-Floyd County,"Floyd County, Texas, United States",34.0266015,-101.2765537
-Earth,"Earth, Lamb County, Texas, United States",34.2331373,-102.4107493
-Kalevala,"Калевала, Калевальское городское поселение, Калевальский район, Карелия, Северо-Западный федеральный округ, Россия",65.200096,31.180172
-North Hollywood,"North Hollywood Neighborhood Council District, Los Angeles, Los Angeles County, California, United States",34.1649502,-118.374752
-St. Louis,"Saint Louis, Missouri, United States",38.6254063,-90.190009
-Lake Tahoe,"Lake Tahoe, Placer County, California, United States",39.0885405,-120.0503528
-Bolsheviks,"Ахвярам бальшавіцкага тэрору, вуліца Чыжэўскіх, Лошыца, Ленінскі раён, Мінск, 220067, Беларусь",53.8511458,27.5684639
-The United Kingdom,"The (Oval) Banqueting Suite, 372, Stratford Road, Sparkhill, Sparkbrook, Birmingham, West Midlands, England, B11 4AB, United Kingdom",52.4577754,-1.8692099
-François,"François, Niort, Deux-Sèvres, Nouvelle-Aquitaine, France métropolitaine, 79260, France",46.3728781,-0.3458596
-Newry,"Newry, County Down, Northern Ireland / Tuaisceart Éireann, BT35 6HT, United Kingdom",54.1775283,-6.337506
-Albania,Shqipëria,41.000028,19.9999619
-Coñaripe,"Coñaripe, Panguipulli, Provincia de Valdivia, Región de Los Ríos, Chile",-39.567853,-72.007417
-Uganda,Uganda,1.5333554,32.2166578
-Gujarat,"Gujarat, India",22.3850051,71.745261
-Nebraska,"Nebraska, United States",41.7370229,-99.5873816
-Seattle,"Seattle, King County, Washington, United States",47.6038321,-122.330062
-Kuwait,الكويت,29.2733964,47.4979476
-Bosnia,Bosna i Hercegovina / Босна и Херцеговина,44.3053476,17.5961467
-the Kingdom of Madagascar,"Ambassade du Royaume du Maroc, Làlana Andriantsihoarana Ratsimbazafy, Ambohijatovo, Analamahitsy Cité, Antananarivo, Analamanga, Province d’Antananarivo, 100, Madagasikara / Madagascar",-18.8687051,47.5434673
-Jupiter,"Jupiter, Palm Beach County, Florida, 33458, United States",26.9342246,-80.0942087
-Canton,"广州市, 广东省, 中国",23.1288454,113.2590064
-Chicago,"Chicago, South Chicago Township, Cook County, Illinois, United States",41.8755616,-87.6244212
-Arizona,"Arizona, United States",34.395342,-111.763275
-Korea,대한민국,36.638392,127.6961188
-Libya,ليبيا,26.8234472,18.1236723
-Hirakata,"枚方市, 大阪府, 日本",34.8144363,135.6507278
-Cape Canaveral,"Cape Canaveral, Brevard County, Florida, United States",28.4513556,-80.5283059
-Lothaire,"Lothaire, Avenue André Malraux, Le Sablon, Metz, Moselle, Grand Est, France métropolitaine, 57000, France",49.0992869,6.1805033
-Windsor,"Windsor Castle, Castle Hill, Clewer Within, Clewer New Town, Clewer Village, Windsor, Windsor and Maidenhead, England, SL4 1PE, United Kingdom",51.4837886,-0.6040419
-Texas,"Texas, United States",31.2638905,-98.5456116
-King Kong,"King Kong, Bexar County, Texas, United States",29.1858391,-98.58856
-Bulgaria,България,42.6073975,25.4856617
-Illinois,"Illinois, United States",40.0796606,-89.4337288
-Monterrey,"Monterrey, Nuevo León, 64010, México",25.6802019,-100.315258
-New Guinea,"New Guinea, Southern Region, Papua Niugini",-5.5226203,142.0871194
-Wassy,"Wassy, Saint-Dizier, Haute-Marne, Grand Est, France métropolitaine, 52130, France",48.4996383,4.9489836
-Armenia,Հայաստան,40.7696272,44.6736646
-Kragan,"Kragan, Rembang, Jawa Tengah, Jawa, 59273, Indonesia",-6.6967976,111.6208441
-Toulouse,"Toulouse, Haute-Garonne, Occitanie, France métropolitaine, France",43.6044638,1.4442433
-Khartoum,"الخرطوم, ولاية الخرطوم, السودان",15.5635972,32.5349123
-Georgia,"Georgia, United States",32.3293809,-83.1137366
-Charles_Lindbergh,"Charles Lindbergh, Ciudadela La FAE, Centro Comercial - San Marino, Centro de Convenciones de Guayaquil-Simón Bolívar, Guayaquil, Guayas, 090514, Ecuador",-2.167879,-79.8870189
-"Wellington,_Washington","Wellington, Washington County, Florida, United States",30.5466787,-85.6054574
-Sarajevo,"Sarajevo, Mjesna zajednica Trg oslobođenja-Centar, Općina Centar, Grad Sarajevo, Kanton Sarajevo, Federacija Bosne i Hercegovine, 71000, Bosna i Hercegovina / Босна и Херцеговина",43.8570713,18.4126147
-Fort Worth,"Fort Worth, Tarrant County, Texas, United States",32.753177,-97.3327459
-the Savannah River,"Wayne Jerrolds River Park, Savannah, Hardin County, West Tennessee, Tennessee, United States",35.2225546,-88.256932
-Kherson,"Херсонська область, Україна",46.5421715,33.4079326
-the City of London,"The City of London, High Street, Dymchurch, St Marys Bay, Folkestone and Hythe, Kent, England, TN29 0NW, United Kingdom",51.0251555,0.9965195
-North Vietnam,"Vietnam, 4945-4947, North Winthrop Avenue, Asia on Argyle, Clarendon Park, Uptown, Chicago, Lake View Township, Cook County, Illinois, 60640, United States",41.9730846,-87.6570608
-Nelson_Mandela,"Nelson Mandela, 5th Street, Johannesburg Ward 103, Sandton, City of Johannesburg Metropolitan Municipality, Gauteng, 2031, South Africa",-26.1072949,28.0545561
-Transnistria,"Министерство внутренних дел ПМР, 68, улица Манойлова, Центр, Tiraspol, Тирасполь, Unitățile administrativ-teritoriale din stînga Nistrului, Нистрения / Приднестровье / Придністров'я, MD-3300, Moldova",46.8466932,29.6217132
-US,United States,39.7837304,-100.445882
-Tsar,"查尔乡, 南木林县 རྣམ་གླིང་རྫོང།, 日喀则市 གཞིས་ཀ་རྩེ་གྲོང་ཁྱེར།, 西藏自治区 བོད་རང་སྐྱོང་ལྗོངས།, 中国",29.3888707,89.3141844
-Tokelau,Tokelau,-9.1676396,-171.819687
-The Admiralty Islands,"The Admiralty Islands, Leeds and the Thousand Islands, Leeds and Grenville Counties, Eastern Ontario, Ontario, Canada",44.2990953,-76.1800521
-Haiti,Ayiti,19.1399952,-72.3570972
-South_Carolina,"South Carolina, United States",33.6874388,-80.4363743
-Harrisonburg,"Harrisonburg, Virginia, United States",38.4493315,-78.8688833
-Miqdadiyah,"المقدادیة, ناحية مرکز قضاء المقدادية, قضاء المقدادية, محافظة ديالى, العراق",33.9724064,44.9276018
-Pacific,"Pacific County, Washington, United States",46.5334929,-123.768029
-Barquisimeto,"Barquisimeto, Parroquia Concepción, Municipio Iribarren, Lara, 3001, Venezuela",10.0774374,-69.3222293
-The United Kingdom's,"His Britannic Majesty's Embassy, 3100, Massachusetts Avenue Northwest, Woodland-Normanstone, Ward 3, Washington, District of Columbia, 20008, United States",38.9199448,-77.0627399
-Berkeley,"Berkeley, Alameda County, California, United States",37.8708393,-122.272863
-Luxembourg,Lëtzebuerg,49.8158683,6.1296751
-Deerfield,"Deerfield, Lake County, Illinois, 60015, United States",42.1711365,-87.8445119
-Andes,"Andes, Suroeste, Antioquia, RAP del Agua y la Montaña, Colombia",5.6556134,-75.8776753
-Los Negros Island,"Los Negros Island, Manus District, Manus, Islands Region, Papua Niugini",-2.0612945,147.3858001
 the Gaza Strip,"The Islamic University of Gaza, شارع طبريا, الرمال الجنوبي, South Remal, غزة, محافظة غزة, قطاع غزة, 890, الأراضي الفلسطينية",31.5137304,34.4398271
-Morocco,Maroc ⵍⵎⵖⵔⵉⴱ المغرب,28.3347722,-10.3713379
-Bosnia and Herzegovina,Bosna i Hercegovina / Босна и Херцеговина,44.3053476,17.5961467
 The Hague,"Den Haag, Zuid-Holland, Nederland",52.0799838,4.3113461
-Szczekociny,"Szczekociny, gmina Szczekociny, powiat zawierciański, województwo śląskie, 42-445, Polska",50.6259216,19.8194681
-Minnesota,"Minnesota, United States",45.9896587,-94.6113288
-Colorado Springs,"Colorado Springs, El Paso County, Colorado, United States",38.8339578,-104.825348
-Missouri,"Missouri, United States",38.7604815,-92.5617875
-Savannah,"Savannah, Chatham County, Georgia, United States",32.0790074,-81.0921335
-Grenada,Grenada,12.1360374,-61.6904045
-Los Angeles,"Los Angeles, Los Angeles County, California, United States",34.0536909,-118.242766
-Ermenonville,"Ermenonville, Senlis, Oise, Hauts-de-France, France métropolitaine, 60950, France",49.1258749,2.6957344
-Wales,"Cymru / Wales, United Kingdom",52.2928116,-3.73893
-USSR,"СССР, 1/2/5, Казанская улица, Кировский район, Астрахань, городской округ Астрахань, Астраханская область, 414024, Россия",46.3421653,48.0254474
-Corfu,"Κέρκυρα, Περιφερειακή Ενότητα Κέρκυρας, Περιφέρεια Ιονίων Νήσων, Αποκεντρωμένη Διοίκηση Πελοποννήσου, Δυτικής Ελλάδας και Ιονίου, Ελλάς",39.591337,19.8596189
-Karachi,"کراچی ڈویژن, سندھ, پاکستان",24.8546842,67.0207055
-Montreal,"Montréal, Agglomération de Montréal, Montréal (région administrative), Québec, Canada",45.5031824,-73.5698065
-Vicenza,"Vicenza, Veneto, Italia",45.6348591,11.4063543
-Florida,"Florida, United States",27.7567667,-81.4639835
-Pawłokoma,"Pawłokoma, gmina Dynów, powiat rzeszowski, województwo podkarpackie, Polska",49.8118433,22.286663
-Western Australia,"Western Australia, Australia",-25.2303005,121.0187246
-Nohra,"Nohra, Grammetal, Landkreis Weimarer Land, Thüringen, 99428, Deutschland",50.9640506,11.2351358
-Luleå,"Luleå, Luleå kommun, Norrbottens län, 971 28, Sverige",65.5831187,22.1459535
-Wyoming,"Wyoming, United States",43.1700264,-107.568534
-Basilicata,"Basilicata, Italia",40.500571,16.081953
-Alberta,"Alberta, Canada",55.001251,-115.002136
 the Kingdom of Italy,"Proclamazione dell'Unità d'Italia, Ponte Vittorio Emanuele Secondo, Ponte, Municipio Roma I, Roma, Roma Capitale, Lazio, 00193, Italia",41.9009603,12.4643924
-Bahamas,The Bahamas,24.7736546,-78.0000547
-Carmen,"Carmena, Toledo, Castilla-La Mancha, España",39.9556215,-4.4014821
-Montana,"Montana, United States",47.3752671,-109.638757
-Brazzaville,"Brazzaville (commune), Brazzaville (département), Congo",-4.2694407,15.2712256
-Nicomedia,"İzmit, Kocaeli, Marmara Bölgesi, Türkiye",40.7721138,29.9505623
-Ronald_Reagan,"Ronald Reagan, Jana Matejki, Powiśle-Solec, Śródmieście Południowe, Śródmieście, Warszawa, województwo mazowieckie, 00-481, Polska",52.2246469,21.0241637
-Grand_Duchy_of_Lithuania,"Zabytkowy słup graniczny w Boguszach (1545) - Prusy, KP, WKL;Dawny słup graniczny z 1545 r., 65, Bogusze, gmina Prostki, powiat ełcki, województwo warmińsko-mazurskie, 19-335, Polska",53.6916476,22.4497943
-Dorchester Heights,"Dorchester Heights, Buffalo City Ward 29, KuGompo, Buffalo City Metropolitan Municipality, Eastern Cape, 5210, South Africa",-32.9480556,27.9038889
-Cleveland,"Cleveland, Cuyahoga County, Ohio, United States",41.4996574,-81.6936772
-Saimaa,"Saimaa, Etelä-Savo, Manner-Suomi, Suomi / Finland",61.8376248,29.4869808
-Bucharest,"București, România",44.4361414,26.102684
-Ilagan,"Ilagan, Isabela, Cagayan Valley, 3300, Philippines",17.1486341,121.8886466
-Salisbury,"Salisbury, Wiltshire, England, United Kingdom",51.0690613,-1.7954134
-Weyauwega,"Weyauwega, Waupaca County, Wisconsin, 54983, United States",44.3214582,-88.9340356
-Vermont,"Vermont, United States",44.5990718,-72.5002608
-Pennsylvania,"Pennsylvania, United States",40.9699889,-77.7278831
-Ciskei,"Ntaba kaNdoda - National Monument of the Republic of Ciskei, R63, Amahlathi Ward 10, Amahlathi Local Municipality, Amathole District Municipality, Eastern Cape, South Africa",-32.8008729,27.1301587
-Sudan,السودان,14.5844444,29.4917691
-King of Poland,"Taste of Poland, 1145, King Street East, Stipeley, Hamilton, Golden Horseshoe, Ontario, L8M 1C3, Canada",43.2482569,-79.8287717
-Croatia,Hrvatska,45.3658443,15.6575209
-Barbados,Barbados,13.1500331,-59.5250305
-Great Britain,"Great Britain, United Kingdom",54.3151594,-1.9181532
-Darfur,"Darfur, Watonwan County, Minnesota, 56022, United States",44.0513467,-94.8380398
-King of Germany,"King, 2, Ludwig-Freiherr-von-Würtzburg-Straße, Steinach an der Steinach, Mitwitz, Mitwitz (VGem), Landkreis Kronach, Bayern, 96268, Deutschland",50.2481477,11.2100513
-Britain,"Great Britain, United Kingdom",54.3151594,-1.9181532
-Sardinia,"Sardigna/Sardegna, Italia",40.0912813,9.0305773
-a West Coast Conference,"Conference Room, Bushman Route, Matzikama Ward 7, Matzikama Local Municipality, West Coast District Municipality, Western Cape, South Africa",-31.8095155,18.7833145
-Northern Ireland,"Northern Ireland / Tuaisceart Éireann, United Kingdom",54.5859836,-6.9591554
-Nicaragua,Nicaragua,12.3506436,-85.7841006
-Queensland,"Queensland, Australia",-22.1646782,144.5844903
-Grevena,"Γρεβενά, Δήμος Γρεβενών, Περιφερειακή Ενότητα Γρεβενών, Περιφέρεια Δυτικής Μακεδονίας, Αποκεντρωμένη Διοίκηση Ηπείρου - Δυτικής Μακεδονίας, 511 00, Ελλάς",40.0844637,21.4273985
-Kansas,"Kansas, United States",38.27312,-98.5821872
-Cooktown,"Cooktown, Cook Shire, Queensland, 4895, Australia",-15.3718125,144.9028573
-Zimbabwe,Zimbabwe,-18.4554963,29.7468414
+the Kingdom of Madagascar,"Ambassade du Royaume du Maroc, Làlana Andriantsihoarana Ratsimbazafy, Ambohijatovo, Analamahitsy Cité, Antananarivo, Analamanga, Province d’Antananarivo, 100, Madagasikara / Madagascar",-18.8687051,47.5434673
+the Mediterranean,Mediterranean Sea,35.0,18.0
+the Mediterranean Sea,Mediterranean Sea,35.0,18.0
+the Netherlands,Amsterdam,52.3676,4.9041
 the Northern Zhou,"The Northern Gentlemans Club, 325, 4th Avenue North, Downtown, Fargo, Cass County, North Dakota, 58102, United States",46.8801747,-96.7934735
+the Ottoman Empire,Istanbul,41.0082,28.9784
+the Pacific,Pacific Ocean,0.0,-160.0
+the People's Republic of China,Beijing,39.9042,116.4074
+the Persian Gulf,Persian Gulf,26.0,52.0
+the Philippines,Manila,14.5995,120.9842
+the Potomac River,"Potomac River, Maryland, United States",39.0739106,-77.427643
+the Red Sea,Red Sea,20.0,38.0
+the Roman Empire,Rome,41.9028,12.4964
+the Roman Republic,Rome,41.9028,12.4964
+the Savannah River,"Wayne Jerrolds River Park, Savannah, Hardin County, West Tennessee, Tennessee, United States",35.2225546,-88.256932
+the Soviet Union,Moscow,55.7558,37.6173
+the Strait of Magellan,Punta Arenas,-53.1638,-70.9171
+The United Kingdom,"The (Oval) Banqueting Suite, 372, Stratford Road, Sparkhill, Sparkbrook, Birmingham, West Midlands, England, B11 4AB, United Kingdom",52.4577754,-1.8692099
+The United Kingdom's,"His Britannic Majesty's Embassy, 3100, Massachusetts Avenue Northwest, Woodland-Normanstone, Ward 3, Washington, District of Columbia, 20008, United States",38.9199448,-77.0627399
+the United States,Washington DC,38.9072,-77.0369
 the United States of America,"Subway, The, Eure Drive, Reynolda Village, Winston-Salem, Forsyth County, North Carolina, 27109, United States",36.1337324,-80.2782636
-Boston,"Boston, Suffolk County, Massachusetts, United States",42.3588336,-71.0578303
-Mindanao,"Mindanao, Northern Mindanao, Philippines",7.6897787,125.2365313
-Oxfordshire,"Oxfordshire, England, United Kingdom",51.833333,-1.25
-Katyn,"Катынь, Смоленский муниципальный округ, Смоленская область, Центральный федеральный округ, 214522, Россия",54.773132,31.686897
-Marseilles,"Marseilles, LaSalle County, Illinois, 61341, United States",41.3308666,-88.7081293
-Comintern,"Коминтерн, 11, Партызанскі праспект, Пасёлак Велазавода, Ленінскі раён, Мінск, 220033, Беларусь",53.885435,27.586914
-Mina,"Town of Mina, Chautauqua County, New York, 14736, United States",42.130056,-79.688104
-Cologne,"Köln, Nordrhein-Westfalen, Deutschland",50.938361,6.959974
-Madagascar,Madagasikara / Madagascar,-18.9249604,46.4416422
-Antarctic,Antarctica,-72.8438691,0.0
-Ghana,Ghana,8.0300284,-1.0800271
-California,"California, United States",36.7014631,-118.755997
-Africa,Afrika / أفريقيا,11.5024338,17.7578122
-Zeebrugge,"Zeebrugge, Lissewege, Brugge, West-Vlaanderen, België / Belgique / Belgien",51.3312211,3.207561
-Petrovec,"Петровац на Млави, Општина Петровац на Млави, Браничевски управни округ, Централна Србија, 12300, Србија",44.3677095,21.4076704
-Bahrain,البحرين,26.1551249,50.5344606
-Janzur,"جنزور, الجفارة, ليبيا",32.8254462,13.0262526
-Louisiana,"Louisiana, United States",30.8703881,-92.007126
-Iberia,"Iberia, España",39.8963997,-4.4974366
-Ioannina,"Ιωάννινα, Δημοτική Ενότητα Ιωαννιτών, Δήμος Ιωαννιτών, Περιφερειακή Ενότητα Ιωαννίνων, Περιφέρεια Ηπείρου, Αποκεντρωμένη Διοίκηση Ηπείρου - Δυτικής Μακεδονίας, 453 33, Ελλάς",39.6639818,20.8522784
-Venezuela,Venezuela,8.0018709,-66.1109318
-Greenwich Village,"Greenwich Village, 7th Avenue South, West Village, Manhattan, New York County, New York, 10014, United States",40.7335844,-74.0028172
 the west bank,"West Bank, Oudtshoorn, Oudtshoorn Local Municipality, Garden Route District Municipality, Western Cape, 6620, South Africa",-33.5941667,22.1911111
-Mount Fuji,"富士山, 小山町, 駿東郡, 静岡県, 日本",35.3628384,138.7307677
-Anglesey,"Ynys Môn / Anglesey, Ynys Môn / Isle of Anglesey, Cymru / Wales, United Kingdom",53.2782258,-4.3319194
-Mogadishu,"Muqdisho مقديشو, Hamar Weyne حي حمروين, Banaadir بنادر, BN 09010, Soomaaliya الصومال",2.0349312,45.3419183
-Caribbean,"Caribbean, Ayiti",18.4,-75.0
-Narva,"Narva linn, Ida-Viru maakond, Eesti",59.3767458,28.1919315
-Haifa,"חיפה, נפת חיפה, מחוז חיפה, ישראל",32.8191218,34.9983856
-Tamanrasset,"Tamanrasset, Algérie ⵍⵣⵣⴰⵢⴻⵔ الجزائر",24.3753438,4.3208436
-Gibraltar,Gibraltar,36.1285933,-5.3474761
-Cádiz,"Cádiz, Bahía de Cádiz, Cádiz, Andalucía, España",36.5297438,-6.2928976
-Amorium,"Amorium, 03-02, Hisar, Suvermez, Emirdağ, Afyonkarahisar, Ege Bölgesi, Türkiye",39.0231965,31.2960575
-Camden,"Camden, Camden County, New Jersey, United States",39.9448402,-75.1198911
-Afrin,"عفرين, ناحية مركز عفرين, منطقة عفرين, محافظة حلب, سوريا",36.5083795,36.870089
+Timbuktu,"Timbuktu, Mali",51.5074,-0.1278
+Tokelau,Tokelau,-9.1676396,-171.819687
+Tokyo,Tokyo,35.6762,139.6503
+Toulouse,"Toulouse, Haute-Garonne, Occitanie, France métropolitaine, France",43.6044638,1.4442433
+Transnistria,"Министерство внутренних дел ПМР, 68, улица Манойлова, Центр, Tiraspol, Тирасполь, Unitățile administrativ-teritoriale din stînga Nistrului, Нистрения / Приднестровье / Придністров'я, MD-3300, Moldova",46.8466932,29.6217132
+Transvaal,Pretoria,-25.7479,28.2293
+Tsar,"查尔乡, 南木林县 རྣམ་གླིང་རྫོང།, 日喀则市 གཞིས་ཀ་རྩེ་གྲོང་ཁྱེར།, 西藏自治区 བོད་རང་སྐྱོང་ལྗོངས།, 中国",29.3888707,89.3141844
+Turkey,Ankara,39.9334,32.8597
+U.S.,Washington DC,38.9072,-77.0369
+Uganda,Uganda,1.5333554,32.2166578
+Ukraine,Kyiv,50.4501,30.5234
+United Kingdom,London,51.5074,-0.1278
+United States,Washington DC,38.9072,-77.0369
+Upper Volta,Ouagadougou,12.3714,-1.5197
+US,United States,39.7837304,-100.445882
+USSR,"СССР, 1/2/5, Казанская улица, Кировский район, Астрахань, городской округ Астрахань, Астраханская область, 414024, Россия",46.3421653,48.0254474
+Valletta,Valletta,35.8989,14.5146
+Venezuela,Venezuela,8.0018709,-66.1109318
+Venice,Venice,45.4408,12.3155
+Vermont,"Vermont, United States",44.5990718,-72.5002608
+Vicenza,"Vicenza, Veneto, Italia",45.6348591,11.4063543
+Victoria,Melbourne,-37.8136,144.9631
+Vienna,Vienna,48.2082,16.3738
+Vietnam,Hanoi,21.0285,105.8542
+Virginia,Richmond,37.5407,-77.4360
+Waco,"Waco, McLennan County, Texas, United States",31.5491899,-97.1474628
+Wales,"Cymru / Wales, United Kingdom",52.2928116,-3.73893
+Warsaw,Warsaw,52.2297,21.0122
+Washington,Washington DC,38.9072,-77.0369
+Washington D.C.,Washington DC,38.9072,-77.0369
+Wassy,"Wassy, Saint-Dizier, Haute-Marne, Grand Est, France métropolitaine, 52130, France",48.4996383,4.9489836
+"Wellington,_Washington","Wellington, Washington County, Florida, United States",30.5466787,-85.6054574
+West Germany,Bonn,50.7374,7.0982
+Western Australia,"Western Australia, Australia",-25.2303005,121.0187246
+Weyauwega,"Weyauwega, Waupaca County, Wisconsin, 54983, United States",44.3214582,-88.9340356
+Windsor,"Windsor Castle, Castle Hill, Clewer Within, Clewer New Town, Clewer Village, Windsor, Windsor and Maidenhead, England, SL4 1PE, United Kingdom",51.4837886,-0.6040419
+Wyoming,"Wyoming, United States",43.1700264,-107.568534
+Yugoslavia,Belgrade,44.7866,20.4489
+Zaire,Kinshasa,-4.4419,15.2663
+Zanzibar,Zanzibar City,-6.1659,39.2026
+Zeebrugge,"Zeebrugge, Lissewege, Brugge, West-Vlaanderen, België / Belgique / Belgien",51.3312211,3.207561
+Zimbabwe,Zimbabwe,-18.4554963,29.7468414
+Zurich,Zurich,47.3769,8.5417

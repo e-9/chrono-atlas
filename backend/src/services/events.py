@@ -10,7 +10,7 @@ from cachetools import TTLCache
 from src.models.event import EventSource, GeoLocation, HistoricalEvent
 from src.services.fiction import generate_fictional_events
 from src.services.geocoding import extract_place_name, geocode_event, lookup_curated, geocode_nominatim, _persist_to_curated
-from src.services.wikipedia import WikipediaEvent, fetch_on_this_day
+from src.services.wikipedia import WikipediaEvent, WikipediaResult, fetch_on_this_day
 
 logger = structlog.get_logger(__name__)
 
@@ -30,8 +30,9 @@ async def get_events_for_date(month: int, day: int) -> list[HistoricalEvent]:
     logger.info("events_fetching", date=cache_key)
 
     # 1. Fetch from Wikipedia
-    wiki_events = await fetch_on_this_day(month, day)
-    logger.info("wikipedia_fetched", date=cache_key, count=len(wiki_events))
+    wiki_result = await fetch_on_this_day(month, day)
+    wiki_events = wiki_result.events
+    logger.info("wikipedia_fetched", date=cache_key, count=len(wiki_events), partial=wiki_result.partial)
 
     if not wiki_events:
         logger.info("wikipedia_empty_fallback", date=cache_key)
@@ -122,8 +123,11 @@ async def get_events_for_date(month: int, day: int) -> list[HistoricalEvent]:
         events.extend(fictional)
         logger.info("fictional_fill", date=cache_key, added=len(fictional))
 
-    # 6. Cache results
-    _events_cache[cache_key] = events
+    # 6. Cache results — but NOT if Wikipedia fetch was partial (incomplete data)
+    if wiki_result.partial:
+        logger.info("cache_skip_partial", date=cache_key, count=len(events))
+    else:
+        _events_cache[cache_key] = events
 
     # 7. If we capped Nominatim, schedule background geocoding for full results.
     #    Next request to this date will get the complete set from cache.

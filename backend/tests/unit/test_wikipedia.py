@@ -3,7 +3,7 @@ from __future__ import annotations
 import httpx
 import respx
 
-from src.services.wikipedia import WikipediaEvent, fetch_on_this_day
+from src.services.wikipedia import WikipediaEvent, WikipediaResult, fetch_on_this_day
 
 API_BASE = "https://api.wikimedia.org/feed/v1/wikipedia/en/onthisday"
 SELECTED_URL = f"{API_BASE}/selected/07/04"
@@ -99,9 +99,10 @@ async def test_fetch_on_this_day_success() -> None:
 
     results = await fetch_on_this_day(7, 4)
 
-    assert len(results) == 2
+    assert not results.partial
+    assert len(results.events) == 2
 
-    first = results[0]
+    first = results.events[0]
     assert isinstance(first, WikipediaEvent)
     assert first.year == 1776
     assert first.title == "United States Declaration of Independence"
@@ -109,7 +110,7 @@ async def test_fetch_on_this_day_success() -> None:
     assert first.thumbnail_url == "https://upload.wikimedia.org/thumb/declaration.jpg"
     assert first.extract is not None
 
-    second = results[1]
+    second = results.events[1]
     assert second.year == 1804
     assert second.thumbnail_url is None
 
@@ -120,7 +121,7 @@ async def test_fetch_on_this_day_sorted_by_year() -> None:
 
     results = await fetch_on_this_day(7, 4)
 
-    years = [e.year for e in results]
+    years = [e.year for e in results.events]
     assert years == sorted(years)
 
 
@@ -130,7 +131,7 @@ async def test_fetch_on_this_day_deduplicates() -> None:
     _mock_endpoints(selected=SELECTED_FIXTURE, events=EVENTS_FIXTURE)
 
     results = await fetch_on_this_day(7, 4)
-    year_text_pairs = [(e.year, e.text) for e in results]
+    year_text_pairs = [(e.year, e.text) for e in results.events]
     assert len(year_text_pairs) == len(set(year_text_pairs))
 
 
@@ -140,7 +141,8 @@ async def test_fetch_on_this_day_empty_response() -> None:
 
     results = await fetch_on_this_day(7, 4)
 
-    assert results == []
+    assert results.events == []
+    assert not results.partial
 
 
 @respx.mock
@@ -152,7 +154,8 @@ async def test_fetch_on_this_day_timeout() -> None:
 
     results = await fetch_on_this_day(7, 4)
 
-    assert results == []
+    assert results.events == []
+    assert results.partial
 
 
 @respx.mock
@@ -161,7 +164,8 @@ async def test_fetch_on_this_day_http_error() -> None:
 
     results = await fetch_on_this_day(7, 4)
 
-    assert results == []
+    assert results.events == []
+    assert results.partial
 
 
 @respx.mock
@@ -173,7 +177,7 @@ async def test_fetch_on_this_day_missing_pages() -> None:
 
     results = await fetch_on_this_day(7, 4)
 
-    assert len(results) == 1
-    assert results[0].title == "Something happened"[:80]
-    assert results[0].wikipedia_url is None
-    assert results[0].thumbnail_url is None
+    assert len(results.events) == 1
+    assert results.events[0].title == "Something happened"[:80]
+    assert results.events[0].wikipedia_url is None
+    assert results.events[0].thumbnail_url is None
