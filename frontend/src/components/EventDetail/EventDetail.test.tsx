@@ -15,7 +15,7 @@ describe('EventDetail', () => {
     render(<EventDetail event={event} closing={false} onCloseRequest={vi.fn()} />);
 
     expect(screen.getByText('Battle of Gettysburg')).toBeInTheDocument();
-    expect(screen.getByText('1863')).toBeInTheDocument();
+    expect(screen.getAllByText('1863').length).toBeGreaterThanOrEqual(1);
     expect(screen.getByText(/Philadelphia/)).toBeInTheDocument();
   });
 

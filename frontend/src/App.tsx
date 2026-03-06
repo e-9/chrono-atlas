@@ -42,7 +42,7 @@ function AppContent() {
 
   return (
     <div style={{
-      fontFamily: "'Playfair Display', Georgia, serif", height: '100vh',
+      fontFamily: "'Cormorant Garamond', Georgia, serif", height: '100vh',
       background: 'radial-gradient(ellipse at 50% 0%, #0d1b2a 0%, #070d15 50%, #020408 100%)',
       display: 'flex', flexDirection: 'column', overflow: 'hidden', color: '#e0dde4',
     }}>
@@ -92,7 +92,7 @@ function AppContent() {
             textAlign: 'center',
             margin: 0,
             padding: compact ? '0 24px' : '28px 24px 8px',
-            fontFamily: "'Cormorant Garamond', 'Playfair Display', Georgia, serif",
+            fontFamily: "'Cormorant Garamond', Georgia, serif",
             fontWeight: 400,
             fontStyle: 'italic',
             fontSize: compact ? 0 : 'clamp(18px, 3vw, 28px)',
@@ -145,7 +145,7 @@ function AppContent() {
             border: '1px solid rgba(255,255,255,0.1)', borderRadius: 10, background: 'rgba(13,27,42,0.9)',
             boxShadow: '0 2px 20px rgba(0,0,0,0.3)',
           }}>
-            <h2 style={{ margin: '0 0 8px', fontSize: 18, color: '#e0dde4', fontFamily: "'Playfair Display', Georgia, serif" }}>
+            <h2 style={{ margin: '0 0 8px', fontSize: 18, color: '#e0dde4', fontFamily: "'Cormorant Garamond', Georgia, serif" }}>
               Something went wrong
             </h2>
             <p style={{ margin: '0 0 20px', fontSize: 13, color: '#8a9bb5', fontFamily: "'Inter', system-ui, sans-serif" }}>
@@ -184,7 +184,7 @@ function AppContent() {
                 <ChronoMap events={data.data} selectedEvent={selectedEvent} onEventSelect={setSelectedEvent} />
               </Suspense>
               <p style={{
-                textAlign: 'center', color: '#4a5a6e', fontSize: 12,
+                textAlign: 'center', color: '#6a7a8e', fontSize: 12,
                 fontFamily: "'Inter', system-ui, sans-serif", margin: '4px 0 0',
                 letterSpacing: '0.03em',
               }}>
@@ -198,7 +198,7 @@ function AppContent() {
 
       <footer style={{
         textAlign: 'center', borderTop: '1px solid rgba(255,255,255,0.04)',
-        color: '#3a4a5e', fontSize: 11, fontFamily: "'Inter', system-ui, sans-serif",
+        color: '#5a6a7e', fontSize: 11, fontFamily: "'Inter', system-ui, sans-serif",
         letterSpacing: '0.05em', position: 'relative', zIndex: 1,
         padding: compact ? '0' : '10px 0',
         maxHeight: compact ? 0 : 36,

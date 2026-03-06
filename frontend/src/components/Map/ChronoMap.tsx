@@ -512,10 +512,11 @@ export function ChronoMap({ events, selectedEvent, onEventSelect }: ChronoMapPro
         role="img"
         aria-label="Interactive globe showing historical events"
       />
-      {/* Zoom controls */}
+      {/* Zoom controls — pointerEvents:none on wrapper so pins underneath are clickable */}
       <div style={{
         position: 'absolute', bottom: 16, right: 16,
         display: 'flex', flexDirection: 'column', gap: 4,
+        pointerEvents: 'none',
       }}>
         {[
           { label: '+', dir: 'in' as const, ariaLabel: 'Zoom in' },
@@ -533,7 +534,7 @@ export function ChronoMap({ events, selectedEvent, onEventSelect }: ChronoMapPro
               color: '#c8c3ba', fontSize: 16, cursor: 'pointer',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               lineHeight: 1, transition: 'background 0.15s ease',
-              backdropFilter: 'blur(8px)',
+              backdropFilter: 'blur(8px)', pointerEvents: 'auto',
             }}
           >
             {label}
@@ -550,7 +551,7 @@ export function ChronoMap({ events, selectedEvent, onEventSelect }: ChronoMapPro
             color: '#c8c3ba', fontSize: 13, cursor: 'pointer',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             lineHeight: 1, transition: 'background 0.15s ease',
-            backdropFilter: 'blur(8px)', marginTop: 2,
+            backdropFilter: 'blur(8px)', marginTop: 2, pointerEvents: 'auto',
           }}
         >
           ⌂
