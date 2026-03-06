@@ -30,7 +30,7 @@ describe('EventDetail', () => {
     const event = mockEvent();
     render(<EventDetail event={event} closing={false} onCloseRequest={vi.fn()} />);
 
-    const link = screen.getByText('Wikipedia →');
+    const link = screen.getByText('Read on Wikipedia →');
     expect(link).toHaveAttribute('href', 'https://en.wikipedia.org/wiki/Example');
     expect(link).toHaveAttribute('target', '_blank');
   });

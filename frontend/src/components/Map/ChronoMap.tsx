@@ -72,8 +72,9 @@ export function ChronoMap({ events, selectedEvent, onEventSelect }: ChronoMapPro
     globeShadow.append('stop').attr('offset', '100%').attr('stop-color', 'rgba(0,0,0,0)');
     // Atmosphere glow
     const atmoGrad = defs.append('radialGradient').attr('id', 'atmosphere');
-    atmoGrad.append('stop').attr('offset', '75%').attr('stop-color', 'rgba(135,206,250,0)');
-    atmoGrad.append('stop').attr('offset', '100%').attr('stop-color', 'rgba(135,206,250,0.25)');
+    atmoGrad.append('stop').attr('offset', '70%').attr('stop-color', 'rgba(80,160,220,0)');
+    atmoGrad.append('stop').attr('offset', '88%').attr('stop-color', 'rgba(80,160,220,0.12)');
+    atmoGrad.append('stop').attr('offset', '100%').attr('stop-color', 'rgba(80,160,220,0.30)');
 
     const tooltipFilter = defs.append('filter').attr('id', 'tooltip-shadow');
     tooltipFilter.append('feDropShadow')
@@ -96,8 +97,8 @@ export function ChronoMap({ events, selectedEvent, onEventSelect }: ChronoMapPro
     svg.append('path')
       .datum({ type: 'Sphere' } as d3.GeoPermissibleObjects)
       .attr('d', path)
-      .attr('fill', '#c8dce2')
-      .attr('stroke', '#8b7355')
+      .attr('fill', '#1a2a3a')
+      .attr('stroke', 'rgba(100,160,200,0.25)')
       .attr('stroke-width', 0.5);
 
     // Graticule
@@ -107,7 +108,7 @@ export function ChronoMap({ events, selectedEvent, onEventSelect }: ChronoMapPro
       .attr('class', 'graticule')
       .attr('d', path)
       .attr('fill', 'none')
-      .attr('stroke', 'rgba(139, 115, 85, 0.10)')
+      .attr('stroke', 'rgba(100,160,200,0.06)')
       .attr('stroke-width', 0.3);
 
     // Countries
@@ -120,8 +121,8 @@ export function ChronoMap({ events, selectedEvent, onEventSelect }: ChronoMapPro
       .data(countries.features)
       .join('path')
       .attr('d', path)
-      .attr('fill', '#f5f2e8')
-      .attr('stroke', 'rgba(255,255,255,0.15)')
+      .attr('fill', '#2a3a48')
+      .attr('stroke', 'rgba(255,255,255,0.08)')
       .attr('stroke-width', 0.4)
       .attr('filter', 'url(#land-shadow)');
 
@@ -134,7 +135,7 @@ export function ChronoMap({ events, selectedEvent, onEventSelect }: ChronoMapPro
       .attr('class', 'borders')
       .attr('d', path)
       .attr('fill', 'none')
-      .attr('stroke', '#b5a88a')
+      .attr('stroke', 'rgba(255,255,255,0.06)')
       .attr('stroke-width', 0.3);
 
     // Event pins
@@ -216,7 +217,7 @@ export function ChronoMap({ events, selectedEvent, onEventSelect }: ChronoMapPro
       // Main dot
       pin.append('circle').attr('class', 'pin-dot')
         .attr('r', 6)
-        .attr('fill', isFictional ? '#4a90a4' : '#c44536')
+        .attr('fill', isFictional ? '#4a90a4' : '#e8964f')
         .attr('stroke', '#fff').attr('stroke-width', 1.5);
 
       // Pulse ring for fictional
@@ -379,7 +380,7 @@ export function ChronoMap({ events, selectedEvent, onEventSelect }: ChronoMapPro
         const isFictional = evData?.source.type === 'ai_generated';
         pinG.attr('opacity', 1);
         pinG.select('.pin-dot')
-          .attr('r', 6).attr('fill', isFictional ? '#4a90a4' : '#c44536')
+          .attr('r', 6).attr('fill', isFictional ? '#4a90a4' : '#e8964f')
           .attr('stroke', '#fff').attr('stroke-width', 1.5);
         pinG.selectAll('.select-ring').remove();
       });
@@ -460,7 +461,7 @@ export function ChronoMap({ events, selectedEvent, onEventSelect }: ChronoMapPro
         const isFictional = evData?.source.type === 'ai_generated';
         pinG.transition().duration(ZOOM_DURATION).attr('opacity', 1);
         pinG.select('.pin-dot').transition().duration(ZOOM_DURATION)
-          .attr('r', 6).attr('fill', isFictional ? '#4a90a4' : '#c44536')
+          .attr('r', 6).attr('fill', isFictional ? '#4a90a4' : '#e8964f')
           .attr('stroke', '#fff').attr('stroke-width', 1.5);
         pinG.selectAll('.select-ring').remove();
       });
@@ -513,8 +514,8 @@ export function ChronoMap({ events, selectedEvent, onEventSelect }: ChronoMapPro
       />
       {/* Zoom controls */}
       <div style={{
-        position: 'absolute', bottom: 12, right: 12,
-        display: 'flex', flexDirection: 'column', gap: 2,
+        position: 'absolute', bottom: 16, right: 16,
+        display: 'flex', flexDirection: 'column', gap: 4,
       }}>
         {[
           { label: '+', dir: 'in' as const, ariaLabel: 'Zoom in' },
@@ -525,13 +526,14 @@ export function ChronoMap({ events, selectedEvent, onEventSelect }: ChronoMapPro
             onClick={() => handleZoom(dir)}
             aria-label={ariaLabel}
             onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.12)'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(13,27,42,0.85)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(13,27,42,0.60)'; }}
             style={{
-              width: 44, height: 44, border: '1px solid rgba(255,255,255,0.15)',
-              borderRadius: 6, background: 'rgba(13,27,42,0.85)',
-              color: '#e0dde4', fontSize: 18, cursor: 'pointer',
+              width: 36, height: 36, border: '1px solid rgba(255,255,255,0.10)',
+              borderRadius: 8, background: 'rgba(13,27,42,0.60)',
+              color: '#c8c3ba', fontSize: 16, cursor: 'pointer',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               lineHeight: 1, transition: 'background 0.15s ease',
+              backdropFilter: 'blur(8px)',
             }}
           >
             {label}
@@ -541,35 +543,18 @@ export function ChronoMap({ events, selectedEvent, onEventSelect }: ChronoMapPro
           onClick={handleResetZoom}
           aria-label="Reset view"
           onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.12)'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(13,27,42,0.85)'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(13,27,42,0.60)'; }}
           style={{
-            width: 44, height: 44, border: '1px solid rgba(255,255,255,0.15)',
-            borderRadius: 6, background: 'rgba(13,27,42,0.85)',
-            color: '#e0dde4', fontSize: 14, cursor: 'pointer',
+            width: 36, height: 36, border: '1px solid rgba(255,255,255,0.10)',
+            borderRadius: 8, background: 'rgba(13,27,42,0.60)',
+            color: '#c8c3ba', fontSize: 13, cursor: 'pointer',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             lineHeight: 1, transition: 'background 0.15s ease',
-            marginTop: 4,
+            backdropFilter: 'blur(8px)', marginTop: 2,
           }}
         >
           ⌂
         </button>
-      </div>
-      {/* Map legend */}
-      <div style={{
-        position: 'absolute', bottom: 12, left: 12,
-        background: 'rgba(13,27,42,0.80)', borderRadius: 6,
-        padding: '6px 10px', fontSize: 12, fontFamily: "'Inter', system-ui, sans-serif",
-        color: '#e0dde4', display: 'flex', gap: 12,
-        border: '1px solid rgba(255,255,255,0.1)',
-      }}>
-        <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-          <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#c44536', display: 'inline-block' }} />
-          Historical
-        </span>
-        <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-          <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#4a90a4', display: 'inline-block' }} />
-          Fictional
-        </span>
       </div>
     </div>
   );

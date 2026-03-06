@@ -67,7 +67,7 @@ function AppContent() {
       <header style={{
         padding: compact ? '6px 24px' : '16px 24px',
         display: 'flex', alignItems: 'center',
-        justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.08)',
+        justifyContent: 'center', borderBottom: '1px solid rgba(255,255,255,0.08)',
         transition: 'padding 0.75s cubic-bezier(0.4, 0, 0.2, 1)',
         position: 'relative', zIndex: 1,
       }}>
@@ -84,33 +84,33 @@ function AppContent() {
         >
           CHRONO ATLAS
         </h1>
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: compact ? 0 : 12, transition: 'gap 0.75s cubic-bezier(0.4, 0, 0.2, 1)' }}>
-          <p
-            style={{
-              margin: 0,
-              fontFamily: "'Cormorant Garamond', 'Playfair Display', Georgia, serif",
-              fontWeight: 300,
-              fontStyle: 'italic',
-              fontSize: compact ? 0 : 15,
-              letterSpacing: '0.04em',
-              color: '#a8a29e',
-              overflow: 'hidden',
-              maxWidth: compact ? 0 : 500,
-              opacity: compact ? 0 : 1,
-              whiteSpace: 'nowrap',
-              transition: 'font-size 0.75s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s, max-width 0.75s cubic-bezier(0.4, 0, 0.2, 1)',
-            }}
-          >
-            Explore the events that made{' '}
-            <time dateTime={date} style={{ fontWeight: 600, fontStyle: 'normal', color: '#e8e4d9' }}>
-              {formatTodayLabel()}
-            </time>
-            {' '}historic
-          </p>
-        </div>
       </header>
 
       <main id="main-content" style={{ position: 'relative', flex: 1, display: 'flex', flexDirection: 'column', overflow: 'auto', zIndex: 1 }}>
+        <p
+          style={{
+            textAlign: 'center',
+            margin: 0,
+            padding: compact ? '0 24px' : '28px 24px 8px',
+            fontFamily: "'Cormorant Garamond', 'Playfair Display', Georgia, serif",
+            fontWeight: 400,
+            fontStyle: 'italic',
+            fontSize: compact ? 0 : 'clamp(18px, 3vw, 28px)',
+            lineHeight: 1.3,
+            letterSpacing: '0.03em',
+            color: '#c8c3ba',
+            opacity: compact ? 0 : 1,
+            overflow: 'hidden',
+            maxHeight: compact ? 0 : 80,
+            transition: 'opacity 0.5s, max-height 0.75s cubic-bezier(0.4, 0, 0.2, 1), padding 0.75s cubic-bezier(0.4, 0, 0.2, 1)',
+          }}
+        >
+          Explore the events that made{' '}
+          <time dateTime={date} style={{ fontWeight: 600, fontStyle: 'normal', color: '#e8e4d9' }}>
+            {formatTodayLabel()}
+          </time>
+          {' '}historic
+        </p>
         {isLoading && (
           <div style={{
             flex: 1, display: 'flex', flexDirection: 'column',
@@ -169,7 +169,7 @@ function AppContent() {
         {data && (
           <>
             <div style={{
-              height: compact ? 'calc(100vh - 230px)' : 'calc(100vh - 120px)',
+              height: compact ? 'calc(100vh - 230px)' : 'calc(100vh - 190px)',
               transition: 'height 0.75s cubic-bezier(0.4, 0, 0.2, 1)',
               display: 'flex', flexDirection: 'column', alignItems: 'center',
               justifyContent: 'center', flexShrink: 0,
@@ -183,8 +183,12 @@ function AppContent() {
               }>
                 <ChronoMap events={data.data} selectedEvent={selectedEvent} onEventSelect={setSelectedEvent} />
               </Suspense>
-              <p style={{ textAlign: 'center', color: '#6b7d99', fontSize: 13, fontFamily: "'Inter', system-ui, sans-serif", margin: '4px 0 0' }}>
-                {data.meta.total} events · {data.meta.fictional} fictional
+              <p style={{
+                textAlign: 'center', color: '#4a5a6e', fontSize: 12,
+                fontFamily: "'Inter', system-ui, sans-serif", margin: '4px 0 0',
+                letterSpacing: '0.03em',
+              }}>
+                {data.meta.total} events on this day
               </p>
             </div>
             <EventDetail event={selectedEvent} closing={cardClosing} onCloseRequest={handleCloseCard} />
@@ -193,15 +197,15 @@ function AppContent() {
       </main>
 
       <footer style={{
-        textAlign: 'center', borderTop: '1px solid rgba(255,255,255,0.08)',
-        color: '#5a6a80', fontSize: 12, fontFamily: "'Inter', system-ui, sans-serif",
-        letterSpacing: 0.3, position: 'relative', zIndex: 1,
-        padding: compact ? '0' : '12px 0',
-        maxHeight: compact ? 0 : 40,
+        textAlign: 'center', borderTop: '1px solid rgba(255,255,255,0.04)',
+        color: '#3a4a5e', fontSize: 11, fontFamily: "'Inter', system-ui, sans-serif",
+        letterSpacing: '0.05em', position: 'relative', zIndex: 1,
+        padding: compact ? '0' : '10px 0',
+        maxHeight: compact ? 0 : 36,
         overflow: 'hidden', opacity: compact ? 0 : 1,
         transition: 'all 0.75s cubic-bezier(0.4, 0, 0.2, 1)',
       }}>
-        Chrono Atlas · Data from Wikipedia
+        Data sourced from Wikipedia
       </footer>
 
     </div>
