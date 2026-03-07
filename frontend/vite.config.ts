@@ -10,6 +10,7 @@ export default defineConfig({
       registerType: 'autoUpdate',
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,png,woff2}'],
+        cleanupOutdatedCaches: true,
         runtimeCaching: [
           {
             urlPattern: /\/data\/countries-110m\.json$/,
@@ -31,8 +32,8 @@ export default defineConfig({
             urlPattern: /^https:\/\/fonts\.(googleapis|gstatic)\.com\/.*/i,
             handler: 'CacheFirst',
             options: {
-              cacheName: 'google-fonts',
-              expiration: { maxEntries: 10, maxAgeSeconds: 365 * 24 * 60 * 60 },
+              cacheName: 'google-fonts-v2',
+              expiration: { maxEntries: 10, maxAgeSeconds: 30 * 24 * 60 * 60 },
             },
           },
         ],
