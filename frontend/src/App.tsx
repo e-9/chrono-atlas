@@ -1,4 +1,4 @@
-import { useState, useCallback, lazy, Suspense } from 'react';
+import { useState, useEffect, useCallback, lazy, Suspense } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { EventDetail } from './components/EventDetail/EventDetail';
 import { useEvents } from './hooks/useEvents';
@@ -6,6 +6,7 @@ import type { HistoricalEvent } from './types/event';
 
 const CosmicCanvas = lazy(() => import('./components/CosmicCanvas/CosmicCanvas').then(m => ({ default: m.CosmicCanvas })));
 const ChronoMap = lazy(() => import('./components/Map/ChronoMap').then(m => ({ default: m.ChronoMap })));
+const About = lazy(() => import('./pages/About'));
 
 const queryClient = new QueryClient();
 
@@ -39,6 +40,31 @@ function AppContent() {
       setCardClosing(false);
     }, 750);
   }, []);
+
+  const [page, setPage] = useState<'globe' | 'about'>(
+    () => window.location.hash === '#about' ? 'about' : 'globe',
+  );
+
+  const navigate = useCallback((target: 'globe' | 'about') => {
+    setPage(target);
+    window.location.hash = target === 'about' ? '#about' : '';
+  }, []);
+
+  useEffect(() => {
+    const onPopState = () => {
+      setPage(window.location.hash === '#about' ? 'about' : 'globe');
+    };
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
+  }, []);
+
+  if (page === 'about') {
+    return (
+      <Suspense fallback={null}>
+        <About onBack={() => navigate('globe')} />
+      </Suspense>
+    );
+  }
 
   return (
     <div style={{
@@ -84,6 +110,20 @@ function AppContent() {
         >
           CHRONO ATLAS
         </h1>
+        <button
+          onClick={() => navigate('about')}
+          style={{
+            position: 'absolute', right: 24, top: '50%', transform: 'translateY(-50%)',
+            background: 'none', border: 'none', cursor: 'pointer', padding: 0,
+            fontFamily: "'Inter', system-ui, sans-serif", fontSize: 12,
+            letterSpacing: '0.1em', textTransform: 'uppercase' as const,
+            color: '#6b7d99', transition: 'color 0.3s',
+          }}
+          onMouseEnter={e => { e.currentTarget.style.color = '#e8e4d9'; }}
+          onMouseLeave={e => { e.currentTarget.style.color = '#6b7d99'; }}
+        >
+          About
+        </button>
       </header>
 
       <main id="main-content" style={{ position: 'relative', flex: 1, display: 'flex', flexDirection: 'column', overflow: 'auto', zIndex: 1 }}>
