@@ -11,7 +11,7 @@ export const aboutContent = {
     },
     {
       heading: "One day, many coordinates",
-      body: "Pick any date on the calendar. Across centuries, that single day holds dozens of moments scattered across the globe — connected not by theme or era, but by the quiet accident of sharing a date. Seen together on a spinning globe, they stop looking like facts and start looking like a constellation.",
+      body: "Today is not just today. Across centuries, this single day holds dozens of moments scattered across the globe — connected not by theme or era, but by the quiet accident of sharing a date. Seen together on a spinning globe, they stop looking like facts and start looking like a constellation.",
     },
     {
       heading: "A globe, not a list",
@@ -23,6 +23,6 @@ export const aboutContent = {
     },
   ],
   closing: {
-    text: "Turn the globe. Pick a day. See what the world remembers.",
+    text: "Turn the globe. See what today remembers.",
   },
 };
